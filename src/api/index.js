@@ -6,7 +6,7 @@ var axios = require('axios')
 
 // 判断元素类型
 let toType = (obj) => {
-  return ({}).toString().call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 // 参数过滤
 let filterNull = (o) => {
