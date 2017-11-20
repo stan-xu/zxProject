@@ -1,0 +1,50 @@
+@import "../../node_modules/sass-rem/_rem.scss";
+@import "./base/util";
+@import "./base/color";
+
+$rem-baseline: 16px;
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  background-color: $html-bg;
+  color: #333;
+  font-family: 'STHeiti', Arial;
+  font-size: 16px;
+}
+
+p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  line-height: 1.5rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin: rem(20px) 0;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+ul, ol {
+  list-style-position: inside;
+}
+
+.area-select {
+  .el-select {
+    margin-left: 0px;
+    margin-right: 10px;
+  }
+}// el-area margin fix

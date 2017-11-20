@@ -40,14 +40,15 @@ let apiAxios = (method, url, params, success, fail) => {
     withCredentials: false
   }).then(
     res => {
-      if (!res.code) { // 分页接口不存在code
-        success(res.data)
-      } else if (res.code === 401) { // 后端约定未登录code=401
-        alert(res.message)
-      } else if (res.data.success === true) {
-        if (success) { success(res.data) }
+      let response = res.data
+      if (!response.code) { // 分页接口不存在code
+        success(response)
+      } else if (response.code === 401) { // 后端约定未登录code=401
+        alert(response.message)
+      } else if (response.success === true) {
+        if (success) { success(response) }
       } else {
-        if (fail) { fail(res.data) } else { alert(`error:${res.message}`) }
+        if (fail) { fail(response) } else { alert(`error:${response.message}`) }
       }
     }
   ).catch(err => {

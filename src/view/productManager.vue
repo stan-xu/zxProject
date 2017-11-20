@@ -1,12 +1,12 @@
 <template>
-  <div id="content">
-    content view
+  <div id="productManager">
+    <h1>Product View</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'content'
+    name: 'productManager'
   }
 </script>
 

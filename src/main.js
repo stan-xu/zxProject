@@ -5,11 +5,13 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import './style/base/element-variables.scss'
+import VueAreaLinkage from 'vue-area-linkage'
 // 引用API文件
 import api from './api'
 // 绑定API方法到全局
 Vue.prototype.$api = api
 Vue.use(ElementUI)
+Vue.use(VueAreaLinkage)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
