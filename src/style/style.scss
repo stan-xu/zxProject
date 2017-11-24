@@ -9,7 +9,7 @@ $rem-baseline: 16px;
 }
 
 html, body {
-  background-color: $html-bg;
+  background-color: $white-light;
   color: #333;
   font-family: 'STHeiti', Arial;
   font-size: 16px;
@@ -25,7 +25,7 @@ p {
 h1 {
   font-size: 1.5rem;
   font-weight: bolder;
-  margin: rem(20px) 0;
+  margin: 20px 0;
 }
 
 h2 {
@@ -40,6 +40,13 @@ h3 {
 
 ul, ol {
   list-style-position: inside;
+}
+a{
+  color:$black-max;
+  text-decoration: none;
+  &:hover{
+    color: $hot-light;
+  }
 }
 
 .area-select {
