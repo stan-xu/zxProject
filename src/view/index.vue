@@ -3,9 +3,9 @@
     <h1>Index View</h1>
     <router-link to="/manager">manager</router-link>
     <my-footer></my-footer>
-    <el-row gutter="20">
-      <el-col span="6"> <el-button @click="click(true)" type="primary">Login</el-button></el-col>
-      <el-col span="6"><el-button @click="click(false)">Logout</el-button></el-col>
+    <el-row :gutter="20">
+      <el-col :span="6"> <el-button @click="click(true)" type="primary">Login</el-button></el-col>
+      <el-col :span="6"><el-button @click="click(false)">Logout</el-button></el-col>
     </el-row>
 
 
@@ -49,7 +49,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   #index {
   }
 </style>

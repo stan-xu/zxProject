@@ -30,14 +30,21 @@ let apiAxios = (method, url, params, success, fail) => {
   if (params) {
     params = filterNull(params)
   }
-
+  if (method === 'POST') {
+    var qs = require('querystring')
+    params = qs.stringify(params)
+  }
   axios({
     method: method,
     url: url,
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
     baseURL: root,
-    withCredentials: false
+    withCredentials: false,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    dataType: 'json'
   }).then(
     res => {
       let response = res.data

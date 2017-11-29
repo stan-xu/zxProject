@@ -11,11 +11,9 @@ exports.assetsPath = function (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-function resolveResouce(name) {
-  return path.resolve(__dirname, '../src/style/' + name);
+function resolveResouce (name) {
+  return path.resolve(__dirname, '../src/style/' + name)
 }
-
-
 
 exports.cssLoaders = function (options) {
   options = options || {}
@@ -35,7 +33,7 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders(loader, loaderOptions) {
+  function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
     if (loader) {
       loaders.push({
@@ -57,7 +55,8 @@ exports.cssLoaders = function (options) {
       return ['vue-style-loader'].concat(loaders)
     }
   }
-  function generateSassResourceLoader() {
+
+  function generateSassResourceLoader () {
     var loaders = [
       cssLoader,
       // 'postcss-loader',
@@ -69,7 +68,7 @@ exports.cssLoaders = function (options) {
           resources: [resolveResouce('style.scss')]
         }
       }
-    ];
+    ]
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
@@ -79,6 +78,7 @@ exports.cssLoaders = function (options) {
       return ['vue-style-loader'].concat(loaders)
     }
   }
+
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),

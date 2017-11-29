@@ -36,10 +36,9 @@ $width-small: 768px;
 $width-medium: 992px;
 $width-large: 1200px;
 .container {
+  max-width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 10px;
-  padding-right: 10px;
   @media (min-width: $width-small) {
     width: 740px;
   }
@@ -63,7 +62,6 @@ ul.list-inline {
   font-size: 0;
   & > li {
     font-size: 1rem;
-    vertical-align: top;
     display: inline-block;
   }
 }

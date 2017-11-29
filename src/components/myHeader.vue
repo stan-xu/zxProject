@@ -1,29 +1,31 @@
 <template>
-  <div id="myHeader">
+  <div id="myHeader" v-cloak>
     <div class="container clearfix">
       <div class="header-brand">
-        <router-link class="brand" to=""></router-link>
+        <router-link class="brand" to="/"></router-link>
       </div>
-      <div class="header-title">企业名录</div>
-      <ul class="header-nav-logined list-inline" v-if="ifLogin">
-        <li>
-          <router-link to="">我的发布</router-link>
-        </li>
-        <li>
-          <router-link to="">找企业</router-link>
-        </li>
-        <li>
-          <router-link to=""><i class="fa fa-sign-out"></i></router-link>
-        </li>
-      </ul>
-      <ul class="header-nav-nologin list-inline" v-else>
-        <li>
-          <router-link to="/login">登录</router-link>
-        </li>
-        <li>
-          <router-link to="">注册</router-link>
-        </li>
-      </ul>
+      <div class="header-title hidden-xs-only">企业名录</div>
+      <template v-if="loaded">
+        <ul class="header-nav logined list-inline" v-if="ifLogin">
+          <li>
+            <router-link to="">我的发布</router-link>
+          </li>
+          <li>
+            <router-link to="">找企业</router-link>
+          </li>
+          <li>
+            <a @click="logout"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+        <ul class="header-nav nologin list-inline" v-else>
+          <li>
+            <router-link to="/login">登录</router-link>
+          </li>
+          <li>
+            <router-link to="">注册</router-link>
+          </li>
+        </ul>
+      </template>
     </div>
   </div>
 </template>
@@ -35,33 +37,50 @@
     name: 'myHeader',
     data () {
       return {
-        ifLogin: false
+        ifLogin: null,
+        loaded: false
       }
     },
     created () {
       EventBus.$on('ifLogin', val => {
         this.ifLogin = val
       })
+      this.$api.get('/account/islogin', null,
+        resj => {
+          (resj.message === '已登录') ? this.ifLogin = true : this.ifLogin = false
+          this.loaded = true
+        })
+    },
+    methods: {
+      logout () {
+        this.$api.get('/account/logout', null,
+          resj => {
+            EventBus.$emit('ifLogin', false)
+            this.$router.replace('/login')
+          })
+      }
     }
   }
 </script>
 
 <style lang="scss">
   #myHeader {
+    [v-cloak] {
+      display: none;
+    }
     $header-height: 70px;
     z-index: 999;
     height: $header-height;
     line-height: $header-height;
-    //margin-bottom: 20px;
+    margin-bottom: 20px;
     background-color: $hot-dark;
     & + * {
-      //margin-top: -20px;
-      padding-top: 20px;
+      margin-top: -20px;
+      //padding-top: 20px;
     }
     // 解决logo占用头部外20像素距离
     .header-brand {
       float: left;
-      padding-left: 20px;
       .brand {
         display: block;
         margin-top: 5px;
@@ -81,9 +100,20 @@
       color: $white-max;
       border-left: 1px solid #fff;
     }
-    .header-nav-nologin {
+    .header-nav {
       float: right;
-      li {
+      height: 70px;
+      &.logined > li {
+        padding: 0 15px;
+        font-size: 18px;
+        &:hover {
+          background-color: #a41531;
+        }
+        a {
+          color: $white-max;
+        }
+      }
+      &.nologin > li {
         &:first-child a {
           border-right: 1px solid $white-max;
         }
@@ -91,21 +121,6 @@
           display: inline-block;
           line-height: 20px;
           padding: 0 10px;
-          font-size: 1rem;
-          color: $white-max;
-        }
-      }
-    }
-    .header-nav-logined {
-      float: right;
-      padding-bottom: 0;
-      li {
-        padding: 0 15px;
-        font-size: 18px;
-        &:hover {
-          background-color: #a41531;
-        }
-        a {
           color: $white-max;
         }
       }
