@@ -1,8 +1,7 @@
-@import "./base/util";
-@import "./base/color";
-
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
@@ -46,12 +45,3 @@ a {
     color: $black-bright;
   }
 }
-
-.area-select {
-  .el-select {
-    margin-left: 0px;
-    margin-right: 10px;
-  }
-}
-
-// el-area margin fix

@@ -65,9 +65,6 @@
 
 <style lang="scss">
   #myHeader {
-    [v-cloak] {
-      display: none;
-    }
     $header-height: 70px;
     z-index: 999;
     height: $header-height;

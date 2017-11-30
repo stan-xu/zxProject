@@ -4,8 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
-import './style/base/element-variables.scss'
 import 'normalize.css'
+import './style/index.scss'
 import '../static/css/font-awesome.min.css'
 import api from './util/api' // 引用API文件
 
