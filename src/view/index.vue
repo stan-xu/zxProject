@@ -29,12 +29,7 @@
         selected: ''
       }
     },
-    created () {
-      this.$api.get('/ent/query', null, r => {
-        console.log(r)
-        this.list = r
-      })
-    },
+    created () {},
     methods: {
       pageChange (val) {
         this.$api.get('/ent/query', {page: val, pagesize: 1}, r => {
