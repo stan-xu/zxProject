@@ -41,6 +41,7 @@ ul, ol {
 a {
   color: $black-max;
   text-decoration: none;
+  cursor: pointer;
   &:hover {
     color: $black-bright;
   }
