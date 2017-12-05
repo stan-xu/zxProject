@@ -3,9 +3,9 @@
     <ul class="list">
       <li v-for="item in menu" class="item">
         <template v-if="item.sub">
-          <a @click="collapse">{{item.title}}</a>
+          <a @click="item.active=!item.active" :class="(item.active)?'router-link-active':''">{{item.title}}</a>
           <collapse-transition>
-            <ul class="list" v-show="show">
+            <ul class="list" v-show="item.active">
               <li class="sub-item" v-for="subItem in item.sub">
                 <router-link :to="subItem.href">{{subItem.title}}</router-link>
               </li>
@@ -14,26 +14,27 @@
         </template>
         <router-link :to="item.href" v-else>{{item.title}}</router-link>
       </li>
-<!--      <li class="item">
-        <router-link to="/manager/index">中</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/manager/product">product</router-link>
-      </li>
-      <li class="item">
-        <a @click="collapse">会员管理</a>
-        <collapse-transition>
-          <ul class="list" v-show="show">
-            <li class="sub-item">
+      <!--      <li class="item">
+              <router-link to="/manager/index">中</router-link>
+            </li>
+            <li class="item">
               <router-link to="/manager/product">product</router-link>
             </li>
-            <li class="sub-item">
-              <router-link to="/manager/product">product</router-link>
-            </li>
-          </ul>
-        </collapse-transition>
-      </li>-->
+            <li class="item">
+              <a @click="collapse">会员管理</a>
+              <collapse-transition>
+                <ul class="list" v-show="show">
+                  <li class="sub-item">
+                    <router-link to="/manager/product">product</router-link>
+                  </li>
+                  <li class="sub-item">
+                    <router-link to="/manager/product">product</router-link>
+                  </li>
+                </ul>
+              </collapse-transition>
+            </li>-->
     </ul>
+    <img src="./tel.png" alt="" class="img-responsive center-block">
   </div>
 </template>
 
@@ -45,32 +46,73 @@
     name: 'managerMenu',
     data () {
       return {
-        show: false,
+        show: true,
+        height: '200px',
+        active: '',
         menu: [
           {
             title: '会员中心',
-            href: ''
+            href: '/manager/index'
           },
           {
             title: '用户管理',
+            active: '',
             sub: [
               {
                 title: '密码修改',
-                href: ''
+                href: '/manager/product'
               },
               {
                 title: '企业信息修改',
-                href: ''
+                href: '/manager/product'
               }]
           }
         ]
       }
     },
-    created () {
+    mounted () {
+      // let path = this.$route.path
+      /* this.menu.some((value, index) => {
+        console.log(value.sub)
+        if (value.sub) {
+          let flag = value.sub.some((subvalue, index) => {
+            console.log(path === subvalue.href)
+            if (path === subvalue.href) {
+              subvalue.active = value.title
+              return true
+            }
+          })
+          console.log(flag)
+          value.active = flag
+        } else {
+          console.log(value.href)
+          console.log(path)
+          if (path === value.href) {
+            value.active = true
+          }
+        }
+      }) */
+      this.ifActive(this.menu)
     },
     methods: {
       collapse () {
         this.show = !this.show
+      },
+      ifActive (item) {
+        let path = this.$route.path
+        let active = false
+        item.some((value, index) => {
+          if (value.sub) {
+            let flag = this.ifActive(value.sub)
+            value.active = flag
+          } else {
+            if (path === value.href) {
+              value.active = true
+              active = true
+            }
+          }
+        })
+        return active
       }
     }
   }

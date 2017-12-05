@@ -45,11 +45,11 @@
       EventBus.$on('ifLogin', val => {
         this.ifLogin = val
       })
-      /* this.$api.get('/account/islogin', null,
+      this.$api.get('/account/islogin', null,
         resj => {
           (resj.message === '已登录') ? this.ifLogin = true : this.ifLogin = false
           this.loaded = true
-        }) */
+        })
     },
     methods: {
       logout () {

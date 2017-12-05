@@ -2,10 +2,10 @@
   <div id="manager" class="container">
     <manager-header></manager-header>
     <el-row>
-      <el-col :span="5">
+      <el-col :span="6" :md="4">
         <manager-menu></manager-menu>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="18" md="20">
         content
         <router-view></router-view>
       </el-col>
@@ -20,15 +20,16 @@
   export default {
     components: {
       ManagerMenu,
-      ManagerHeader},
+      ManagerHeader
+    },
     name: 'manager',
     created () {
-      /* this.$api.get('/account/islogin', null,
+      this.$api.get('/account/islogin', null,
         resj => {
           if (resj.message === '未登录') {
             this.$router.replace('/login')
           }
-        }) */
+        })
     }
   }
 </script>
@@ -37,7 +38,7 @@
   #manager {
     background-color: $white-max;
     padding-top: 60px;
-    .router-link-active{
+    .router-link-active {
       background-color: red;
     }
   }

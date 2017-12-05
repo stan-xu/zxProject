@@ -12,9 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/blade': {
-        target:'http://115.236.94.196:30005',
+        target:'http://www.zxzx119.com:8888',
         secure:false,
-        changeOrigin:false
+        changeOrigin:true
       }
     },
 
