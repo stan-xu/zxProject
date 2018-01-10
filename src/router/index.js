@@ -2,28 +2,43 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/view/index'
 import Login from '@/view/login'
-import Manager from '@/view/manager'
-import ProductManager from '@/view/productManager'
+import MemberCenter from '@/view/membercenter'
+import Publish from '@/view/publish'
+import Qualification from '@/view/qualification'
+import Contract from '@/view/contract'
+import CompanyInfo from '@/view/companyInfo'
+import ContactInfo from '@/view/contactInfo'
+import ChangePwd from '@/view/changepassword'
 
 Vue.use(Router)
-
+// const baseUrl = '/blade/'
+const baseUrl = ''
 export default new Router({
+  base: baseUrl,
   routes: [
     {
       path: '/',
-      component: Index
+      component: Login
     },
     {
       path: '/login',
       component: Login
     },
     {
-      path: '/manager',
-      component: Manager,
+      path: '/home',
+      component: Index,
+      meta: {requiresLogin: true},
       children: [
-        {path: 'product', component: ProductManager},
-        {path: 'index', component: Index}
+        {path: 'membercenter', component: MemberCenter, meta: {requiresLogin: true}},
+        {path: 'publish', component: Publish, meta: {requiresLogin: true}},
+        {path: 'qualification', component: Qualification, meta: {requiresLogin: true}},
+        {path: 'contract', component: Contract, meta: {requiresLogin: true}},
+        {path: 'companyinfo', component: CompanyInfo, meta: {requiresLogin: true}},
+        {path: 'contactinfo', component: ContactInfo, meta: {requiresLogin: true}},
+        {path: 'changepwd', component: ChangePwd, meta: {requiresLogin: true}}
       ]
-    }
-  ]
+    },
+    {path: '*', component: Login}
+  ],
+  mode: 'history'
 })

@@ -1,12 +1,10 @@
 <template>
-  <div id="myFooter">
-    <h1>footer</h1>
-  </div>
+  <div>contactinfo</div>
 </template>
 
 <script>
   export default {
-    name: 'myFooter'
+    name: 'contactinfo'
   }
 </script>
 

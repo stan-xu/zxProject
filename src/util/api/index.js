@@ -77,5 +77,6 @@ export default {
   },
   delete: (url, params, success, fail) => {
     return apiAxios('DELETE', url, params, success, fail)
-  }
+  },
+  root
 }

@@ -2,16 +2,16 @@
   <div id="myHeader" v-cloak>
     <div class="container clearfix">
       <div class="header-brand">
-        <router-link class="brand" to="/"></router-link>
+        <a class="brand" :href="baseUrl+'/'"></a>
       </div>
-      <div class="header-title hidden-xs-only">企业名录</div>
+      <div class="header-title">企业名录</div>
       <template v-if="loaded">
         <ul class="header-nav logined list-inline" v-if="ifLogin">
           <li>
-            <router-link to="">我的发布</router-link>
+            <router-link to="/home/publish">我的发布</router-link>
           </li>
           <li>
-            <router-link to="">找企业</router-link>
+            <a :href="baseUrl">找企业</a>
           </li>
           <li>
             <a @click="logout"><i class="fa fa-sign-out"></i></a>
@@ -22,7 +22,7 @@
             <router-link to="/login">登录</router-link>
           </li>
           <li>
-            <router-link to="">注册</router-link>
+            <a :href="baseUrl+'/account/register'">注册</a>
           </li>
         </ul>
       </template>
@@ -83,7 +83,7 @@
         margin-top: 5px;
         width: 100px;
         height: 83px;
-        background-image: url("/static/image/logo.png");
+        background-image: url("../images/logo.png");
         background-size: 100%;
         background-repeat: no-repeat;
       }

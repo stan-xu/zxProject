@@ -66,7 +66,7 @@
             this.$api.post('/account/login', this.form,
               resj => {
                 EventBus.$emit('ifLogin', true)
-                this.$router.replace('/manager')
+                this.$router.replace('/home')
               },
               err => {
                 this.message = err.message
@@ -89,7 +89,7 @@
     $padding-horizontal: 20px;
     background-color: $white-max;
     border: 1px solid #ddd;
-    border-radius: $--border-radius-base;
+    border-radius: 4px;
     .panel-header {
       font-size: 18px;
       font-weight: bold;
@@ -100,7 +100,7 @@
       padding: 22px $padding-horizontal;
       .message-box {
         font-size: 20px;
-        border-radius: $--border-radius-base;
+        border-radius: 4px;
         border: 1px solid #ddd;
         padding: 5px;
         margin-bottom: 10px;
@@ -117,7 +117,7 @@
         margin: 0 -20px;
         display: block;
         height: 38px;
-        border-radius: 0 $--border-radius-base $--border-radius-base 0;
+        border-radius: 0 4px 4px 0;
       }
       .el-button {
         width: 100%;

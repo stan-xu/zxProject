@@ -2,10 +2,10 @@
   <div id="login" class="banner-bg">
     <div class="container v-outter-table" :style="{height:bgHeight+'px'}">
       <el-row  class="v-table-cell">
-        <el-col :xs="0" :sm="12" :md="14" :lg="16">
+        <el-col :span="16">
           <img src="./login-text.png" class="img-responsive">
         </el-col>
-        <el-col :xs="24" :sm="12" :md="10" :lg="8">
+        <el-col :span="8">
           <login-panel></login-panel>
         </el-col>
       </el-row>
@@ -29,7 +29,8 @@
 
 <style lang="scss" scoped>
   #login {
-    background-image: url('/src/view/login/login-bg.jpg');
+    padding-top: 20px;
+    background-image: url('./login-bg.jpg');
     img{
       height: 350px;
     }
