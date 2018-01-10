@@ -12,9 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/blade': {
-        target:'http://www.zxzx119.com:8888',
+        target:'http://202.107.195.233:21009',
         secure:false,
-        changeOrigin:true
+        changeOrigin:false
       }
     },
 
@@ -60,8 +60,8 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsSubDirectory: 'spa',
+    assetsPublicPath: '/blade/static/',
 
     /**
      * Source Maps

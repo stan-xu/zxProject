@@ -1,50 +1,44 @@
 <template>
-  <div id="index">
-    <h1>Index View</h1>
-    <router-link to="/manager">manager</router-link>
-    <my-footer></my-footer>
-    <el-row :gutter="20">
-      <el-col :span="6"> <el-button @click="click(true)" type="primary">Login</el-button></el-col>
-      <el-col :span="6"><el-button @click="click(false)">Logout</el-button></el-col>
+  <div id="manager" class="container">
+    <manager-header></manager-header>
+    <el-row>
+      <el-col :span="4">
+        <manager-menu></manager-menu>
+      </el-col>
+      <el-col :span="20">
+        <router-view></router-view>
+      </el-col>
     </el-row>
-
-
   </div>
 </template>
 
 <script>
-  import MyFooter from '../components/myFooter.vue'
-  import { EventBus } from '../util/eventBus'
+  import ManagerHeader from '../components/managerHeader.vue'
+  import ManagerMenu from '../components/myMenu.vue'
 
   export default {
-    components: {MyFooter},
-    name: 'index',
-    data () {
-      return {
-        id: 1,
-        list: '',
-        form: {
-          name: ''
-        },
-        selected: ''
-      }
+    components: {
+      ManagerMenu,
+      ManagerHeader
     },
-    created () {},
-    methods: {
-      pageChange (val) {
-        this.$api.get('/ent/query', {page: val, pagesize: 1}, r => {
-          console.log(r)
-          this.list = r
+    name: 'manager',
+    created () {
+      this.$api.get('/account/islogin', null,
+        resj => {
+          if (resj.message === '未登录') {
+            this.$router.replace('/login')
+          }
         })
-      },
-      click (value) {
-        EventBus.$emit('ifLogin', value)
-      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  #index {
+  #manager {
+    background-color: $white-max;
+    padding-top: 60px;
+    .router-link-active {
+      background-color: red;
+    }
   }
 </style>

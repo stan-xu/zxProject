@@ -4,45 +4,23 @@
       <li v-for="item in menu" class="item">
         <template v-if="item.sub">
           <a @click="item.active=!item.active" :class="(item.active)?'router-link-active':''">{{item.title}}</a>
-          <collapse-transition>
+          <el-collapse-transition>
             <ul class="list" v-show="item.active">
               <li class="sub-item" v-for="subItem in item.sub">
                 <router-link :to="subItem.href">{{subItem.title}}</router-link>
               </li>
             </ul>
-          </collapse-transition>
+          </el-collapse-transition>
         </template>
         <router-link :to="item.href" v-else>{{item.title}}</router-link>
       </li>
-      <!--      <li class="item">
-              <router-link to="/manager/index">中</router-link>
-            </li>
-            <li class="item">
-              <router-link to="/manager/product">product</router-link>
-            </li>
-            <li class="item">
-              <a @click="collapse">会员管理</a>
-              <collapse-transition>
-                <ul class="list" v-show="show">
-                  <li class="sub-item">
-                    <router-link to="/manager/product">product</router-link>
-                  </li>
-                  <li class="sub-item">
-                    <router-link to="/manager/product">product</router-link>
-                  </li>
-                </ul>
-              </collapse-transition>
-            </li>-->
     </ul>
-    <img src="./tel.png" alt="" class="img-responsive center-block">
+    <img src="../images/tel.png" alt="" class="img-responsive center-block">
   </div>
 </template>
 
 <script>
-  import CollapseTransition from '../../components/collapseTransition'
-
   export default {
-    components: {CollapseTransition},
     name: 'managerMenu',
     data () {
       return {
@@ -52,46 +30,42 @@
         menu: [
           {
             title: '会员中心',
-            href: '/manager/index'
+            href: '/home/membercenter'
+          },
+          {
+            title: '我的发布',
+            href: '/home/publish'
+          },
+          {
+            title: '资质认证',
+            href: '/home/qualification'
+          },
+          {
+            title: '合同签署',
+            href: '/home/contract'
           },
           {
             title: '用户管理',
             active: '',
             sub: [
               {
-                title: '密码修改',
-                href: '/manager/product'
+                title: '企业信息',
+                href: '/home/companyinfo'
               },
               {
-                title: '企业信息修改',
-                href: '/manager/product'
-              }]
+                title: '联系人信息',
+                href: '/home/contactinfo'
+              },
+              {
+                title: '修改密码',
+                href: '/home/changepwd'
+              }
+            ]
           }
         ]
       }
     },
     mounted () {
-      // let path = this.$route.path
-      /* this.menu.some((value, index) => {
-        console.log(value.sub)
-        if (value.sub) {
-          let flag = value.sub.some((subvalue, index) => {
-            console.log(path === subvalue.href)
-            if (path === subvalue.href) {
-              subvalue.active = value.title
-              return true
-            }
-          })
-          console.log(flag)
-          value.active = flag
-        } else {
-          console.log(value.href)
-          console.log(path)
-          if (path === value.href) {
-            value.active = true
-          }
-        }
-      }) */
       this.ifActive(this.menu)
     },
     methods: {
@@ -113,6 +87,11 @@
           }
         })
         return active
+      }
+    },
+    watch: {
+      $route: function () {
+        this.ifActive(this.menu)
       }
     }
   }
