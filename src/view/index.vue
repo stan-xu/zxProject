@@ -35,6 +35,7 @@
 
 <style lang="scss" scoped>
   #manager {
+    min-height: 904px;
     background-color: $white-max;
     padding-top: 60px;
     .router-link-active {
