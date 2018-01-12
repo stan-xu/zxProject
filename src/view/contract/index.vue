@@ -71,7 +71,8 @@
         url: '',
         pdfurl: '',
         loading: false,
-        cloading: false
+        cloading: false,
+        num: ''
       }
     },
     mounted () {
@@ -90,7 +91,12 @@
       sign: function (id) {
         this.dialogVisible = true
         this.cloading = true
-        setTimeout(() => { this.cloading = false }, 3500)
+        if (this.num > 0) {
+          this.cloading = false
+        } else {
+          this.num = 1
+          setTimeout(() => { this.cloading = false }, 3500)
+        }
       },
       signContract: function (id) {
         this.$api.get('/contract/mysign/id', {}, (r) => {
