@@ -3,18 +3,20 @@
     <h3><i class="fa fa-trophy colorin"></i> 荣誉资料</h3>
     <div class="honorform">
       <el-form :model="honorForm" :rules="rules" ref="honorForm" label-width="100px">
-      <el-form-item label="荣誉名称" prop="name">
+      <el-form-item label="荣誉名称" prop="honor_name">
         <el-input v-model="honorForm.honor_name"></el-input>
       </el-form-item>
-      <el-form-item label="荣誉图片" prop="imgs">
+      <el-form-item label="荣誉图片" prop="honor_pic">
         <el-upload
           class="upload-demo"
-          action="/blade/uploadify/uploadimg"
+          :action="baseUrl+'/uploadify/uploadimg'"
           drag
           name="imgFile"
-          :header="uploadImgHeader"
+          :limit="1"
+          :headers="uploadImgHeader"
           :on-success="handleSuccess"
           :on-error="handleError"
+          :on-exceed="handleExceed"
           :file-list="imgList"
           list-type="picture">
           <i class="el-icon-upload"></i>
@@ -39,14 +41,13 @@
         },
         honorForm: {
           honor_name: '',
-          imgs: ''
+          honor_pic: ''
         },
         rules: {
-          name: [
-            { required: true, message: '请输入荣誉名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          honor_name: [
+            { required: true, message: '请输入荣誉名称', trigger: 'blur' }
           ],
-          imgs: [
+          honor_pic: [
             { required: true, message: '请上传图片', trigger: 'change' }
           ]
         }
@@ -57,8 +58,8 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.post(
-              '/blade/honor/save',
-              {},
+              '/honor/save',
+              this.honorForm,
               resj => {
                 alert(resj.message)
               }
@@ -72,11 +73,18 @@
       resetForm (formName) {
         this.$refs[formName].resetFields()
       },
-      handleSuccess (res) {
-
+      handleSuccess (resj) {
+        if (resj.code) { // 未成功
+          alert(resj.message)
+        } else {
+          this.honorForm.honor_pic = resj.fileId
+        }
       },
       handleError () {
-
+        alert('图片上传失败，请重试!')
+      },
+      handleExceed () {
+        alert('超出图片上传个数限制!')
       }
     }
   }

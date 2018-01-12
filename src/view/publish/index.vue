@@ -50,7 +50,7 @@
       <el-tab-pane name="honor">
         <span slot="label"><i class="fa fa-trophy"></i> 企业荣誉</span>
         <div class="container-btn-add">
-          <router-link to="/addhonor">
+          <router-link to="/addhonor" target="_blank">
             <el-button type="primary" round icon="el-icon-edit">新增企业荣誉</el-button>
           </router-link>
         </div>
