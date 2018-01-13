@@ -23,34 +23,32 @@
 <script>
   export default {
     name: 'qualification',
-    data(){
+    data () {
       return {
-        type:'',
+        type: ''
       }
     },
     mounted () {
       this.load()
     },
     methods: {
-      load(){
-        this.$api.get('/ent/json',this.type,
+      load () {
+        this.$api.get('/ent/json', this.type,
         resj => {
-          console.log(resj)
-          if(resj.data.ent_type){
+          if (resj.data.ent_type) {
             alert('请先完成企业信息')
             this.$router.replace('/home/companyinfo')
-          }else{
-            this.type.resj.replace('1', "房地产企业")
-            .replace('2', "消防产品厂家")
-            .replace('3', "消防设计单位")
-            .replace('4', "消防施工单位")
-            .replace('5', "消防技术服务机构")
-            .replace('6', "其他");
+          } else {
+            this.type.resj.replace('1', '房地产企业')
+            .replace('2', '消防产品厂家')
+            .replace('3', '消防设计单位')
+            .replace('4', '消防施工单位')
+            .replace('5', '消防技术服务机构')
+            .replace('6', '其他')
           }
         },
         err => {
-          this.message = err.message
-          this.loadImgCode()
+          console.log(err.message)
         })
       }
     }
