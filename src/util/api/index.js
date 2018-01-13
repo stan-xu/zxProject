@@ -1,3 +1,4 @@
+import router from '../../router'
 // api接口地址
 var root = '/blade'
 
@@ -52,6 +53,10 @@ let apiAxios = (method, url, params, success, fail) => {
         success(response)
       } else if (response.code === 401) { // 后端约定未登录code=401
         alert(response.message)
+        router.replace({
+          path: 'login',
+          query: {redirect: router.currentRoute.fullPath}
+        })
       } else if (response.success === true) {
         if (success) { success(response) }
       } else {

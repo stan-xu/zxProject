@@ -27,7 +27,7 @@
           </el-col>
       </el-row>
     </el-main>
-    <el-main v-if="data!=''" >
+    <el-main v-if="data!=''">
         <el-row class='status'>
           <el-col :span='24'>
             <p>资质证书<span>

@@ -19,7 +19,7 @@
           <el-input v-model="form.password" type="password" placeholder="密码" prefix-icon="fa fa-lock"></el-input>
         </el-form-item>
         <el-form-item prop="imgCode">
-          <el-input v-model="form.imgCode" placeholder="验证码">
+          <el-input v-model="form.imgCode" placeholder="验证码" @keyup.enter.native="submit()">
             <img slot="append" :src="imgCode" alt="" class="img-verification" @click="loadImgCode">
           </el-input>
         </el-form-item>
