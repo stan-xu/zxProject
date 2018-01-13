@@ -71,11 +71,11 @@
     name: 'auditinfo1',
     data () {
       return {
-        level: '1', //证书类型，默认值
+        level: '1', // 证书类型，默认值
         sign_kind: '2',// 上传类型
-        data: '',  //已上传的信息
-        fileId: 'zz', //证书类型
-        example:'1_cert.png' //示例图片
+        data: '',  // 已上传的信息
+        fileId: 'zz', // 证书类型
+        example:'1_cert.png' // 示例图片
       }
     },
     mounted () {
@@ -94,23 +94,23 @@
       },
       submit () {
         var formData = new FormData();
-        formData.append('signFile',document.querySelectorAll('#'+this.fileId+'')[0].files[0] );
-        formData.append('sign_type',this.level);
-        formData.append('sign_kind', this.sign_kind);
+        formData.append('signFile', document.querySelectorAll('#'+this.fileId+'')[0].files[0] );
+        formData.append('sign_type', this.level)
+        formData.append('sign_kind', this.sign_kind)
         this.$api.post('/sign/upload', formData,
         resj => {
-          this.$message('resj.message');
+          this.$message('resj.message')
           location.reload([false])
         },
         err => {
-          alert(resj.message)
+          alert(err.message)
         })
       },
       reSubmit () {
-        var formData = new FormData();
-        formData.append('signFile', document.querySelectorAll('#'+this.fileId+'')[0].files[0]);
-				formData.append('pk_sign', this.data.pk_sign);
-				formData.append('sign_type', this.level);
+        var formData = new FormData()
+          formData.append('signFile', document.querySelectorAll('#'+this.fileId+'')[0].files[0]);
+          formData.append('pk_sign', this.data.pk_sign)
+          formData.append('sign_type', this.level)
         this.$api.post('/sign/update/', formData,
         resj => {
           console.log(resj)
@@ -119,7 +119,7 @@
             callback: action => {
               location.reload([false])
             }
-          });
+          })
         },
         err => {
           alert(err.message)

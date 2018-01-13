@@ -20,28 +20,28 @@
     name: 'inputView',
     data () {
       return {
-        root:'../../static/images/qualification/',
-        urlImg: '../../static/images/qualification/noImg.jpg',
+        root: '../../static/images/qualification/',
+        urlImg: '../../static/images/qualification/noImg.jpg'
       }
     },
-    props:['example','fileId'],
-    methods:{
+    props: ['example', 'fileId'],
+    methods: {
       logo_upload (e) {
-        var self = this;
-        var file = e.target.files[0];
-        var fr = new FileReader();
-        var type = file.name.substring(file.name.lastIndexOf("."), file.name.length);
+        var self = this
+        var file = e.target.files[0]
+        var fr = new FileReader()
+        var type = file.name.substring(file.name.lastIndexOf('.'), file.name.length)
         if (!/.(jpg|jpeg|png)$/i.test(type)) {
-          alert('文件格式不正确！');
-          return false;
+          alert('文件格式不正确！')
+          return false
         } else if (file.size > (1024 * 1024 * 2)) {
           alert('文件大小不能超过2MB！')
         } else {
-            fr.readAsDataURL(file);
-            fr.onload = function(e) {
-              self.urlImg = this.result;
-            }
+          fr.readAsDataURL(file)
+          fr.onload = function (e) {
+            self.urlImg = this.result
           }
+        }
       }
     }
   }
