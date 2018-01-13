@@ -4,6 +4,8 @@ import Index from '@/view/index'
 import Login from '@/view/login'
 import MemberCenter from '@/view/membercenter'
 import Publish from '@/view/publish'
+import AddHonor from '@/view/addhonor'
+import AddProject from '@/view/addproject'
 import Qualification from '@/view/qualification'
 import Contract from '@/view/contract'
 import CompanyInfo from '@/view/companyInfo'
@@ -37,6 +39,19 @@ export default new Router({
         {path: 'contactinfo', component: ContactInfo, meta: {requiresLogin: true}},
         {path: 'changepwd', component: ChangePwd, meta: {requiresLogin: true}}
       ]
+    },
+    {
+      path: '/addhonor',
+      component: AddHonor,
+      meta: {
+        requiresLogin: true
+      }
+    }, {
+      path: '/addproject',
+      component: AddProject,
+      meta: {
+        requiresLogin: true
+      }
     },
     {path: '*', component: Login}
   ],
