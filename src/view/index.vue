@@ -5,7 +5,7 @@
       <el-col :span="4">
         <manager-menu></manager-menu>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="20" class="content">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -35,9 +35,13 @@
 
 <style lang="scss" scoped>
   #manager {
-    min-height: 904px;
+    .content{
+      min-height: 904px;
+      border-left: 1px solid #ddd;
+      padding: 20px;
+    }
     background-color: $white-max;
-    padding-top: 60px;
+    padding: 60px 0 40px;
     .router-link-active {
       background-color: red;
     }

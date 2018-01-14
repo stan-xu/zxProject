@@ -31,10 +31,11 @@ let apiAxios = (method, url, params, success, fail) => {
   if (params) {
     params = filterNull(params)
   }
-  // if (method === 'POST') {
-  //   var qs = require('querystring')
-  //   params = qs.stringify(params)
-  // }
+  console.log()
+  if (method === 'POST' && toType(params) !== 'formdata') {
+    var qs = require('querystring')
+    params = qs.stringify(params)
+  }
   axios({
     method: method,
     url: url,

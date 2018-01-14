@@ -7,7 +7,7 @@
     </el-header>
     <el-main>
       <el-row :gutter="5">
-        <el-col :span="8"><a href='/home/qualification/auditinfo1' class="grid-content bg-type1">房地产企业</a></el-col>
+        <el-col :span="8"><router-link to="qualification/estate" class="grid-content bg-type1">房地产企业</router-link></el-col>
         <el-col :span="10"><a href='/home/membercenter' class="grid-content bg-type2">消防产品厂家</a></el-col>
         <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type3">消防设计单位</a></el-col>
       </el-row>
