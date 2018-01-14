@@ -1,13 +1,106 @@
 <template>
-  <div>qualification</div>
+  <el-container>
+    <el-header height='100px'>
+      <p v-if='type'>您选择的企业类型为{{type}}请完成相应企业类型资质材料提交。</p>
+      <p v-if='!type'>您尚未选择企业类型</p>
+      <strong>审核通过才能公开对应企业类型。</strong>
+    </el-header>
+    <el-main>
+      <el-row :gutter="5">
+        <el-col :span="8"><a href='/home/qualification/auditinfo1' class="grid-content bg-type1">房地产企业</a></el-col>
+        <el-col :span="10"><a href='/home/membercenter' class="grid-content bg-type2">消防产品厂家</a></el-col>
+        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type3">消防设计单位</a></el-col>
+      </el-row>
+      <el-row :gutter="5">
+        <el-col :span="12"><a href='/home/membercenter' class="grid-content bg-type4">消防施工单位</a></el-col>
+        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type5">消防技术服务机构</a></el-col>
+        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type6">其他</a></el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
   export default {
-    name: 'qualification'
+    name: 'qualification',
+    data () {
+      return {
+        type: ''
+      }
+    },
+    mounted () {
+      this.load()
+    },
+    methods: {
+      load () {
+        this.$api.get('/ent/json', this.type,
+        resj => {
+          if (resj.data.ent_type) {
+            alert('请先完成企业信息')
+            this.$router.replace('/home/companyinfo')
+          } else {
+            this.type.resj.replace('1', '房地产企业')
+            .replace('2', '消防产品厂家')
+            .replace('3', '消防设计单位')
+            .replace('4', '消防施工单位')
+            .replace('5', '消防技术服务机构')
+            .replace('6', '其他')
+          }
+        },
+        err => {
+          console.log(err.message)
+        })
+      }
+    }
   }
 </script>
 
 <style scoped>
-
+.el-main{
+  overflow: initial;
+  padding-right:20%;
+}
+.el-row {
+height:auto;
+ margin-bottom: 5px;
+ &:last-child {
+   margin-bottom: 0;
+ }
+}
+.el-col {
+ border-radius: 0px;
+}
+.bg-type1{
+  background:#3387EA
+}
+.bg-type2{
+  background:#F9BE3E
+}
+.bg-type3{
+  background:#D2583D
+}
+.bg-type4{
+  background:#86A644
+}
+.bg-type5{
+  background:#5CB1E1
+}
+.bg-type6{
+  background:#33AF95
+}
+.grid-content {
+display:block;
+ border-radius: 0px;
+ height:150px;
+ text-align:center;
+ line-height:150px;
+ color:white;
+ font-size:18px;
+ padding-left:33px;
+ padding-right:33px;
+}
+.row-bg {
+ padding: 5px 0;
+ background-color: #f9fafc;
+}
 </style>

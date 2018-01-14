@@ -7,6 +7,7 @@ import Publish from '@/view/publish'
 import AddHonor from '@/view/addhonor'
 import AddProject from '@/view/addproject'
 import Qualification from '@/view/qualification'
+import auditinfo1 from '@/view/qualification/upload/upload1.vue'
 import Contract from '@/view/contract'
 import CompanyInfo from '@/view/companyInfo'
 import ContactInfo from '@/view/contactInfo'
@@ -34,6 +35,7 @@ export default new Router({
         {path: 'membercenter', component: MemberCenter, meta: {requiresLogin: true}},
         {path: 'publish', component: Publish, meta: {requiresLogin: true}},
         {path: 'qualification', component: Qualification, meta: {requiresLogin: true}},
+        {path: 'qualification/auditinfo1', component: auditinfo1, meta: {requiresLogin: true}},
         {path: 'contract', component: Contract, meta: {requiresLogin: true}},
         {path: 'companyinfo', component: CompanyInfo, meta: {requiresLogin: true}},
         {path: 'contactinfo', component: ContactInfo, meta: {requiresLogin: true}},
