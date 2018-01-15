@@ -1,7 +1,6 @@
 /* 改变主题色变量 */
 $--color-primary: #C41335;
-
-/* 改变 icon 字体路径变量，必需 */
+  /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
@@ -9,3 +8,19 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import '~element-ui/packages/theme-chalk/src/display';
 
+$--dialog-close-hover-color: blue;
+
+.el-dialog {
+  border: 1px solid #c41335;
+  border-radius: 3px;
+}
+.el-dialog__header {
+  background-color: #c41335;
+  color: #fff;
+  .el-dialog__title {
+    color: #fff;
+  }
+  .el-dialog__close {
+    color: #fff;
+  }
+}
