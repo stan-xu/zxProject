@@ -1,12 +1,83 @@
 <template>
-  <div>changepassword</div>
+  <div id="changepassword">
+    <el-row>
+      <el-col :span="18" :offset="6">
+        <el-form :label-position="labelPosition" label-width="80px" :rules="rules" ref="form" :model="form">
+          <el-form-item label="原密码" prop="old_password">
+            <el-input v-model="form.old_password" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="new_password1">
+            <el-input v-model="form.new_password1" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="new_password2">
+            <el-input v-model="form.new_password2" type="password"></el-input>
+          </el-form-item>
+          <el-col :offset="4">
+            <el-form-item>
+            <el-button type="primary" @click="post_data('form')">提交</el-button>
+            </el-form-item>
+          </el-col>
+        </el-form>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
   export default {
-    name: 'changepassword'
+    name: 'changepassword',
+    data () {
+      var validatePass = (rule, value, callback) => {
+        if (this.form.new_password2 !== '') {
+          this.$refs.form.validateField('new_password2')
+        }
+      }
+      var validatePass2 = (rule, value, callback) => {
+        if (value !== this.form.new_password1) {
+          callback(new Error('两次输入密码不一致!'))
+        }
+      }
+      return {
+        labelPosition: 'right',
+        form: {
+          old_password: '',
+          new_password1: '',
+          new_password2: ''
+        },
+        rules: {
+          old_password: [
+            { required: true, message: '请输入原密码', trigger: 'onblur' }
+          ],
+          new_password1: [
+            { required: true, message: '请输入新密码' },
+            { validator: validatePass, trigger: 'onblur' }
+          ],
+          new_password2: [
+            { required: true, message: '请再次输入新密码' },
+            { validator: validatePass2, trigger: 'onblur' }
+          ]
+        }
+      }
+    },
+    methods: {
+      post_data: function (form) {
+        this.$api.post('/account/password/change', this.form, (r) => {
+          alert(r.message)
+          this.resetForm(form)
+        })
+      },
+      resetForm: function (formName) {
+        this.$refs[formName].resetFields()
+      }
+    }
   }
 </script>
 
-<style>
+<style lang="scss">
+  #changepassword{
+    margin-top: 150px;
+  .el-input__inner{
+    width: 50%;
+  }
+  }
 </style>
