@@ -17,24 +17,26 @@
             label="" >
             <template slot-scope="scope">
               <a :href="baseUrl+url"><el-button type="text">下载合同</el-button></a>
-              <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state==='未签署'">签署合同</el-button>
+              <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
             </template>
           </el-table-column>
         </el-table>
         <el-dialog
-          title=""
+          title="合同签署"
           :visible.sync="dialogVisible"
-          width="662px"
-          center>
-          <pdf v-loading="cloading" :src="baseUrl+pdfurl" :page="page" @num-pages="numPages = $event"></pdf>
-          <div class="pdf-btn">
-            <el-input-number size="mini" v-model.number="page" :min="1" :max="numPages">
-            </el-input-number>
+          width="662px">
+          <div v-loading="cloading">
+            <pdf  :src="baseUrl+pdfurl" :page="page" @progress="cloading=false" @num-pages="numPages = $event"></pdf>
+            <div class="pdf-btn">
+              <el-input-number size="mini" v-model.number="page" :min="1" :max="numPages">
+              </el-input-number>
+            </div>
+            <div class="pdf-total" v-if="numPages > 0">共{{numPages}}页</div>
+            <div class="contract-agree">
+              <el-checkbox v-model="checkbox" label="agree">同意</el-checkbox>
+            </div>
           </div>
-          <div class="pdf-total">共{{numPages}}页</div>
-          <div class="contract-agree">
-            <el-checkbox v-model="checkbox" label="agree">同意</el-checkbox>
-          </div>
+
           <span slot="footer" class="dialog-footer">
     <el-button type="primary" v-if="checkbox==true" @click="signContract(content[0].id)">签署合同</el-button>
     <el-button type="primary" v-if="checkbox==false" disabled>签署合同</el-button>
@@ -92,7 +94,6 @@
           this.cloading = false
         } else {
           this.num = 1
-          setTimeout(() => { this.cloading = false }, 3500)
         }
       },
       signContract: function (id) {
@@ -116,37 +117,22 @@
     .sign{
       margin-top: 25px;
       margin-bottom: 100px;
-      text-align: center;
       .pdf-btn{
         position: relative;
         text-align: center;
       }
       .pdf-total{
         position: absolute;
-        bottom:155px;
+        bottom:140px;
         left: 410px;
+        float: left;
       }
       .contract-agree{
         text-align: center;
         margin-top: 20px;
       }
-      .el-dialog {
-        border: 2px solid #c41335;
-        border-radius: 3px;
-      }
-      .el-dialog__header {
+      .el-dialog__footer {
         text-align: center;
-        background-color: #c41335;
-        color: #fff;
-        .el-dialog__title {
-          color: #fff;
-          font-size: 14px;
-        }
-        .el-dialog__close {
-          background-color: white;
-          color: #c41335;
-          width: 16px;
-        }
       }
       .el-button--text{
         color: #2d2f33;
@@ -161,6 +147,7 @@
           padding: 8px 0;
         }
         td{
+          text-align: center;
           background-color: #e0fcff;
           border: 1px solid #dddddd;
           padding: 0;
