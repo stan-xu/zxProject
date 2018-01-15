@@ -1,6 +1,5 @@
 <template>
   <div id="contract">
-    <div class="">
       <div class="sign">
         <el-table
           v-loading="loading"
@@ -50,7 +49,6 @@
         </el-row>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -80,7 +78,6 @@
     },
     methods: {
       get_data: function () {
-        this.loading = true
         this.$api.get('/contract/me', {}, (r) => {
           this.content = r.data
           this.url = '/contract/download/' + this.content[0].id
