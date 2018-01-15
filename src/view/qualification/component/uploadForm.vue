@@ -45,7 +45,7 @@
         }
       }
     },
-    props: ['data', 'load', 'levelLsit', 'example', 'levelAdd','name'],
+    props: ['data', 'load', 'levelLsit', 'example', 'levelAdd', 'name'],
     methods: {
       submit () {
         this.$refs.form.validate((valid) => {
@@ -58,7 +58,7 @@
       },
       add () {
         let formData = new FormData()
-        console.log(this.form.sign_type,this.levelAdd)
+        console.log(this.form.sign_type, this.levelAdd)
         formData.append('signFile', this.form.signFile)
         formData.append('sign_kind', this.form.sign_kind)
         formData.append('sign_type', this.form.sign_type)
@@ -97,7 +97,7 @@
       margin: 0;
       padding: 0;
       font-size: 20px;
-      text-align:right;
+      text-align: right;
     }
     span {
       width: 100%;
@@ -105,16 +105,18 @@
       /* margin: 20px; */
       font-size: 20px;
       color: rgb(137, 137, 137);
-      text-align:left
+      text-align: left
     }
     img {
-      height:171px;
-      display:block;
+      height: 171px;
+      display: block;
     }
   }
+
   .el-form-item__label {
-    font-weight:600
+    font-weight: 600
   }
+
   .tips:before {
     content: '*';
     color: #f56c6c;

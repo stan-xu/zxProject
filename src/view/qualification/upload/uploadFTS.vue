@@ -1,8 +1,9 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
     <div v-for="(item,index) in data">
-      <uploadState v-if="data[index]" :data = 'data[index]'></uploadState>
-      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data = 'data[index]' @load="load" :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
+      <uploadState v-if="data[index]" :data='data[index]'></uploadState>
+      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data='data[index]' @load="load"
+                  :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
       </uploadForm>
     </div>
     <el-row>
@@ -28,10 +29,10 @@
       return {
         loading: false,
         levelLsit: ['一级', '二级'],
-        levelAdd: [15,17,13], // 等级修正
-        data: ['','',''],  // 已上传的信息
-        name: ['消防维保机构等级类型','消防监测机构等级类型','消防安全评估机构等级类型'],
-        example: [require('./1_cert.png'),require('./1_cert.png'),require('./1_cert.png')] // 示例图片,
+        levelAdd: [15, 17, 13], // 等级修正
+        data: ['', '', ''],  // 已上传的信息
+        name: ['消防维保机构等级类型', '消防监测机构等级类型', '消防安全评估机构等级类型'],
+        example: [require('./1_cert.png'), require('./1_cert.png'), require('./1_cert.png')] // 示例图片,
       }
     },
     mounted () {
@@ -41,13 +42,13 @@
       load () {
         this.$api.get('/sign/mylist/2/5', '',
           resj => {
-            for(var i = 0; i < 3; i++){
-              if(resj.rows[i].sign_type.indexOf('维保')>=0){
-                this.data[0]=resj.rows[i]
-              }else if(resj.rows[i].sign_type.indexOf('监测')>=0){
-                this.data[1]=resj.rows[i]
-              }else if(resj.rows[i].sign_type.indexOf('评估')>=0){
-                this.data[2]=resj.rows[i]
+            for (var i = 0; i < 3; i++) {
+              if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
+                this.data[0] = resj.rows[i]
+              } else if (resj.rows[i].sign_type.indexOf('监测') >= 0) {
+                this.data[1] = resj.rows[i]
+              } else if (resj.rows[i].sign_type.indexOf('评估') >= 0) {
+                this.data[2] = resj.rows[i]
               }
             }
             console.log(this.data)
@@ -66,6 +67,7 @@
   [v-cloak] {
     display: none;
   }
+
   .tips:before {
     content: '*';
     color: #f56c6c;
