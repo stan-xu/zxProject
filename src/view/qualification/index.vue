@@ -7,13 +7,13 @@
     </el-header>
     <el-main>
       <el-row :gutter="5">
-        <el-col :span="8"><router-link to="qualification/estate" class="grid-content bg-type1">房地产企业</router-link></el-col>
+        <el-col :span="8"><router-link to="qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link></el-col>
         <el-col :span="10"><a href='/home/membercenter' class="grid-content bg-type2">消防产品厂家</a></el-col>
-        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type3">消防设计单位</a></el-col>
+        <el-col :span="6"><a href='qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</a></el-col>
       </el-row>
       <el-row :gutter="5">
-        <el-col :span="12"><a href='/home/membercenter' class="grid-content bg-type4">消防施工单位</a></el-col>
-        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type5">消防技术服务机构</a></el-col>
+        <el-col :span="12"><a href='qualification/estate?type=FCU' class="grid-content bg-type4">消防施工单位</a></el-col>
+        <el-col :span="6"><a href='qualification/estate?type=FTS' class="grid-content bg-type5">消防技术服务机构</a></el-col>
         <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type6">其他</a></el-col>
       </el-row>
     </el-main>
