@@ -8,4 +8,16 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 
 @import '~element-ui/packages/theme-chalk/src/display';
+.el-message-box{
+  border: 1px solid $--color-primary;
+  .el-message-box__header{
+    background-color: $--color-primary;
+    .el-message-box__title{
+      color: $white-max;
+    }
+    .el-message-box__close{
+      color: $white-max;
+    }
+  }
+}
 
