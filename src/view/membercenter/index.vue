@@ -22,7 +22,7 @@
       <el-row>
         <h1 class="welcome">欢迎登录中消在线！</h1>
         <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
-          <div id="arrowButtonBox">
+          <div id="arrowButtonBox" v-if="clicked">
             <a :href="companyurl" :class="(clicked.step1!='企业信息已完善')? 'arrowButton colorUnready':'arrowButton colorReady'">
               <div class='arrowText'>
                 <p>{{clicked.step1}}</p>
