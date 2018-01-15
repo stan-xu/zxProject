@@ -22,7 +22,6 @@
     name: 'fileUpload',
     data () {
       return {
-        root: '../../static/images/qualification/',
         urlImg: require('./noImg.jpg')
       }
     },
