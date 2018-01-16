@@ -4,20 +4,23 @@
     <auditinfo3 v-if="id == 'FDU'"></auditinfo3>
     <auditinfo4 v-if="id == 'FCU'"></auditinfo4>
     <auditinfo5 v-if="id == 'FTS'"></auditinfo5>
+    <auditinfo6 v-if="id == 'OTH'"></auditinfo6>
   </div>
 </template>
 <script>
-  import auditinfo1 from '../upload/uploadHP.vue'
-  import auditinfo3 from '../upload/uploadFDU.vue'
-  import auditinfo4 from '../upload/uploadFCU.vue'
-  import auditinfo5 from '../upload/uploadFTS.vue'
+  import auditinfo1 from './uploadHd.vue'
+  import auditinfo3 from './uploadFdu.vue'
+  import auditinfo4 from './uploadFcu.vue'
+  import auditinfo5 from './uploadFts.vue'
+  import auditinfo6 from './uploadOther.vue'
 
   export default {
     components: {
       auditinfo1,
       auditinfo3,
       auditinfo4,
-      auditinfo5
+      auditinfo5,
+      auditinfo6
     },
     name: 'estate',
     data () {

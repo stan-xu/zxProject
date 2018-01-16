@@ -3,10 +3,13 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form :model="form" ref="form" labelWidth="200px" :rules="rules">
-          <el-form-item :label="name" prop="sign_type">
+          <el-form-item  v-if='levelLsit' :label="name" prop="sign_type">
             <el-radio-group v-model="form.sign_type">
               <el-radio v-for="(item,index) in levelLsit" :label="index+levelAdd" :key="index">{{item}}</el-radio>
             </el-radio-group>
+          </el-form-item>
+          <el-form-item  v-if='!levelLsit&&!data' :label="name" prop="sign_name">
+            <el-input v-model="form.sign_name" placeholder="请输入内容"></el-input>
           </el-form-item>
           <el-form-item label="资质证书" prop="signFile">
             <file-upload :example="example" @file-change="fileChange"></file-upload>
@@ -37,15 +40,17 @@
         form: {
           signFile: '',
           sign_type: '',
-          sign_kind: 2
+          sign_kind: 2,
+          sigh_name: ''
         },
         rules: {
           sign_type: [{required: true, message: '请选择证书类型', trigger: 'submit'}],
-          signFile: [{required: true, message: '清上传资质证书', trigger: 'submit'}]
+          signFile: [{required: true, message: '清上传资质证书', trigger: 'submit'}],
+          sign_name: [{required: true, message: '清输入证书名称', trigger: 'submit'}]
         }
       }
     },
-    props: ['data', 'load', 'levelLsit', 'example', 'levelAdd','name'],
+    props: ['data', 'load', 'levelLsit', 'example', 'levelAdd', 'name'],
     methods: {
       submit () {
         this.$refs.form.validate((valid) => {
@@ -58,10 +63,14 @@
       },
       add () {
         let formData = new FormData()
-        console.log(this.form.sign_type,this.levelAdd)
         formData.append('signFile', this.form.signFile)
         formData.append('sign_kind', this.form.sign_kind)
-        formData.append('sign_type', this.form.sign_type)
+        if (this.levelLsit) {
+          formData.append('sign_type', this.form.sign_type)
+        } else {
+          formData.append('sign_type', 21)
+          formData.append('sign_name', this.form.sign_name)
+        }
         this.$api.post(this.addUrl, formData,
           resj => {
             this.$emit('load')
