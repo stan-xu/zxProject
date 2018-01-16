@@ -1,8 +1,9 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
     <div v-for="(item,index) in data">
-      <uploadState v-if="data[index]" :data = 'data[index]'></uploadState>
-      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data = 'data[index]' @load="load" :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
+      <uploadState v-if="data[index]" :data='data[index]'></uploadState>
+      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data='data[index]' @load="load"
+                  :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
       </uploadForm>
     </div>
     <el-row>
@@ -66,6 +67,7 @@
   [v-cloak] {
     display: none;
   }
+
   .tips:before {
     content: '*';
     color: #f56c6c;

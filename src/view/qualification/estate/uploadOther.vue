@@ -2,7 +2,8 @@
   <div id="upload1" v-cloak v-if="loading">
     <div v-for="(item,index) in data">
       <uploadState v-if="data[index]" :data = 'data[index]'></uploadState>
-      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data = 'data[index]' @load="load" name='证书名称' :example='example[0]'>
+      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data = 'data[index]'
+                  @load="load" name='证书名称' :example='example[0]'>
       </uploadForm>
     </div>
     <div id='newEdit'>

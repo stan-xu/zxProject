@@ -49,7 +49,19 @@ export default new Router({
         requiresLogin: true
       }
     }, {
+      path: '/changehonor/:id',
+      component: AddHonor,
+      meta: {
+        requiresLogin: true
+      }
+    }, {
       path: '/addproject',
+      component: AddProject,
+      meta: {
+        requiresLogin: true
+      }
+    }, {
+      path: '/changeproject/:id',
       component: AddProject,
       meta: {
         requiresLogin: true

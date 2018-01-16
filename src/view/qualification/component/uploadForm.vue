@@ -106,7 +106,7 @@
       margin: 0;
       padding: 0;
       font-size: 20px;
-      text-align:right;
+      text-align: right;
     }
     span {
       width: 100%;
@@ -114,16 +114,18 @@
       /* margin: 20px; */
       font-size: 20px;
       color: rgb(137, 137, 137);
-      text-align:left
+      text-align: left
     }
     img {
-      height:171px;
-      display:block;
+      height: 171px;
+      display: block;
     }
   }
+
   .el-form-item__label {
-    font-weight:600
+    font-weight: 600
   }
+
   .tips:before {
     content: '*';
     color: #f56c6c;

@@ -2,7 +2,8 @@
   <div id="upload1" v-cloak v-if="loading">
     <uploadState  v-if="data" :data = 'data'></uploadState>
     <p v-if="!data||data.sign_status=='审核未通过'">(说明:消防设计单位资质证书为一级，二级，三级，四级。）</p>
-    <uploadForm v-if="!data||data.sign_status=='审核未通过'" :data = 'data' :name='name' @load="load" :levelLsit='levelLsit' :levelAdd='levelAdd' :example='example'>
+    <uploadForm v-if="!data||data.sign_status=='审核未通过'" :data = 'data' :name='name' @load="load" :levelLsit='levelLsit'
+                :levelAdd='levelAdd' :example='example'>
     </uploadForm>
     <el-row>
       <el-col class='tips' :span='20' :offset='5'>请保证以上信息的准确性</el-col>
