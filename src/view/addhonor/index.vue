@@ -45,13 +45,14 @@
     name: 'AddHonor',
     mounted () {
       if (this.$route.params.id !== undefined) {
-        this.path = '/honor/update' // 修改接口
+        this.isChangePage = true
         this.infoSet(this.$route.params.id)
       }
     },
     data () {
       return {
         path: '/honor/save', // 添加接口
+        isChangePage: false,
         uploadImgHeader: { // 设置接收到json格式的返回值
           'Accept': 'application/json, text/javascript, */*; q=0.01'
         },
@@ -143,14 +144,32 @@
         this.$message.error('超出图片上传个数限制!')
       },
       openMessageBox () {
-        this.$confirm('恭喜您，荣誉录入已提交成功！', '温馨提示', {
-          confirmButtonText: '继续录入',
-          cancelButtonText: '返回我的发布'
-        }).then(() => {
-          this.reset()
-        }).catch(() => {
-          this.$router.push({path: '/home/publish'})
-        })
+        if (this.isChangePage) {
+          this.$confirm('恭喜您，荣誉修改成功！', '温馨提示', {
+            confirmButtonText: '再次修改',
+            cancelButtonText: '返回我的发布'
+          }).then(() => {}).catch(() => {
+            this.$router.go(-1)
+          })
+        } else {
+          this.$confirm('恭喜您，荣誉录入已提交成功！', '温馨提示', {
+            confirmButtonText: '继续录入',
+            cancelButtonText: '返回我的发布'
+          }).then(() => {
+            this.reset()
+          }).catch(() => {
+            this.$router.go(-1)
+          })
+        }
+      }
+    },
+    watch: {
+      isChangePage (val) {
+        if (val) {
+          this.path = '/honor/update' // 修改接口
+        } else {
+          this.path = '/honor/save' // 添加接口
+        }
       }
     }
   }
