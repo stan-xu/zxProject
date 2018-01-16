@@ -3,7 +3,7 @@
     <div class="content-body v-outter-table">
       <div class="v-table-cell">
         <el-row v-if="contact_list">
-          <el-col :span="8" v-for="item in contact_list" :key="item1+item.contacter"  >
+          <el-col :span="8" v-for="(item,index) in contact_list" :key="'contact'+index">
             <div class="contact-card active text-ellipsis">
               <div class="info-item">
                 <el-col :span="6">
@@ -14,7 +14,7 @@
               <el-row class="info-item">
                 <el-col :span="6">
                   <i class="fa fa-mobile"></i>
-                </el-col >
+                </el-col>
                 <el-col :span="18">{{item.tel}}</el-col>
               </el-row>
               <el-row class="info-item">
@@ -63,7 +63,8 @@
             <span slot="footer" class="dialog-footer">
   </span>
           </el-dialog>
-          <el-col :span="8" v-for="item in (3-contact_list.length)" :key="key+item"><a @click.prevent="modal('add')" class="contact-card"><i class="fa fa-plus"></i></a></el-col>
+          <el-col :span="8" v-for="(item,index) in (3-contact_list.length)" :key="'contactAdd'+index"><a
+            @click.prevent="modal('add')" class="contact-card"><i class="fa fa-plus"></i></a></el-col>
           <el-dialog
             title="新增"
             :visible.sync="dialogadd"
@@ -122,14 +123,14 @@
         },
         rules: {
           contacter: [
-            { required: true, message: '请输入联系人信息', trigger: 'onblur' }
+            {required: true, message: '请输入联系人信息', trigger: 'onblur'}
           ],
           tel: [
-            { required: true, message: '请输入联系方式', trigger: 'onblur' },
+            {required: true, message: '请输入联系方式', trigger: 'onblur'},
             {validator: checkPhone, trigger: 'blur'}
           ],
           email: [
-            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change'}
           ]
         }
       }
@@ -148,12 +149,11 @@
           if (valid) {
             this.$api.post('/ent/contacts/update/' + id, this.form, (r) => {
               alert(r.message)
+              this.resetForm(form)
+              this.dialog = false
+              this.get_data()
             })
-            this.resetForm(form)
-            this.dialog = false
-            this.get_data()
           } else {
-            console.log('error submit!!')
             return false
           }
         })
@@ -163,10 +163,10 @@
           if (valid) {
             this.$api.post('/ent/contacts/save/', this.form, (r) => {
               alert(r.message)
+              this.get_data()
+              this.resetForm(form)
+              this.dialogadd = false
             })
-            this.resetForm(form)
-            this.dialogadd = false
-            this.get_data()
           } else {
             console.log('error submit!!')
             return false
@@ -176,8 +176,8 @@
       del_data: function (id) {
         this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
           alert(r.message)
+          this.get_data()
         })
-        this.get_data()
       },
       modal: function (type, id) {
         if (type === 'update') {
@@ -198,13 +198,13 @@
 </script>
 
 <style lang="scss">
-  #contactinfo{
+  #contactinfo {
     padding: 0 25px;
     .content-body {
       min-height: 550px;
       width: 100%;
     }
-    .el-col-8{
+    .el-col-8 {
       padding: 0 10px;
     }
     .contact-card {
@@ -232,7 +232,7 @@
     }
     .operation-item {
       text-align: right;
-      i{
+      i {
         margin-left: 10px;
       }
       a {
@@ -244,7 +244,7 @@
       font-size: 60px;
       line-height: 330px;
     }
-    .el-input__inner{
+    .el-input__inner {
       width: 80%;
     }
   }
