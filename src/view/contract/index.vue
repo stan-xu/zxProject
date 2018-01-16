@@ -14,7 +14,7 @@
             label="状态">
           </el-table-column>
           <el-table-column
-            label="" >
+            label="操作" >
             <template slot-scope="scope">
               <a :href="baseUrl+url"><el-button type="text">下载合同</el-button></a>
               <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
@@ -138,19 +138,15 @@
         color: #2d2f33;
       }
       .el-table{
-        border: 1px solid #dddddd;
+        border: 1px solid #ebeef5;
         th{
           text-align: center;
-          background-color: #cacaca;
           color: black;
-          border: 1px solid #dddddd;
-          padding: 8px 0;
+          border-right: 1px solid #ebeef5;
         }
         td{
           text-align: center;
-          background-color: #e0fcff;
-          border: 1px solid #dddddd;
-          padding: 0;
+          border-right: 1px solid #ebeef5;
         }
       }
     }
