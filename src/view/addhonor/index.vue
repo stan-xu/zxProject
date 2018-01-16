@@ -110,7 +110,8 @@
         this.$refs[formName].resetFields()
       },
       resetUpload (uploadName) {
-        this.$refs[uploadName].clearFiles()
+        this.$refs[uploadName].fileList.splice(0)
+        // this.$refs[uploadName].clearFiles()
       },
       handleBeforeUpload (file) {
         if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -124,12 +125,14 @@
         }
       },
       handleOnRemove (file, fileList) {
+        this.imgList.pop()
         this.honorForm.honor_pic = ''
       },
       handleSuccess (resj) {
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
+          this.imgList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.honorForm.honor_pic = resj.fileId
         }
       },
