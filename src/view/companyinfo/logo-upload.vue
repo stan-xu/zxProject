@@ -10,7 +10,7 @@
       :before-upload="beforeLogoUpload"
     >
       <div style="width: 178px;height: 178px;position: absolute" v-loading="logoLoading"></div>
-      <img v-if="imgPath" :src="imgPath" class="Logo">
+      <img v-if="logoId" :src="imgPath+logoId" class="Logo">
       <i v-else class="el-icon-plus Logo-uploader-icon"></i>
     </el-upload>
   </div>
@@ -19,23 +19,21 @@
 <script>
   export default {
     name: 'logo-upload',
-    props: ['logoId', 'on-success'],
+    props: ['logoId'],
     data: function () {
       return {
         fileUrl: this.baseUrl + '/uploadify/upload',
         uploadImgHeader: { // 设置接收到json格式的返回值
           'Accept': 'application/json, text/javascript, */*; q=0.01'
         },
-        logoSrc: this.logoId,
-        imgPath: this.baseUrl + '/uploadify/renderFile/' + this.logoId,
+        imgPath: this.baseUrl + '/uploadify/renderFile/',
         logoLoading: false
       }
     },
     methods: {
       handleLogoSuccess (res, file) {
-        this.imgPath = URL.createObjectURL(file.raw)
         if (res.error === 0) {
-          this.$emit('on-success', res.fileId)
+          this.$emit('update:logoId', res.fileId)
         } else {
           this.$message.error(res.message)
         }
