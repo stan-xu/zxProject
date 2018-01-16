@@ -87,14 +87,15 @@
   export default {
     name: 'AddProject',
     mounted () {
-      if (this.$route.params.id !== undefined) {
-        this.path = '/cases/update' // 修改接口
+      if (this.$route.params.id !== undefined) { // 当做修改页使用
+        this.isChangePage = true
         this.infoSet(this.$route.params.id)
       }
     },
     data () {
       return {
         path: '/cases/save', // 添加接口
+        isChangePage: false,
         uploadImgHeader: { // 设置接收到json格式的返回值
           'Accept': 'application/json, text/javascript, */*; q=0.01'
         },
@@ -150,7 +151,7 @@
             this.imgMainList.push({name: this.projectForm.case_name, url: `${this.baseUrl}/uploadify/renderFile/${resj.data.cases.case_mainpic}`})
             resj.data.detailpic.forEach((item, index) => {
               this.projectForm.case_pic.push(item.attach_id)
-              this.imgList.push({name: `企业细节图${index}`, url: `${this.baseUrl}/uploadify/renderFile/${item.attach_id}`})
+              this.imgList.push({name: `企业细节图${index + 1}`, url: `${this.baseUrl}/uploadify/renderFile/${item.attach_id}`})
             })
           }
         )
@@ -234,14 +235,32 @@
         this.$message.error('超出图片上传个数限制!')
       },
       openMessageBox () {
-        this.$confirm('恭喜您，项目录入已提交成功！', '温馨提示', {
-          confirmButtonText: '继续录入',
-          cancelButtonText: '返回我的发布'
-        }).then(() => {
-          this.reset()
-        }).catch(() => {
-          this.$router.push({path: '/home/publish'})
-        })
+        if (this.isChangePage) {
+          this.$confirm('恭喜您，项目修改成功！', '温馨提示', {
+            confirmButtonText: '再次修改',
+            cancelButtonText: '返回我的发布'
+          }).then(() => {}).catch(() => {
+            this.$router.go(-1)
+          })
+        } else {
+          this.$confirm('恭喜您，项目录入已提交成功！', '温馨提示', {
+            confirmButtonText: '继续录入',
+            cancelButtonText: '返回我的发布'
+          }).then(() => {
+            this.reset()
+          }).catch(() => {
+            this.$router.go(-1)
+          })
+        }
+      }
+    },
+    watch: {
+      isChangePage (val) {
+        if (val) {
+          this.path = '/cases/update' // 修改接口
+        } else {
+          this.path = '/cases/save' // 添加接口
+        }
       }
     }
   }
