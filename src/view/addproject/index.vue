@@ -2,7 +2,7 @@
   <div id="addproject">
     <h3><i class="fa fa-building colorin"></i> 项目资料</h3>
     <div class="projectform">
-      <el-form label-position="right" label-width="130px" :model="projectForm" :rules="rules">
+      <el-form label-position="right" label-width="130px" :model="projectForm" ref="projectForm" :rules="rules">
         <el-form-item label="项目名称" prop="case_name">
           <el-input v-model="projectForm.case_name"></el-input>
         </el-form-item>
@@ -52,6 +52,7 @@
           <el-upload
             ref="imgUpload"
             drag
+            multiple
             :action="baseUrl+'/uploadify/uploadimg'"
             name="imgFile"
             :limit="12"
@@ -85,9 +86,15 @@
 <script>
   export default {
     name: 'AddProject',
+    mounted () {
+      if (this.$route.params.id !== undefined) {
+        this.path = '/cases/update' // 修改接口
+        this.infoSet(this.$route.params.id)
+      }
+    },
     data () {
       return {
-        path: '/case/save', // 添加接口
+        path: '/cases/save', // 添加接口
         uploadImgHeader: { // 设置接收到json格式的返回值
           'Accept': 'application/json, text/javascript, */*; q=0.01'
         },
@@ -120,7 +127,7 @@
             { required: true, message: '请上传项目展示封面图', trigger: 'change' }
           ],
           case_pic: [
-            { required: true, message: '请上传企业细节图', trigger: 'change' }
+            { type: 'array', required: true, message: '请上传企业细节图', trigger: 'change' }
           ]
         },
         imgMainList: [],
@@ -129,9 +136,9 @@
     },
     methods: {
       infoSet (id) {
-        this.caseForm.id = id
+        this.projectForm.id = id
         this.$api.get(
-          '/case/detail',
+          '/cases/detail',
           {id},
           resj => {
             this.projectForm.case_name = resj.data.cases.case_name
@@ -176,7 +183,8 @@
         this.$refs[formName].resetFields()
       },
       resetUpload (uploadName) {
-        this.$refs[uploadName].clearFiles()
+        this.$refs[uploadName].fileList.splice(0)
+        // this.$refs[uploadName].clearFiles()  // 这个方法只是清除了显示的列表，并没有改变上传图片数组
       },
       handleBeforeUpload (file) {
         if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
@@ -190,28 +198,32 @@
         }
       },
       handleOnRemoveMain (file, fileList) {
+        this.imgMainList.pop()
         this.projectForm.case_mainpic = ''
       },
       handleSuccessMain (resj) {
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
+          this.imgMainList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.projectForm.case_mainpic = resj.fileId
         }
       },
       handleOnRemove (file, fileList) {
         let delIndex = 0
-        this.projectForm.case_pic.forEach((item, index) => {
-          if (item === file.response.fileId) {
+        this.imgList.forEach((item, index) => {
+          if (item.uid === file.uid) {
             delIndex = index
           }
         })
+        this.imgList.splice(delIndex, 1)
         this.projectForm.case_pic.splice(delIndex, 1)
       },
       handleSuccess (resj) {
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
+          this.imgList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.projectForm.case_pic.push(resj.fileId)
         }
       },

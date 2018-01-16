@@ -101,6 +101,61 @@
       </el-tab-pane>
       <el-tab-pane v-if="hadProductTab" name="product">
         <span slot="label"><i class="fa fa-fire-extinguisher"></i> 消防产品</span>
+        <el-table
+          :data="productData"
+          border
+          style="width: 100%"
+          :header-cell-style="centerStyle"
+          :cell-style="centerStyle">
+          <el-table-column
+            prop="productName"
+            label="产品名称"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            prop="fireproductcode"
+            label="产品类别"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="model"
+            label="产品型号"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="certificateNo"
+            label="证书编号"
+            width="160">
+          </el-table-column>
+          <el-table-column
+            label="发证日期"
+            width="100">
+            <template slot-scope="scope">
+              {{scope.row.certDateStart | timeFormat}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="截止日期"
+            width="100">
+            <template slot-scope="scope">
+              {{scope.row.certDateEnd | timeFormat}}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="证书状态">
+            <template slot-scope="scope">
+              <span class="cer-state">{{scope.row.inState}}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="container-pagination">
+          <el-pagination
+            background
+            layout="total, prev, pager, next"
+            :total="productTotal"
+            @current-change="pageChange">
+          </el-pagination>
+        </div>
       </el-tab-pane>
     </el-tabs>
     <el-input class="search-input" placeholder="请输入内容" v-model="searchText" @keyup.enter.native="search()">
@@ -161,7 +216,7 @@
       },
       getProjectList () {
         this.$api.get(
-          '/cases/view?',
+          '/cases/view',
           this.paramsObj.project,
           resj => {
             this.projectData = resj.data.rows.map((item, index) => {
@@ -174,7 +229,7 @@
       },
       getHonorList () {
         this.$api.get(
-          '/honor/listHonor?',
+          '/honor/listHonor',
           this.paramsObj.honor,
           resj => {
             this.honorData = resj.data.rows.map((item, index) => {
@@ -187,7 +242,7 @@
       },
       getProductList () {
         this.$api.get(
-          '/product/view?',
+          '/product/mylist',
           this.paramsObj.product,
           resj => {
             this.productData = resj.data.rows
@@ -198,12 +253,15 @@
       loadList () {
         switch (this.activeName) {
           case 'project':
+            this.paramsObj.project.case_name = this.searchText
             this.getProjectList()
             break
           case 'honor':
+            this.paramsObj.honor.honor_name = this.searchText
             this.getHonorList()
             break
           case 'product':
+            this.paramsObj.product.product_name = this.searchText
             this.getProductList()
             break
           default:
@@ -215,27 +273,11 @@
         this.loadList()
       },
       search () {
-        switch (this.activeName) {
-          case 'project':
-            this.paramsObj.project.case_name = this.searchText
-            break
-          case 'honor':
-            this.paramsObj.honor.honor_name = this.searchText
-            break
-          case 'product':
-            this.paramsObj.product.product_name = this.searchText
-            break
-          default:
-            break
-        }
         this.loadList()
       },
       pageChange (page) {
         this.paramsObj[this.activeName].page = page
         this.loadList()
-      },
-      changeFun (id) {
-
       },
       delFun (id) {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -277,12 +319,8 @@
       }
     },
     filters: {
-      ellipsis (text) {
-        if (text.length > 11) {
-          return `${text.substring(0, 7)}...${text.substring(text.length - 4, text.length)}`
-        } else {
-          return text
-        }
+      timeFormat (time) {
+        return time.slice(0, 10)
       }
     }
   }
@@ -310,6 +348,9 @@
       right: 35px;
       top: 10px;
       width: 300px;
+    }
+    .cer-state{
+      color: #67C23A;
     }
   }
 </style>
