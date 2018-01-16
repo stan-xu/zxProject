@@ -35,6 +35,16 @@
                 <a @click="del_data(item.pk_ent_contacts)"><i
                   class="fa fa-trash-o"></i></a>
               </div>
+              <el-dialog
+                title="删除"
+                :visible.sync="deldialog"
+                width="30%">
+                <span>这是一段信息</span>
+                <span slot="footer" class="dialog-footer">
+    <el-button @click="deldialog = false">取 消</el-button>
+    <el-button type="primary" @click="del_data(item.pk_ent_contacts)">确 定</el-button>
+  </span>
+              </el-dialog>
             </div>
           </el-col>
           <el-dialog
@@ -114,6 +124,7 @@
         key: '',
         dialog: false,
         dialogadd: false,
+        deldialog: false,
         labelPosition: 'right',
         form: {
           contacter: '',
@@ -174,10 +185,13 @@
         })
       },
       del_data: function (id) {
-        this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
-          alert(r.message)
-          this.get_data()
-        })
+        event.returnValue = confirm('请确认是否删除？')
+        if (event.returnValue) {
+          this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
+            alert(r.message)
+            this.get_data()
+          })
+        }
       },
       modal: function (type, id) {
         if (type === 'update') {
@@ -231,6 +245,7 @@
       height: 54px;
     }
     .operation-item {
+      margin-top: 20px;
       text-align: right;
       i {
         margin-left: 10px;
