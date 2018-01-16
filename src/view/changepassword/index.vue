@@ -31,6 +31,9 @@
         if (this.form.new_password2 !== '') {
           this.$refs.form.validateField('new_password2')
         }
+        if (value === this.form.old_password) {
+          callback(new Error('原密码与新密码不能相同'))
+        }
       }
       var validatePass2 = (rule, value, callback) => {
         if (value !== this.form.new_password1) {
@@ -50,7 +53,7 @@
           ],
           new_password1: [
             { required: true, message: '请输入新密码' },
-            { validator: validatePass, trigger: 'onblur' }
+            { validator: validatePass, trigger: 'submit' }
           ],
           new_password2: [
             { required: true, message: '请再次输入新密码' },
@@ -61,9 +64,15 @@
     },
     methods: {
       post_data: function (form) {
-        this.$api.post('/account/password/change', this.form, (r) => {
-          alert(r.message)
-          this.resetForm(form)
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            this.$api.post('/account/password/change', this.form, (r) => {
+              alert(r.message)
+              this.resetForm(form)
+            })
+          } else {
+            return false
+          }
         })
       },
       resetForm: function (formName) {
