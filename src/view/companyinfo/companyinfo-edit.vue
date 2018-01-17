@@ -42,7 +42,12 @@
             <el-input type="textarea" v-model="form.ent_produce" :rows="6"></el-input>
           </el-form-item>
           <el-form-item label="营业执照" prop="signFile">
-            <file-upload @file-change="signChange"></file-upload>
+            <template v-if="form.signFile">
+              <img :src="baseUrl+'/uploadify/renderFile/'+form.signFile" alt="" class="img-responsive">
+              <div>{{form.signFile_status}}</div>
+            </template>
+            <file-upload @file-change="signChange"
+                         v-if="form.signFile_status=='审核未通过'||form.signFile_status==''"></file-upload>
           </el-form-item>
           <el-form-item label="电子合同委托书" prop="ent_commission">
             <el-upload
@@ -118,11 +123,29 @@
       }
     },
     mounted: function () {
+      this.commission.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.ent_commission}`})
+      if (this.form.ent_commission) { this.commissionUrl = '/contract/updatedoc/' }
+      if (this.form.signFile_status === '审核未通过') { this.signUrl = '/sign/update/' }
     },
     computed: {},
     methods: {
       signChange (file) {
         this.form.signFile = file
+      },
+      submitStepOne (callback) {
+        this.$api.post(this.commissionUrl + this.form.ent_commission, null,
+          resj => {
+            this.commissionUrl = '/contract/updatedoc/'
+          })
+        let formData = new FormData()
+        formData.append('signFile', this.form.signFile)
+        formData.append('sign_kind', 1)
+        formData.append('sign_type', 19)
+        formData.append('pk_sign', this.form.signFileId)
+        this.$api.post(this.signUrl, formData,
+          resj => {
+            this.signUrl = '/sign/update/'
+          })
       },
       submit () {
         this.$refs.companyForm.validate((valid) => {
@@ -132,16 +155,7 @@
               resj => {
                 this.reload()
               })
-            this.$api.post(this.commissionUrl + this.form.ent_commission, null,
-              resj => {})
-            let formData = new FormData()
-            formData.append('signFile', this.form.signFile)
-            formData.append('sign_kind', 1)
-            formData.append('sign_type', 19)
-            this.$api.post(this.signUrl, formData,
-              resj => {
-
-              })
+            this.submitStepOne()
           } else {
             return false
           }
