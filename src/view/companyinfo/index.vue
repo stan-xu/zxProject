@@ -1,5 +1,5 @@
 <template>
-  <div id="companyInfo" v-cloak>
+  <div id="companyInfo" v-cloak v-if="loaded">
     <companyinfo-edit v-if="isEdit" :form="companyInfo" :reload="load"></companyinfo-edit>
     <companyinfo-show :form="companyInfo" :toggleEdit="toggleEdit" v-else></companyinfo-show>
   </div>
@@ -18,6 +18,7 @@
     data: function () {
       return {
         isEdit: true,
+        loaded: false,
         companyInfo: {
           ent_logo: '',
           ent_id: '',
@@ -28,9 +29,7 @@
           ent_email: '',
           ent_commission: '',
           signFile: ''
-        },
-        commissionInfo: '',
-        signInfe: ''
+        }
       }
     },
     mounted: function () {
@@ -43,17 +42,14 @@
             let data = resj.data
             data.ent_type ? data.ent_type = data.ent_type.split(',') : data.ent_type = []
             data.ent_id ? this.isEdit = false : this.isEdit = true
+            data.ent_commission = data.tails.contract[0].sign_file
+            data.signFile = data.tails.sign.sign_file
+            data.signFileId = data.tails.sign.pk_sign
+            data.signFile_status = data.tails.sign.sign_status
             this.companyInfo = Object.assign({}, this.companyInfo, data)
+            this.loaded = true
           }
         )
-        this.$api.get('/contract/info', null,
-          resj => {
-            this.companyInfo.ent_commission = resj.data.sign_file
-          })
-        this.$api.get('/sign/mylist/1/19', null,
-          resj => {
-            this.companyInfo.signFile = resj.rows[0].sign_file
-          })
       },
       toggleEdit: function () {
         this.isEdit = true
