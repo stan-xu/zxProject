@@ -2,7 +2,7 @@
   <div id="upload1" v-cloak v-if="loading">
     <product-table v-if="data!='success'" keyword=''/>
     <el-button v-if="data!='success'" @click="submit" type="primary">确认提交</el-button>
-    <entQuaCer v-if="data=='success'" />
+    <entQuaCer v-if="data=='success'"/>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
     data () {
       return {
         loading: false,
-        data:''
+        data: ''
       }
     },
     mounted () {
@@ -50,11 +50,13 @@
   [v-cloak] {
     display: none;
   }
+
   .tips:before {
     content: '*';
     color: #f56c6c;
     margin-right: 4px;
   }
+
   #newEdit {
     border-top: 2px dotted #ECECEC;
     padding-top: 20px;
