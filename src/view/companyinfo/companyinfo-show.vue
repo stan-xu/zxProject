@@ -4,7 +4,7 @@
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="companyForm" label-width="140px">
           <el-form-item label="企业Logo">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178" height="178">
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -45,7 +45,7 @@
             <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_commission" alt="">
           </el-form-item>
           <el-form-item class="text-center">
-            <el-button type="primary" @click="Eidt">编辑</el-button>
+            <el-button type="primary" @click="toggleEdit">编辑</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -62,11 +62,7 @@
         entTypeList: ['房地产企业', '消防产品厂家', '消防设计单位', '消防施工单位', '消防技术服务机构', '社会单位']
       }
     },
-    methods: {
-      Eidt () {
-        this.toggleEdit()
-      }
-    },
+    methods: {},
     watch: {}
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="banner-bg">
     <div class="container v-outter-table" :style="{height:bgHeight+'px'}">
-      <el-row  class="v-table-cell">
+      <el-row class="v-table-cell">
         <el-col :span="16">
           <img src="./login-text.png" class="img-responsive">
         </el-col>
@@ -19,6 +19,14 @@
   export default {
     components: {LoginPanel},
     name: 'login',
+    mounted: function () {
+      this.$api.get('/account/islogin', null,
+        resj => {
+          if (resj.message === '已登录') {
+            this.$router.replace('/home')
+          }
+        })
+    },
     data () {
       return {
         bgHeight: window.innerHeight - 90
@@ -31,7 +39,7 @@
   #login {
     padding-top: 20px;
     background-image: url('./login-bg.jpg');
-    img{
+    img {
       height: 350px;
     }
   }

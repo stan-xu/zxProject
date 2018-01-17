@@ -35,7 +35,7 @@
 
 <style lang="scss" scoped>
   #manager {
-    .content{
+    .content {
       min-height: 904px;
       border-left: 1px solid #ddd;
       padding: 20px;
