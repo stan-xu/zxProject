@@ -7,9 +7,11 @@
       :header-cell-style="centerStyle"
       :cell-style="centerStyle">
       <el-table-column
-        prop="productName"
         label="产品名称"
         width="150">
+        <template slot-scope="scope">
+          <a class="detail-link" :href="baseUrl+'/product/view/'+ scope.row.id">{{scope.row.productName}}</a>
+        </template>
       </el-table-column>
       <el-table-column
         prop="fireproductcode"
@@ -119,6 +121,13 @@
 </script>
 <style lang="scss" scoped>
   #product-table{
+    .detail-link{
+      color: #6079b2;
+      &:hover{
+        color: $hot-dark;
+        text-decoration: underline;
+      }
+    }
     .container-pagination{
       text-align: center;
       margin-top: 15px;
