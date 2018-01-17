@@ -5,11 +5,6 @@
     <uploadForm v-if="!data||data.sign_status=='审核未通过'" :data = 'data' :name='name' @load="load" :levelLsit='levelLsit'
                 :levelAdd='levelAdd' :example='example'>
     </uploadForm>
-    <el-row>
-      <el-col class='tips' :span='20' :offset='5'>请保证以上信息的准确性</el-col>
-      <el-col class='tips' :span='20' :offset='5'>3个工作日内我们会对已提交的资料进行审核，请保持电话的畅通</el-col>
-      <el-col class='tips' :span='20' :offset='5'>如果有疑问请致电 400-1919-119</el-col>
-    </el-row>
   </div>
 </template>
 <script>
