@@ -65,8 +65,27 @@
           if (valid) {
             this.$api.post('/account/login', this.form,
               resj => {
-                EventBus.$emit('ifLogin', true)
-                this.$router.replace('/home')
+                this.$api.get('/ent/state', null,
+                  resj => {
+                    switch (resj.data.state) {
+                      case '企业注册':
+                        location.href = this.baseUrl + '/account/entinfo'
+                        break
+                      case '完善企业信息':
+                        this.$router.replace('/home/companyinfo')
+                        break
+                      case '资质认证':
+                        this.$router.replace('/home/qualification')
+                        break
+                      case '企业上线':
+                        this.$router.replace('/home/membercenter')
+                        break
+                      default:
+                        this.$router.replace('/home/membercenter')
+                        break
+                    }
+                    EventBus.$emit('ifLogin', true)
+                  })
               },
               err => {
                 this.message = err.message
