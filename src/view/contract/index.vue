@@ -43,23 +43,19 @@
   </span>
         </el-dialog>
       </div>
-      <div class="tips">
-        <el-row :gutter="20">
-          <el-col :span="24" :offset="6" class="tips-child"><span class="star">*</span>请保证以上信息的准确性</el-col>
-          <el-col :span="24" :offset="6" class="tips-child"><span class="star">*</span>3个工作日内我们会对已提交的资料进行审核，请保持电话的畅通</el-col>
-          <el-col :span="24" :offset="6" class="tips-child"><span class="star">*</span>如果有疑问请致电 400-1919-119</el-col>
-        </el-row>
-      </div>
+    <Matter></Matter>
     </div>
 </template>
 
 <script>
   import pdf from 'vue-pdf'
+  import Matter from '../../components/matters'
 
   export default {
     name: 'contract',
     components: {
-      pdf
+      pdf,
+      Matter
     },
     data: function () {
       return {
@@ -148,15 +144,6 @@
           text-align: center;
           border-right: 1px solid #ebeef5;
         }
-      }
-    }
-    .tips{
-      font-size: 14px;
-      .tips-child{
-        padding: 5px 0 10px;
-      }
-      .star{
-        color: red;
       }
     }
   }
