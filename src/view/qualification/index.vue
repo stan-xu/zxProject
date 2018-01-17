@@ -8,7 +8,7 @@
     <el-main>
       <el-row :gutter="5">
         <el-col :span="8"><router-link to="qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link></el-col>
-        <el-col :span="10"><router-link to='/home/membercenter' class="grid-content bg-type2">消防产品厂家</router-link></el-col>
+        <el-col :span="10"><router-link to='qualification/estate?type=PRO' class="grid-content bg-type2">消防产品厂家</router-link></el-col>
         <el-col :span="6"><router-link to='qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</router-link></el-col>
       </el-row>
       <el-row :gutter="5">
