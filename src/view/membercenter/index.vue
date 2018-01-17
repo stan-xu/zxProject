@@ -115,7 +115,7 @@
       }
       .status-green{
         color: #089b01;
-        font-weight:900;
+        font-weight: 800;
       }
     }
     .welcome{
