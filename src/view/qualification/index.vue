@@ -8,13 +8,13 @@
     <el-main>
       <el-row :gutter="5">
         <el-col :span="8"><router-link to="qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link></el-col>
-        <el-col :span="10"><a href='/home/membercenter' class="grid-content bg-type2">消防产品厂家</a></el-col>
-        <el-col :span="6"><a href='qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</a></el-col>
+        <el-col :span="10"><router-link to='/home/membercenter' class="grid-content bg-type2">消防产品厂家</router-link></el-col>
+        <el-col :span="6"><router-link to='qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</router-link></el-col>
       </el-row>
       <el-row :gutter="5">
-        <el-col :span="12"><a href='qualification/estate?type=FCU' class="grid-content bg-type4">消防施工单位</a></el-col>
-        <el-col :span="6"><a href='qualification/estate?type=FTS' class="grid-content bg-type5">消防技术服务机构</a></el-col>
-        <el-col :span="6"><a href='/home/membercenter' class="grid-content bg-type6">其他</a></el-col>
+        <el-col :span="12"><router-link to='qualification/estate?type=FCU' class="grid-content bg-type4">消防施工单位</router-link></el-col>
+        <el-col :span="6"><router-link to='qualification/estate?type=FTS' class="grid-content bg-type5">消防技术服务机构</router-link></el-col>
+        <el-col :span="6"><router-link to='qualification/estate?type=OTH' class="grid-content bg-type6">其他</router-link></el-col>
       </el-row>
     </el-main>
   </el-container>
@@ -35,7 +35,7 @@
       load () {
         this.$api.get('/ent/json', this.type,
         resj => {
-          if (resj.data.ent_type) {
+          if (!resj.data.ent_type) {
             alert('请先完成企业信息')
             this.$router.replace('/home/companyinfo')
           } else {
@@ -89,15 +89,15 @@ height:auto;
   background:#33AF95
 }
 .grid-content {
-display:block;
- border-radius: 0px;
- height:150px;
- text-align:center;
- line-height:150px;
- color:white;
- font-size:18px;
- padding-left:33px;
- padding-right:33px;
+  display:block;
+  border-radius: 0px;
+  height:150px;
+  text-align:center;
+  line-height:150px;
+  color:white;
+  font-size:18px;
+  padding-left:33px;
+  padding-right:33px;
 }
 .row-bg {
  padding: 5px 0;

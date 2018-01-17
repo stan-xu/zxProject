@@ -16,10 +16,22 @@
         </el-col>
       </el-row>
     </el-col>
+    <el-col :span='24' v-if='data.sign_status=="审核通过"'>
+      <el-row :gutter="20">
+        <el-col :span='24'>
+          <entQuaCer></entQuaCer>
+        </el-col>
+      </el-row>
+    </el-col>
   </el-row>
 </template>
 <script>
+  import entQuaCer from './entQuaCer.vue'
+
   export default {
+    components: {
+      entQuaCer
+    },
     name: 'uploadState',
     data () {
       return {
