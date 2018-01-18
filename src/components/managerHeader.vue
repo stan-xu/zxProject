@@ -1,24 +1,12 @@
 <template>
   <div id="managerHeader">
-    {{title}}
+    会员中心
   </div>
 </template>
 
 <script>
-  import { EventBus } from '../util/eventBus'
-
   export default {
-    name: 'managerHeader',
-    data () {
-      return {
-        title: ''
-      }
-    },
-    mounted () {
-      EventBus.$on('setHomeHeader', val => {
-        this.title = val
-      })
-    }
+    name: 'managerHeader'
   }
 </script>
 

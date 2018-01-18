@@ -24,41 +24,35 @@
     </el-row>
     <el-row>
 
+
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
       <div id="arrowButtonBox" v-if="clicked">
-        <a :href="companyurl"
-           :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
-          <div class='arrowText'>
-            <p>{{clicked.step1}}</p>
-          </div>
-        </a>
-        <a v-if='memberInfo.ent_type!="6"' :href="qualificationurl"
-           :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
-          <div class='arrowText'>
-            <p>{{clicked.step3}}</p>
-          </div>
-        </a>
-        <a v-if='memberInfo.ent_type!="6"&&clicked.step4'
-           :href="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'"
-           disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
-          <div class='arrowText'>
-            <p>{{clicked.step4}}</p>
-          </div>
-        </a>
-        <a v-if='memberInfo.ent_type=="6"&&clicked.step4'
-           :href="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled
-           :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
-          <div class='arrowText'>
-            <p>{{clicked.step4}}</p>
-          </div>
-        </a>
-      </div>
+          <router-link :to="companyurl" :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+            <div class='arrowText'>
+              <p>{{clicked.step1}}</p>
+            </div>
+        </router-link>
+          <router-link v-if='memberInfo.ent_type!="6"' :to="qualificationurl"  :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+            <div class='arrowText'>
+              <p>{{clicked.step3}}</p>
+            </div>
+        </router-link>
+          <router-link v-if='memberInfo.ent_type!="6"&&clicked.step4' :to="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
+            <div class='arrowText'>
+              <p>{{clicked.step4}}</p>
+            </div>
+        </router-link>
+          <router-link v-if='memberInfo.ent_type=="6"&&clicked.step4' :to="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
+            <div class='arrowText'>
+              <p>{{clicked.step4}}</p>
+            </div>
+        </router-link>
+        </div>
     </el-row>
   </div>
 </template>
 
 <script>
-  import {EventBus} from '../../util/eventBus'
   export default {
     name: 'memberCenter',
     data: function () {
@@ -66,7 +60,7 @@
         memberInfo: '',
         clicked: '',
         notice_list: '',
-        imgurl: this.baseUrl + '/uploadify/renderFile/',
+        imgurl: '/blade/uploadify/renderFile/',
         companyurl: '/home/companyinfo',
         qualificationurl: '/home/qualification/',
         contracturl: '/home/contract',
@@ -75,7 +69,6 @@
     },
     mounted () {
       this.get_data()
-      EventBus.$emit('setHomeHeader', '会员中心')
     },
     methods: {
       load: function () {
@@ -95,7 +88,7 @@
         this.$api.post('/ent/progress', {}, (r) => {
           this.clicked = r.data
         })
-        this.$api.post('/notice/view', {}, (r) => {
+        this.$api.post('/notice/view', { }, (r) => {
           this.notice_list = r.data
         })
       }
@@ -104,34 +97,34 @@
 </script>
 
 <style scoped lang="scss">
-  #memberCenter {
+  #memberCenter{
     margin-left: 20px;
     .memberlogo{
       width: 136px;
       height: 136px;
     }
-    .info-name {
+    .info-name{
       font-size: 20px;
       color: #1111b3;
       line-height: 74px;
     }
-    .text-font {
+    .text-font{
       font-size: 14px;
-      .text-hot {
+      .text-hot{
         color: $hot-dark;
       }
-      .status-green {
+      .status-green{
         color: #089b01;
         font-weight: 800;
       }
     }
-    .welcome {
-      color: #c41335;
-      font-size: 23px;
+    .welcome{
+      color:#c41335;
+      font-size:23px;
       margin: 100px 0 30px 0;
     }
-    .step {
-      font-size: 18px;
+    .step{
+      font-size:18px;
       margin: 0 0 30px 0;
     }
     #arrowButtonBox {
@@ -160,7 +153,7 @@
       position: relative;
       float: left;
       transition: margin 0.2s;
-      margin-right: 10px;
+      margin-right:10px;
     }
     .arrowButton:before {
       content: '';
@@ -216,7 +209,7 @@
       border-color: transparent transparent transparent #b2b2b2;
     }
     .fcolorReady {
-      background: #c31435;
+      background: #c31435 ;
       p {
         font-size: 0.9em;
         padding: 0;
@@ -235,13 +228,13 @@
         margin-left: 15px;
       }
     }
-    .fcolorReady:before, .fcolorReady:after {
+    .fcolorReady:before , .fcolorReady:after {
       border-color: transparent transparent transparent #c31435;
     }
-    .fcolorUnready:before, .fcolorUnready:after {
+    .fcolorUnready:before,  .fcolorUnready:after {
       border-color: transparent transparent transparent #b2b2b2;
     }
-    .arrowText {
+    .arrowText{
       text-align: center;
       font-size: 17px;
       width: 200px;

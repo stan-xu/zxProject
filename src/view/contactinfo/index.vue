@@ -64,13 +64,9 @@
               <el-form-item label="电子邮箱：" prop="email">
                 <el-input v-model="form.email" type="text"></el-input>
               </el-form-item>
-              <el-col :offset="4">
-                <el-form-item>
-                  <el-button type="primary" @click="update_data('form',form.pk_ent_contacts)">提交</el-button>
-                </el-form-item>
-              </el-col>
             </el-form>
             <span slot="footer" class="dialog-footer">
+               <el-button type="primary" @click="update_data('form',form.pk_ent_contacts)">提交</el-button>
   </span>
           </el-dialog>
           <el-col :span="8" v-for="(item,index) in (3-contact_list.length)" :key="'contactAdd'+index"><a
@@ -92,13 +88,9 @@
               <el-form-item label="电子邮箱：" prop="email">
                 <el-input v-model="form.email" type="text"></el-input>
               </el-form-item>
-              <el-col :offset="4">
-                <el-form-item>
-                  <el-button type="primary" @click="add_data('form')">提交</el-button>
-                </el-form-item>
-              </el-col>
             </el-form>
             <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="add_data('form')">提交</el-button>
   </span>
           </el-dialog>
         </el-row>
@@ -108,7 +100,6 @@
 </template>
 
 <script>
-  import {EventBus} from '../../util/eventBus'
   export default {
     name: 'contactinfo',
     data: function () {
@@ -149,7 +140,6 @@
     },
     mounted () {
       this.get_data()
-      EventBus.$emit('setHomeHeader', '联系人信息')
     },
     methods: {
       get_data: function () {
@@ -263,6 +253,9 @@
     }
     .el-input__inner {
       width: 80%;
+    }
+    .el-dialog__footer {
+      text-align: center;
     }
   }
 </style>

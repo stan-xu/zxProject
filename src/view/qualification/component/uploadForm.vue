@@ -3,12 +3,12 @@
     <el-row>
       <el-col :span="20" :offset="1">
         <el-form :model="form" ref="form" labelWidth="200px" :rules="rules">
-          <el-form-item v-if='levelLsit' :label="name" prop="sign_type">
+          <el-form-item  v-if='levelLsit' :label="name" prop="sign_type">
             <el-radio-group v-model="form.sign_type">
               <el-radio v-for="(item,index) in levelLsit" :label="index+levelAdd" :key="index">{{item}}</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item v-if='!levelLsit&&!data' :label="name" prop="sign_name">
+          <el-form-item  v-if='!levelLsit&&!data' :label="name" prop="sign_name">
             <el-input v-model="form.sign_name" placeholder="请输入内容"></el-input>
           </el-form-item>
           <el-form-item label="资质证书" prop="signFile">
@@ -36,7 +36,7 @@
         addUrl: '/sign/upload',
         updateUrl: '/sign/update/',
         loading: false,
-        imgFile: this.baseUrl + '/uploadify/renderFile/', // 在线图片地址
+        imgFile: '../../blade/uploadify/renderFile/', // 在线图片地址
         form: {
           signFile: '',
           sign_type: '',
