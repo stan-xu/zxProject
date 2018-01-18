@@ -14,7 +14,7 @@
             </span>年
           </el-col>
           <el-col :span="12">状态:
-            <span class="status-green">[ {{memberInfo.ent_state}} ]</span>
+            <span class="status-green">【{{memberInfo.ent_state}}】</span>
           </el-col>
         </el-row>
       </el-col>
@@ -99,7 +99,6 @@
   #memberCenter{
     margin-left: 20px;
     .memberlogo{
-      margin-top: 15px;
       width: 136px;
       height: 136px;
     }
