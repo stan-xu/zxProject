@@ -44,7 +44,7 @@
     },
     mounted () {
       this.load()
-      EventBus.$emit('setHomeHeader', '资质')
+      EventBus.$emit('setHomeHeader', '资质认证')
     },
     methods: {
       load () {
@@ -70,7 +70,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .el-main {
     overflow: initial;
     padding-right: 20%;
@@ -80,12 +80,13 @@
     height: auto;
     margin-bottom: 5px;
 
-  &
-  :last-child {
-    margin-bottom: 0;
-  }
+    &
+    :last-child {
+      margin-bottom: 0;
+    }
 
   }
+
   .el-col {
     border-radius: 0px;
   }

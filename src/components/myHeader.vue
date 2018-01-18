@@ -11,7 +11,7 @@
             <router-link to="/home/publish">我的发布</router-link>
           </li>
           <li>
-            <a :href="baseUrl">找企业</a>
+            <a :href="baseUrl+'/ent/'">找企业</a>
           </li>
           <li>
             <a @click="logout"><i class="fa fa-sign-out"></i></a>

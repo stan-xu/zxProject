@@ -24,21 +24,28 @@
 </template>
 
 <script>
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
+
   export default {
     name: 'changepassword',
     data () {
       var validatePass = (rule, value, callback) => {
-        if (this.form.new_password2 !== '') {
-          this.$refs.form.validateField('new_password2')
-        }
-        if (value === this.form.old_password) {
-          callback(new Error('原密码与新密码不能相同'))
+        if (value === '') {
+          callback(new Error('请输入密码'))
+        } else {
+          if (this.form.new_password2 !== '') {
+            this.$refs.form.validateField('new_password2')
+          }
+          callback()
         }
       }
       var validatePass2 = (rule, value, callback) => {
-        if (value !== this.form.new_password1) {
+        if (value === '') {
+          callback(new Error('请再次输入密码'))
+        } else if (value !== this.form.new_password1) {
           callback(new Error('两次输入密码不一致!'))
+        } else {
+          callback()
         }
       }
       return {
@@ -53,11 +60,9 @@
             {required: true, message: '请输入原密码', trigger: 'onblur'}
           ],
           new_password1: [
-            {required: true, message: '请输入新密码'},
             {validator: validatePass, trigger: 'submit'}
           ],
           new_password2: [
-            {required: true, message: '请再次输入新密码'},
             {validator: validatePass2, trigger: 'onblur'}
           ]
         }
@@ -66,6 +71,7 @@
     methods: {
       post_data: function (form) {
         this.$refs[form].validate((valid) => {
+          console.log(valid)
           if (valid) {
             this.$api.post('/account/password/change', this.form, (r) => {
               alert(r.message)
