@@ -101,6 +101,11 @@
       float: right;
       height: 70px;
       padding-left: 0;
+      a{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
       &.logined > li {
         padding: 0 15px;
         font-size: 18px;

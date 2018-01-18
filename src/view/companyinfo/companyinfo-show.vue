@@ -3,8 +3,8 @@
     <el-row>
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="companyForm" label-width="140px">
-          <el-form-item label="企业Logo">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178" height="178">
+          <el-form-item label="企业Logo" >
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178" height="178" v-if="form.ent_logo">
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -39,10 +39,10 @@
             {{form.ent_produce}}
           </el-form-item>
           <el-form-item label="营业执照" prop="signFile">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="" v-if="form.signFile">
           </el-form-item>
           <el-form-item label="电子合同委托书" prop="ent_commission">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_commission" alt="">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_commission" alt="" v-if="form.ent_commission">
           </el-form-item>
           <el-form-item class="text-center">
             <el-button type="primary" @click="toggleEdit">编辑</el-button>
