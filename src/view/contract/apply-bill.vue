@@ -4,7 +4,7 @@
       <el-dialog
         title="申请发票"
         :visible.sync="billdialog"
-        width="600px">
+        width="700px">
         <el-form :label-position="labelPosition" label-width="100px"  ref="form" :model="form" :rules="rules">
           <el-form-item label="发票抬头：" prop="invoice_rise">
             <el-input v-model="form.invoice_rise" type="text"></el-input>
@@ -12,13 +12,6 @@
           <el-form-item label="税号：" prop="tax_num">
             <el-input v-model="form.tax_num" type="text"></el-input>
           </el-form-item>
-          <el-form-item label="发票类型：" prop="invoice_type">
-            <el-radio-group v-model="form.invoice_type">
-              <el-radio label="纸质"></el-radio>
-              <el-radio label="电子"></el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <div v-if="form.invoice_type === '纸质' ">
             <el-form-item label="收件人：" prop="recipient_name">
               <el-input v-model="form.recipient_name" type="text"></el-input>
             </el-form-item>
@@ -31,7 +24,6 @@
             <el-form-item label="邮编：" prop="zip_code">
               <el-input v-model="form.zip_code" type="text"></el-input>
             </el-form-item>
-          </div>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="apply_bill('form',id)">提交</el-button>
@@ -122,8 +114,11 @@
   .el-dialog__header{
     text-align: left;
   }
-  .el-radio-group{
-    margin-right: 320px;
+  .el-input{
+    width: 65%;
+  }
+  .el-form-item__error{
+    width: 50%;
   }
 }
 </style>
