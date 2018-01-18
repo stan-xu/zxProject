@@ -18,6 +18,7 @@
             <template slot-scope="scope">
               <a :href="baseUrl+url"><el-button type="text">下载合同</el-button></a>
               <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
+             <applyBill></applyBill>
             </template>
           </el-table-column>
         </el-table>
@@ -49,18 +50,21 @@
 
 <script>
   import pdf from 'vue-pdf'
+  import applyBill from './apply-bill'
   import Matter from '../../components/matters'
 
   export default {
     name: 'contract',
     components: {
       pdf,
-      Matter
+      Matter,
+      applyBill
     },
     data: function () {
       return {
         content: [],
         dialogVisible: false,
+        billdialog: false,
         page: 1,
         numPages: 0,
         checkbox: '',
