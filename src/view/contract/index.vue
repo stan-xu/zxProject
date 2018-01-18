@@ -20,6 +20,7 @@
               <el-button type="text">下载合同</el-button>
             </a>
             <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
+            <ApplyBill></ApplyBill>
           </template>
         </el-table-column>
       </el-table>
@@ -52,11 +53,13 @@
 <script>
   import pdf from 'vue-pdf'
   import Matter from '../../components/matters'
+  import ApplyBill from './apply-bill'
   import { EventBus } from '../../util/eventBus'
 
   export default {
     name: 'contract',
     components: {
+      ApplyBill,
       pdf,
       Matter
     },
