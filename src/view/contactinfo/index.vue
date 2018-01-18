@@ -108,6 +108,7 @@
 </template>
 
 <script>
+  import {EventBus} from '../../util/eventBus'
   export default {
     name: 'contactinfo',
     data: function () {
@@ -148,6 +149,7 @@
     },
     mounted () {
       this.get_data()
+      EventBus.$emit('setHomeHeader', '联系人信息')
     },
     methods: {
       get_data: function () {

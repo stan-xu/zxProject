@@ -14,7 +14,7 @@
           </el-form-item>
           <el-col :offset="4">
             <el-form-item>
-            <el-button type="primary" @click="post_data('form')">提交</el-button>
+              <el-button type="primary" @click="post_data('form')">提交</el-button>
             </el-form-item>
           </el-col>
         </el-form>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import {EventBus} from '../../util/eventBus'
   export default {
     name: 'changepassword',
     data () {
@@ -49,15 +50,15 @@
         },
         rules: {
           old_password: [
-            { required: true, message: '请输入原密码', trigger: 'onblur' }
+            {required: true, message: '请输入原密码', trigger: 'onblur'}
           ],
           new_password1: [
-            { required: true, message: '请输入新密码' },
-            { validator: validatePass, trigger: 'submit' }
+            {required: true, message: '请输入新密码'},
+            {validator: validatePass, trigger: 'submit'}
           ],
           new_password2: [
-            { required: true, message: '请再次输入新密码' },
-            { validator: validatePass2, trigger: 'onblur' }
+            {required: true, message: '请再次输入新密码'},
+            {validator: validatePass2, trigger: 'onblur'}
           ]
         }
       }
@@ -78,15 +79,18 @@
       resetForm: function (formName) {
         this.$refs[formName].resetFields()
       }
+    },
+    mounted () {
+      EventBus.$emit('setHomeHeader', '修改密码')
     }
   }
 </script>
 
 <style lang="scss">
-  #changepassword{
+  #changepassword {
     margin-top: 150px;
-  .el-input__inner{
-    width: 50%;
-  }
+    .el-input__inner {
+      width: 50%;
+    }
   }
 </style>
