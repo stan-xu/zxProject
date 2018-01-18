@@ -14,7 +14,7 @@
           </el-form-item>
           <el-col :offset="4">
             <el-form-item>
-            <el-button type="primary" @click="post_data('form')">提交</el-button>
+              <el-button type="primary" @click="post_data('form')">提交</el-button>
             </el-form-item>
           </el-col>
         </el-form>
@@ -24,20 +24,28 @@
 </template>
 
 <script>
+  import { EventBus } from '../../util/eventBus'
+
   export default {
     name: 'changepassword',
     data () {
       var validatePass = (rule, value, callback) => {
-        if (this.form.new_password2 !== '') {
-          this.$refs.form.validateField('new_password2')
-        }
-        if (value === this.form.old_password) {
-          callback(new Error('原密码与新密码不能相同'))
+        if (value === '') {
+          callback(new Error('请输入密码'))
+        } else {
+          if (this.form.new_password2 !== '') {
+            this.$refs.form.validateField('new_password2')
+          }
+          callback()
         }
       }
       var validatePass2 = (rule, value, callback) => {
-        if (value !== this.form.new_password1) {
+        if (value === '') {
+          callback(new Error('请再次输入密码'))
+        } else if (value !== this.form.new_password1) {
           callback(new Error('两次输入密码不一致!'))
+        } else {
+          callback()
         }
       }
       return {
@@ -49,15 +57,13 @@
         },
         rules: {
           old_password: [
-            { required: true, message: '请输入原密码', trigger: 'onblur' }
+            {required: true, message: '请输入原密码', trigger: 'onblur'}
           ],
           new_password1: [
-            { required: true, message: '请输入新密码' },
-            { validator: validatePass, trigger: 'submit' }
+            {validator: validatePass, trigger: 'submit'}
           ],
           new_password2: [
-            { required: true, message: '请再次输入新密码' },
-            { validator: validatePass2, trigger: 'onblur' }
+            {validator: validatePass2, trigger: 'onblur'}
           ]
         }
       }
@@ -65,6 +71,7 @@
     methods: {
       post_data: function (form) {
         this.$refs[form].validate((valid) => {
+          console.log(valid)
           if (valid) {
             this.$api.post('/account/password/change', this.form, (r) => {
               alert(r.message)
@@ -78,15 +85,18 @@
       resetForm: function (formName) {
         this.$refs[formName].resetFields()
       }
+    },
+    mounted () {
+      EventBus.$emit('setHomeHeader', '修改密码')
     }
   }
 </script>
 
 <style lang="scss">
-  #changepassword{
+  #changepassword {
     margin-top: 150px;
-  .el-input__inner{
-    width: 50%;
-  }
+    .el-input__inner {
+      width: 50%;
+    }
   }
 </style>

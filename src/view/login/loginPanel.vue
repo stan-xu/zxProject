@@ -97,7 +97,7 @@
         })
       },
       loadImgCode () {
-        this.imgCode = '/blade/captcha?v=' + Math.random()
+        this.imgCode = this.baseUrl + '/captcha?v=' + Math.random()
       }
     }
   }

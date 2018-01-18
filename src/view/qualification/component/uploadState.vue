@@ -9,7 +9,7 @@
       </span>
     </el-col>
     <el-col :span='24' v-if='data.sign_status=="审核未通过"'>
-        <el-row :gutter="20">
+      <el-row :gutter="20">
         <el-col :span='12'><p>已上传证书</p></el-col>
         <el-col :span='12'>
           <img :src="imgFile+data.sign_file" alt="">
@@ -35,7 +35,7 @@
     name: 'uploadState',
     data () {
       return {
-        imgFile: '../../blade/uploadify/renderFile/' // 在线图片地址
+        imgFile: this.baseUrl + '/uploadify/renderFile/' // 在线图片地址
       }
     },
     props: ['data']
@@ -55,7 +55,7 @@
       margin: 0;
       padding: 0;
       font-size: 20px;
-      text-align:right;
+      text-align: right;
     }
     span {
       width: 100%;
@@ -63,11 +63,11 @@
       /* margin: 20px; */
       font-size: 20px;
       color: rgb(137, 137, 137);
-      text-align:left
+      text-align: left
     }
     img {
-      height:171px;
-      display:block;
+      height: 171px;
+      display: block;
     }
   }
 
@@ -76,7 +76,8 @@
     color: #f56c6c;
     margin-right: 4px;
   }
+
   #uploadState {
-    margin-bottom:20px
+    margin-bottom: 20px
   }
 </style>
