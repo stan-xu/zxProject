@@ -97,7 +97,7 @@
         }
       },
       signContract: function (id) {
-        this.$api.get('/contract/mysign/id', {}, (r) => {
+        this.$api.get('/contract/mysign/' + id, {}, (r) => {
           this.dialogVisible = false
           this.loading = true
           if (this.content[0].doc_state === '已签署') {
