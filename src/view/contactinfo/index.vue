@@ -35,16 +35,6 @@
                 <a @click="del_data(item.pk_ent_contacts)"><i
                   class="fa fa-trash-o"></i></a>
               </div>
-              <el-dialog
-                title="删除"
-                :visible.sync="deldialog"
-                width="30%">
-                <span>这是一段信息</span>
-                <span slot="footer" class="dialog-footer">
-    <el-button @click="deldialog = false">取 消</el-button>
-    <el-button type="primary" @click="del_data(item.pk_ent_contacts)">确 定</el-button>
-  </span>
-              </el-dialog>
             </div>
           </el-col>
           <el-dialog
@@ -64,13 +54,9 @@
               <el-form-item label="电子邮箱：" prop="email">
                 <el-input v-model="form.email" type="text"></el-input>
               </el-form-item>
-              <el-col :offset="4">
-                <el-form-item>
-                  <el-button type="primary" @click="update_data('form',form.pk_ent_contacts)">提交</el-button>
-                </el-form-item>
-              </el-col>
             </el-form>
             <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="update_data('form',form.pk_ent_contacts)">提交</el-button>
   </span>
           </el-dialog>
           <el-col :span="8" v-for="(item,index) in (3-contact_list.length)" :key="'contactAdd'+index"><a
@@ -92,13 +78,9 @@
               <el-form-item label="电子邮箱：" prop="email">
                 <el-input v-model="form.email" type="text"></el-input>
               </el-form-item>
-              <el-col :offset="4">
-                <el-form-item>
-                  <el-button type="primary" @click="add_data('form')">提交</el-button>
-                </el-form-item>
-              </el-col>
             </el-form>
             <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="add_data('form')">提交</el-button>
   </span>
           </el-dialog>
         </el-row>
@@ -201,8 +183,7 @@
             this.form = r.data
           })
           this.dialog = true
-        }
-        if (type === 'add') {
+        } else if (type === 'add') {
           this.dialogadd = true
         }
       },
@@ -263,6 +244,9 @@
     }
     .el-input__inner {
       width: 80%;
+    }
+    .el-dialog__footer {
+      text-align: center;
     }
   }
 </style>
