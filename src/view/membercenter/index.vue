@@ -26,26 +26,26 @@
 
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
       <div id="arrowButtonBox" v-if="clicked">
-        <a :href="companyurl" :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+        <router-link :to="companyurl" :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
-        </a>
-        <a v-if='memberInfo.ent_type!="6"' :href="qualificationurl"  :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+        </router-link>
+        <router-link v-if='memberInfo.ent_type!="6"' :to="qualificationurl"  :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
           <div class='arrowText'>
             <p>{{clicked.step3}}</p>
           </div>
-        </a>
-        <a v-if='memberInfo.ent_type!="6"&&clicked.step4' :href="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
+        </router-link>
+        <router-link v-if='memberInfo.ent_type!="6"&&clicked.step4' :to="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
           <div class='arrowText'>
             <p>{{clicked.step4}}</p>
           </div>
-        </a>
-        <a v-if='memberInfo.ent_type=="6"&&clicked.step4' :href="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
+        </router-link>
+        <router-link v-if='memberInfo.ent_type=="6"&&clicked.step4' :to="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"  onclick="">
           <div class='arrowText'>
             <p>{{clicked.step4}}</p>
           </div>
-        </a>
+        </router-link>
       </div>
     </el-row>
   </div>
