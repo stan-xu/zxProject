@@ -1,8 +1,8 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
-    <product-table v-if="data!='success'" keyword=''/>
-    <el-button v-if="data!='success'" @click="submit" type="primary">确认提交</el-button>
-    <entQuaCer v-if="data=='success'"/>
+    <product-table v-if="data!=0" keyword=''/>
+    <el-button v-if="data!=0" @click="submit" type="primary">确认提交</el-button>
+    <entQuaCer v-if="data==0"/>
   </div>
 </template>
 
@@ -37,7 +37,7 @@
         this.$api.get('/entCert/info', '',
           resj => {
             if (resj.message) {
-              this.data = resj.message
+              this.data = resj.code
             }
             console.log(this.data)
             this.loading = true
