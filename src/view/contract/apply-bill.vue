@@ -114,11 +114,11 @@
   .el-dialog__header{
     text-align: left;
   }
-  .el-input{
-    width: 65%;
+  .el-dialog__body{
+    margin-left: 50px;
   }
-  .el-form-item__error{
-    width: 50%;
+  .el-form-item__content{
+    width: 400px;
   }
 }
 </style>
