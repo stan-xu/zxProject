@@ -33,25 +33,21 @@
             href: '/home/membercenter'
           },
           {
-            title: '我的发布',
-            href: '/home/publish'
+            title: '企业信息',
+            href: '/home/companyinfo'
           },
           {
             title: '资质认证',
             href: '/home/qualification'
           },
           {
-            title: '合同签署',
+            title: '合同与付款',
             href: '/home/contract'
           },
           {
             title: '用户管理',
             active: '',
             sub: [
-              {
-                title: '企业信息',
-                href: '/home/companyinfo'
-              },
               {
                 title: '联系人信息',
                 href: '/home/contactinfo'
@@ -61,6 +57,10 @@
                 href: '/home/changepwd'
               }
             ]
+          },
+          {
+            title: '我的发布',
+            href: '/home/publish'
           }
         ]
       }

@@ -38,6 +38,12 @@
           <el-form-item label="公司简介">
             {{form.ent_produce}}
           </el-form-item>
+          <el-form-item label="企业法人" prop="ent_corporation">
+            {{form.ent_corporation}}
+          </el-form-item>
+          <el-form-item label="企业法人联系方式" prop="corporation_phone">
+            {{form.corporation_phone}}
+          </el-form-item>
           <el-form-item label="营业执照" prop="signFile">
             <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="" v-if="form.signFile">
           </el-form-item>
