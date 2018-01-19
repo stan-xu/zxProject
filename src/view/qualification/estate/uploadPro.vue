@@ -36,8 +36,8 @@
       load () {
         this.$api.get('/entCert/info', '',
           resj => {
-            if (resj.data&&resj.data!='') {
-              this.data=true
+            if (resj.data && resj.data !== '') {
+              this.data = true
             }
             console.log(this.data)
             this.loading = true
