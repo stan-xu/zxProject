@@ -97,6 +97,7 @@
         this.cloading = true
         if (this.num > 0) {
           this.cloading = false
+          this.get_data()
         } else {
           this.num = 1
         }
