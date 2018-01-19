@@ -36,7 +36,9 @@
       load () {
         this.$api.get('/entCert/info', '',
           resj => {
+          if(resj.message){
             this.data = resj.message
+          }
             console.log(this.data)
             this.loading = true
             // if(resj.rows[0].sign_kind)

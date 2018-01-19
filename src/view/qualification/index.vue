@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header height='100px'>
-      <p v-if='type'>您选择的企业类型为{{type}}请完成相应企业类型资质材料提交。</p>
+      <p v-if='type'>您选择的企业类型为{{type}},请完成相应企业类型资质材料提交。</p>
       <p v-if='!type'>您尚未选择企业类型</p>
       <strong>审核通过才能公开对应企业类型。</strong>
     </el-header>
@@ -39,7 +39,7 @@
             alert('请先完成企业信息')
             this.$router.replace('/home/companyinfo')
           } else {
-            this.type.resj.replace('1', '房地产企业')
+            this.type = resj.data.ent_type.replace('1', '房地产企业')
             .replace('2', '消防产品厂家')
             .replace('3', '消防设计单位')
             .replace('4', '消防施工单位')
