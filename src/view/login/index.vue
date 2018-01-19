@@ -1,5 +1,5 @@
 <template>
-  <div id="login" class="banner-bg">
+  <div id="login" class="banner-bg" v-if="loaded">
     <div class="container v-outter-table" :style="{height:bgHeight+'px'}">
       <el-row class="v-table-cell">
         <el-col :span="16">
@@ -23,13 +23,16 @@
       this.$api.get('/account/islogin', null,
         resj => {
           if (resj.message === '已登录') {
-            this.$router.replace('/home')
+            this.$router.replace('/home/membercenter')
+          } else {
+            this.loaded = true
           }
         })
     },
     data () {
       return {
-        bgHeight: window.innerHeight - 90
+        bgHeight: window.innerHeight - 90,
+        loaded: false
       }
     }
   }

@@ -24,6 +24,7 @@
   import ProjectTable from './project-table.vue'
   import HonorTable from './honor-table.vue'
   import ProductTable from './product-table.vue'
+  import {EventBus} from '../../util/eventBus'
 
   export default {
     name: 'Publish',
@@ -34,6 +35,7 @@
     },
     mounted () {
       this.getMeberInfo()
+      EventBus.$emit('setHomeHeader', '我的发布')
     },
     data () {
       return {

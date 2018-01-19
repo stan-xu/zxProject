@@ -123,8 +123,10 @@
       }
     },
     mounted: function () {
-      this.commission.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.ent_commission}`})
-      if (this.form.ent_commission) { this.commissionUrl = '/contract/updatedoc/' }
+      if (this.form.ent_commission) {
+        this.commissionUrl = '/contract/updatedoc/'
+        this.commission.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.ent_commission}`})
+      }
       if (this.form.signFile_status === '审核未通过') { this.signUrl = '/sign/update/' }
     },
     computed: {},
@@ -137,15 +139,17 @@
           resj => {
             this.commissionUrl = '/contract/updatedoc/'
           })
-        let formData = new FormData()
-        formData.append('signFile', this.form.signFile)
-        formData.append('sign_kind', 1)
-        formData.append('sign_type', 19)
-        formData.append('pk_sign', this.form.signFileId)
-        this.$api.post(this.signUrl, formData,
-          resj => {
-            this.signUrl = '/sign/update/'
-          })
+        if (this.form.signFile_status === '审核未通过' || this.form.signFile_status === '') {
+          let formData = new FormData()
+          formData.append('signFile', this.form.signFile)
+          formData.append('sign_kind', 1)
+          formData.append('sign_type', 19)
+          formData.append('pk_sign', this.form.signFileId)
+          this.$api.post(this.signUrl, formData,
+            resj => {
+              this.signUrl = '/sign/update/'
+            })
+        }
       },
       submit () {
         this.$refs.companyForm.validate((valid) => {
