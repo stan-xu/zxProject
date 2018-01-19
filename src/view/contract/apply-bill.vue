@@ -7,10 +7,10 @@
         width="700px">
         <el-form :label-position="labelPosition" label-width="100px"  ref="form" :model="form" :rules="rules">
           <el-form-item label="发票抬头：" prop="invoice_rise">
-            <el-input v-model="form.invoice_rise" type="text"></el-input>
+            <div class="form-text">{{form.invoice_rise}}</div>
           </el-form-item>
           <el-form-item label="税号：" prop="tax_num">
-            <el-input v-model="form.tax_num" type="text"></el-input>
+            <div class="form-text">{{form.tax_num}}</div>
           </el-form-item>
             <el-form-item label="收件人：" prop="recipient_name">
               <el-input v-model="form.recipient_name" type="text"></el-input>
@@ -43,15 +43,9 @@
             callback()
           }
         }
-        var checkTax = (rule, value, callback) => {
-          if (!(/^[A-Z0-9]{15}$|^[A-Z0-9]{17}$|^[A-Z0-9]{18}$|^[A-Z0-9]{20}$/.test(value))) {
-            return callback(new Error('请填写正确的税号'))
-          } else {
-            callback()
-          }
-        }
         return {
           labelPosition: 'right',
+          company_list: '',
           billdialog: false,
           form: {
             invoice_rise: '',
@@ -63,13 +57,6 @@
             zip_code: ''
           },
           rules: {
-            invoice_rise: [
-              {required: true, message: '请输入发票抬头', trigger: 'submit'}
-            ],
-            tax_num: [
-              {required: true, message: '请输入税号', trigger: 'submit'},
-              {validator: checkTax, trigger: 'blur'}
-            ],
             invoice_type: [
               {required: true, message: '请输入收件类型', trigger: 'submit'}
             ],
@@ -88,7 +75,17 @@
           }
         }
       },
+      mounted () {
+        this.get_data()
+      },
       methods: {
+        get_data: function () {
+          this.$api.post('/ent/json', {}, (r) => {
+            this.company_list = r.data
+            this.form.invoice_rise = this.company_list.ent_name
+            this.form.tax_num = this.company_list.ent_id
+          })
+        },
         apply_bill: function (form, id) {
           this.$refs[form].validate((valid) => {
             if (valid) {
@@ -116,6 +113,9 @@
   }
   .el-dialog__body{
     margin-left: 50px;
+    .form-text{
+      text-align: left;
+    }
   }
   .el-form-item__content{
     width: 400px;
