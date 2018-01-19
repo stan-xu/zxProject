@@ -27,27 +27,30 @@
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
       <div id="arrowButtonBox" v-if="clicked">
         <router-link :to="companyurl"
-           :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+                     :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
         </router-link>
         <router-link v-if='memberInfo.ent_type!="6"' :to="qualificationurl"
-           :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+                     :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'"
+                     onclick="">
           <div class='arrowText'>
             <p>{{clicked.step3}}</p>
           </div>
         </router-link>
         <router-link v-if='memberInfo.ent_type!="6"&&clicked.step4'
-           :to="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'"
-           disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+                     :to="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'"
+                     disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"
+                     onclick="">
           <div class='arrowText'>
             <p>{{clicked.step4}}</p>
           </div>
         </router-link>
         <router-link v-if='memberInfo.ent_type=="6"&&clicked.step4'
-           :to="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled
-           :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+                     :to="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled
+                     :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"
+                     onclick="">
           <div class='arrowText'>
             <p>{{clicked.step4}}</p>
           </div>
@@ -59,6 +62,7 @@
 
 <script>
   import {EventBus} from '../../util/eventBus'
+
   export default {
     name: 'memberCenter',
     data: function () {
@@ -106,7 +110,7 @@
 <style scoped lang="scss">
   #memberCenter {
     margin-left: 20px;
-    .memberlogo{
+    .memberlogo {
       width: 136px;
       height: 136px;
     }
@@ -189,21 +193,23 @@
     .colorReady {
       background: #c31435;
       p {
-        font-size: 0.9em;
+        font-size: 15px;
         padding: 0;
         margin: 0;
         line-height: 100px;
-        margin-left: 45px;
+        margin-left: 35px;
+        margin-right: -10px;
       }
     }
     .colorUnready {
       background: #b2b2b2;
       p {
-        font-size: 0.9em;
+        font-size: 15px;
         padding: 0;
         margin: 0;
         line-height: 100px;
-        margin-left: 45px;
+        margin-left: 35px;
+        margin-right: -10px;
       }
     }
     .colorReady:before, .colorUnready:before {
@@ -218,7 +224,7 @@
     .fcolorReady {
       background: #c31435;
       p {
-        font-size: 0.9em;
+        font-size: 15px;
         padding: 0;
         margin: 0;
         line-height: 100px;
@@ -228,7 +234,7 @@
     .fcolorUnready {
       background: #b2b2b2;
       p {
-        font-size: 0.9em;
+        font-size: 15px;
         padding: 0;
         margin: 0;
         line-height: 100px;
