@@ -2,6 +2,7 @@
   <div id="contract">
     <div class="sign">
       <el-table
+        id="contract-table"
         v-loading="loading"
         :data="content"
         style="width: 868px">
@@ -20,7 +21,8 @@
               <el-button type="text">下载合同</el-button>
             </a>
             <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
-            <ApplyBill></ApplyBill>
+            <apply-bill></apply-bill>
+            <pay :payId="content[0].id" :on-success="get_data"></pay>
           </template>
         </el-table-column>
       </el-table>
@@ -55,10 +57,12 @@
   import Matter from '../../components/matters'
   import ApplyBill from './apply-bill'
   import { EventBus } from '../../util/eventBus'
+  import Pay from './pay'
 
   export default {
     name: 'contract',
     components: {
+      Pay,
       ApplyBill,
       pdf,
       Matter
@@ -79,7 +83,7 @@
     },
     mounted () {
       this.get_data()
-      EventBus.$emit('setHomeHeader', '合同签署')
+      EventBus.$emit('setHomeHeader', '合同与付款')
     },
     methods: {
       get_data: function () {
@@ -142,15 +146,15 @@
       .el-button--text {
         color: #2d2f33;
       }
-      .el-table {
+      #contract-table {
         border: 1px solid #ebeef5;
+        text-align: center;
         th {
           text-align: center;
           color: black;
           border-right: 1px solid #ebeef5;
         }
         td {
-          text-align: center;
           border-right: 1px solid #ebeef5;
         }
       }
