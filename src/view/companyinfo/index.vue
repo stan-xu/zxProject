@@ -8,7 +8,7 @@
 <script>
   import CompanyinfoEdit from './companyinfo-edit'
   import CompanyinfoShow from './companyinfo-show'
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
 
   export default {
     name: 'companyInfo',
@@ -29,6 +29,8 @@
           ent_phone: '',
           ent_email: '',
           ent_commission: '',
+          ent_corporation: '',
+          corporation_phone: '',
           signFile: '',
           signFile_status: '',
           signFileId: ''
@@ -47,8 +49,6 @@
             data.ent_type ? data.ent_type = data.ent_type.split(',') : data.ent_type = []
             data.ent_id ? this.isEdit = false : this.isEdit = true
             this.loaded = true
-            console.log(this.loaded)
-            console.log(data)
             if (data.tails.contract.length) {
               data.ent_commission = data.tails.contract[0].sign_file
             }

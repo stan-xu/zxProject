@@ -17,7 +17,7 @@
           </el-form-item>
           <el-form-item label="企业类型" prop="ent_type">
             <el-checkbox-group v-model="form.ent_type">
-              <el-checkbox :label="index.toString()" name="ent_type" v-for="(type, index) in entTypeList" :key="index">
+              <el-checkbox :label="(index+1).toString()" name="ent_type" v-for="(type, index) in entTypeList" :key="index">
                 {{type}}
               </el-checkbox>
             </el-checkbox-group>
@@ -40,6 +40,12 @@
           </el-form-item>
           <el-form-item label="公司简介">
             <el-input type="textarea" v-model="form.ent_produce" :rows="6"></el-input>
+          </el-form-item>
+          <el-form-item label="企业法人" prop="ent_corporation">
+            <el-input v-model="form.ent_corporation"></el-input>
+          </el-form-item>
+          <el-form-item label="企业法人联系方式" prop="corporation_phone">
+            <el-input v-model="form.corporation_phone"></el-input>
           </el-form-item>
           <el-form-item label="营业执照" prop="signFile">
             <template v-if="form.signFile">
@@ -67,9 +73,10 @@
               <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
               <div class="el-upload__tip" slot="tip">
                 <el-alert
-                  title="只能上传一张jpg/png文件，且不超过2M"
+                  title=""
                   type="warning"
                   :closable="false">
+                  请打印<a :href="commissionFilePath" style="color: #1c78ab" target="_blank">电子合同委托书</a>填写完毕后拍照上传
                 </el-alert>
               </div>
             </el-upload>
@@ -101,6 +108,7 @@
       return {
         formUrl: '/ent/update',
         commissionUrl: '/contract/uploaddoc/',
+        commissionFilePath: 'http://cdn.zxzx119.com/2017chinafire.pdf',
         fileUrl: this.baseUrl + '/uploadify/upload',
         signUrl: '/sign/upload',
         regionData: data,
@@ -112,7 +120,9 @@
           ent_region_id: [{required: true, message: '请输入所在地区', trigger: 'submit'}],
           ent_addr: [{required: true, message: '请输入企业地址', trigger: 'submit'}],
           ent_phone: [{required: true, message: '请输入联系电话', trigger: 'submit'}],
-          ent_email: [{required: true, message: '请输入电子邮箱', trigger: 'submit'}],
+          ent_email: [{type: 'email', message: '请输入电子邮箱', trigger: 'submit'}],
+          ent_corporation: [{required: true, message: '请输入企业法人', trigger: 'submit'}],
+          corporation_phone: [{required: true, message: '请输入企业法人联系方式', trigger: 'submit'}],
           ent_commission: [{required: true, message: '请上传电子合同委托书', trigger: 'submit'}],
           signFile: [{required: true, message: '请上传营业执照', trigger: 'submit'}]
         },
