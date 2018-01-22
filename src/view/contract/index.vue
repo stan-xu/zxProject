@@ -17,12 +17,20 @@
         <el-table-column
           label="操作">
           <template slot-scope="scope">
-            <a :href="baseUrl+url">
-              <el-button type="text">下载合同</el-button>
-            </a>
-            <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state=='未签署'">签署合同</el-button>
-            <apply-bill></apply-bill>
-            <pay :payId="content[0].id" :on-success="get_data"></pay>
+            <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state === '未签署'">签署合同</el-button>
+            <div v-if="content[0].doc_state === '已签署'">
+              <pay :payId="content[0].id" :on-success="get_data" v-if="!payInfo.channel"></pay>
+              <div v-if="payInfo.channel =='remittance' && tails.pay_state=='未付款'">付款审批中</div>
+              <div v-if="tails.pay_state=='已付款'">
+                <a :href="baseUrl+url">
+                  <el-button type="text">下载合同</el-button>
+                </a>
+                <apply-bill :applyId="tails.orderid" :on-success="get_data"
+                            v-if="tails.invoice_state == '未申请'"></apply-bill>
+                <span v-if="tails.invoice_state == '已申请'">发票已申请</span>
+                <div v-if="tails.invoice_state == '已开具'">物流单号:{{detail.tax_num}}</div>
+              </div>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -56,7 +64,7 @@
   import pdf from 'vue-pdf'
   import Matter from '../../components/matters'
   import ApplyBill from './apply-bill'
-  import { EventBus } from '../../util/eventBus'
+  import {EventBus} from '../../util/eventBus'
   import Pay from './pay'
 
   export default {
@@ -78,7 +86,11 @@
         pdfurl: '',
         loading: false,
         cloading: false,
-        num: ''
+        num: '',
+        tails: '',
+        payInfoUrl: '/contract/order/',
+        payInfo: '',
+        detail: ''
       }
     },
     mounted () {
@@ -92,9 +104,23 @@
           if (this.content.length) {
             this.url = '/contract/download/' + this.content[0].id
             this.pdfurl = '/contract/pdf/' + this.content[0].id
+            this.tails = this.content[0].tails
             this.loading = false
+            this.getPayInfo()
+            this.getTax()
           }
         })
+      },
+      getTax () {
+        this.$api.get('/zxOrder/detail?id=' + this.tails.orderid, null, (r) => {
+          this.detail = r.data.tails
+        })
+      },
+      getPayInfo () {
+        this.$api.post(this.payInfoUrl + this.content[0].id, null,
+          resj => {
+            this.payInfo = resj.data
+          })
       },
       sign: function (id) {
         this.dialogVisible = true
@@ -110,6 +136,7 @@
         this.$api.get('/contract/mysign/' + id, {}, (r) => {
           this.dialogVisible = false
           this.loading = true
+          this.get_data()
           if (this.content[0].doc_state === '已签署') {
             this.loading = false
           }
