@@ -36,7 +36,7 @@
           if (this.form.new_password2 !== '') {
             this.$refs.form.validateField('new_password2')
           }
-          if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8}$/.test(value))) {
+          if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,30}$/.test(value))) {
             callback(new Error('最少8个字符，需包含大小写字母及数字'))
           }
           if (value === this.form.old_password) {
