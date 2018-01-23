@@ -1,6 +1,13 @@
 <template>
   <div id="contract">
     <div class="sign">
+      <div v-if="contract.contract_state !== '已签署'">
+        <el-alert
+          title="请先完成电子合同委托书"
+          type="error"
+          show-icon>
+        </el-alert>
+      </div>
       <el-table
         id="contract-table"
         v-loading="loading"
@@ -19,8 +26,8 @@
           <template slot-scope="scope">
             <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state === '未签署'">签署合同</el-button>
             <div v-if="content[0].doc_state === '已签署'">
-              <pay :payId="content[0].id" :on-success="get_data" v-if="!payInfo.channel"></pay>
-              <div v-if="payInfo.channel =='remittance' && tails.pay_state=='未付款'">付款审批中</div>
+              <pay :payId="content[0].id" :on-success="get_data" v-if="!tails.channel"></pay>
+              <div v-if="tails.channel =='remittance' && tails.pay_state=='未付款'">付款审批中</div>
               <div v-if="tails.pay_state=='已付款'">
                 <a :href="baseUrl+url">
                   <el-button type="text">下载合同</el-button>
@@ -88,16 +95,23 @@
         cloading: false,
         num: '',
         tails: '',
-        payInfoUrl: '/contract/order/',
-        payInfo: '',
-        detail: ''
+        detail: '',
+        contract: ''
       }
     },
     mounted () {
-      this.get_data()
+      this.getInfo()
       EventBus.$emit('setHomeHeader', '合同与付款')
     },
     methods: {
+      getInfo () {
+        this.$api.get('/contract/info', null, (r) => {
+          this.contract = r.data
+          if (this.contract.contract_state === '已签署') {
+            this.get_data()
+          }
+        })
+      },
       get_data: function () {
         this.$api.get('/contract/me', {}, (r) => {
           this.content = r.data
@@ -106,7 +120,6 @@
             this.pdfurl = '/contract/pdf/' + this.content[0].id
             this.tails = this.content[0].tails
             this.loading = false
-            this.getPayInfo()
             this.getTax()
           }
         })
@@ -115,12 +128,6 @@
         this.$api.get('/zxOrder/detail?id=' + this.tails.orderid, null, (r) => {
           this.detail = r.data.tails
         })
-      },
-      getPayInfo () {
-        this.$api.post(this.payInfoUrl + this.content[0].id, null,
-          resj => {
-            this.payInfo = resj.data
-          })
       },
       sign: function (id) {
         this.dialogVisible = true
@@ -147,6 +154,10 @@
 </script>
 
 <style lang="scss">
+  .el-alert{
+    width: 868px;
+    margin-bottom: 15px;
+  }
   #contract {
     width: 960px;
     margin-left: auto;
