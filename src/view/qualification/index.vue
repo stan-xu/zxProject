@@ -1,11 +1,11 @@
 <template>
-  <el-container>
-    <el-header height='100px'>
+  <div>
+    <div height='100px'>
       <p v-if='type'>您选择的企业类型为{{type}},请完成相应企业类型资质材料提交。</p>
       <p v-if='!type'>您尚未选择企业类型</p>
       <strong>审核通过才能公开对应企业类型。</strong>
-    </el-header>
-    <el-main>
+    </div>
+    <div>
       <el-row :gutter="5">
         <el-col :span="8">
           <router-link to="qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link>
@@ -28,8 +28,8 @@
           <router-link to='qualification/estate?type=OTH' class="grid-content bg-type6">其他</router-link>
         </el-col>
       </el-row>
-    </el-main>
-  </el-container>
+    </div>
+  </div>
 </template>
 
 <script>
