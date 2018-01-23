@@ -1,8 +1,8 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
-    <product-table v-if="data!='success'" keyword=''/>
-    <el-button v-if="data!='success'" @click="submit" type="primary">确认提交</el-button>
-    <entQuaCer v-if="data=='success'"/>
+    <product-table v-if="!data" keyword=''/>
+    <el-button v-if="!data" @click="submit" type="primary">确认提交</el-button>
+    <entQuaCer v-if="data"/>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
     data () {
       return {
         loading: false,
-        data: ''
+        data: false
       }
     },
     mounted () {
@@ -36,7 +36,9 @@
       load () {
         this.$api.get('/entCert/info', '',
           resj => {
-            this.data = resj.message
+            if (resj.data && resj.data !== '') {
+              this.data = true
+            }
             console.log(this.data)
             this.loading = true
             // if(resj.rows[0].sign_kind)

@@ -49,22 +49,22 @@
     methods: {
       load () {
         this.$api.get('/ent/json', this.type,
-          resj => {
-            if (!resj.data.ent_type) {
-              alert('请先完成企业信息')
-              this.$router.replace('/home/companyinfo')
-            } else {
-              this.type = resj.data.ent_type.replace('1', '房地产企业')
-                .replace('2', '消防产品厂家')
-                .replace('3', '消防设计单位')
-                .replace('4', '消防施工单位')
-                .replace('5', '消防技术服务机构')
-                .replace('6', '其他')
-            }
-          },
-          err => {
-            console.log(err.message)
-          })
+        resj => {
+          if (!resj.data.ent_type) {
+            alert('请先完成企业信息')
+            this.$router.replace('/home/companyinfo')
+          } else {
+            this.type = resj.data.ent_type.replace('1', '房地产企业')
+            .replace('2', '消防产品厂家')
+            .replace('3', '消防设计单位')
+            .replace('4', '消防施工单位')
+            .replace('5', '消防技术服务机构')
+            .replace('6', '其他')
+          }
+        },
+        err => {
+          console.log(err.message)
+        })
       }
     }
   }

@@ -37,7 +37,7 @@
       load () {
         this.$api.get('/sign/mylist/2/5', '',
           resj => {
-            for (var i = 0; i < 3; i++) {
+            for (var i = 0; i < resj.rows.length; i++) {
               if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
                 this.data[0] = resj.rows[i]
               } else if (resj.rows[i].sign_type.indexOf('监测') >= 0) {

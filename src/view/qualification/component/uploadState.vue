@@ -66,8 +66,9 @@
       text-align: left
     }
     img {
-      height: 171px;
-      display: block;
+      height:171px;
+      max-width:95%;
+      display:block;
     }
   }
 
