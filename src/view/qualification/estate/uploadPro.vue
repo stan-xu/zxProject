@@ -1,7 +1,9 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
     <product-table v-if="!data" keyword=''/>
-    <el-button v-if="!data" @click="submit" type="primary">确认提交</el-button>
+    <div  class="btn-center">
+      <el-button v-if="!data" @click="submit" type="primary">确认提交</el-button>
+    </div>
     <entQuaCer v-if="data"/>
   </div>
 </template>
@@ -57,6 +59,10 @@
     content: '*';
     color: #f56c6c;
     margin-right: 4px;
+  }
+  .btn-center{
+    text-align: center;
+    margin: 40px 0 30px 0;
   }
 
   #newEdit {
