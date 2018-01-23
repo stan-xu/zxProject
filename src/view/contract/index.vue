@@ -12,7 +12,7 @@
         id="contract-table"
         v-loading="loading"
         :data="content"
-        style="width: 868px">
+        style="width: 925px">
         <el-table-column
           prop="doc_name"
           label="合同标题">
@@ -155,7 +155,7 @@
 
 <style lang="scss">
   .el-alert{
-    width: 868px;
+    width: 925px;
     margin-bottom: 15px;
   }
   #contract {
