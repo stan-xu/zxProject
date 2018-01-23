@@ -21,7 +21,7 @@
           <b>银行账号：</b><span>310066726018800051881</span>
         </p>
         <p>
-          <b>订单编号：</b><span>{{payInfo.id}}}</span>
+          <b>订单编号：</b><span>{{payInfo.id}}</span>
         </p>
       </template>
       <template v-else>
@@ -34,37 +34,50 @@
         </p>
       </template>
       <h3 class="text-hot">选择支付方式付款</h3>
-      <el-radio-group v-model="payType">
-        <el-radio v-model="payType" label="alipay_pc_direct">
-          <img src="./images/alipay.jpg" alt="">
-        </el-radio>
-        <el-radio v-model="payType" label="wx_pub_qr">
-          <img src="./images/wx.jpg" alt="">
-        </el-radio>
-        <el-radio v-model="payType" label="remittance">
-          <img src="./images/bank.jpg" alt="">
-        </el-radio>
-      </el-radio-group>
+      <el-row v-model="payType">
+        <el-col :span="6">
+          <el-radio v-model="payType" label="alipay_pc_direct">
+            <img src="./images/alipay.jpg" alt="">
+          </el-radio>
+        </el-col>
+        <el-col :span="6">
+          <el-radio v-model="payType" label="wx_pub_qr">
+            <img src="./images/wx.jpg" alt="" class="img-responsive">
+          </el-radio>
+        </el-col>
+        <el-col :span="6">
+          <el-radio v-model="payType" label="upacp_pc">
+            <img src="./images/bankol.jpg" alt="" class="img-responsive">
+          </el-radio>
+        </el-col>
+        <el-col :span="6">
+          <el-radio v-model="payType" label="remittance">
+            <img src="./images/bank.jpg" alt="" class="img-responsive">
+          </el-radio>
+        </el-col>
+      </el-row>
+      <el-collapse-transition>
+        <div class="qrCode" v-show="qrCode&&payType==='wx_pub_qr'">
+          <vue-qrcode :value="qrCode" :options="{ size: 200 }"></vue-qrcode>
+        </div>
+      </el-collapse-transition>
       <div class="text-center button-container">
-        <el-button type="primary" v-if="payType=='alipay_pc_direct'" @click="aliPay">立即付款</el-button>
+        <el-button type="primary" v-if="payType=='alipay_pc_direct'||payType=='upacp_pc'" @click="aliPay">立即付款
+        </el-button>
         <el-button type="primary" v-if="payType=='remittance'" @click="remittancePay">汇款成功</el-button>
-        <el-button type="primary">稍后付款</el-button>
+        <el-button type="primary" @click="dialogShow=false">稍后付款</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-  import ElDialog from 'element-ui/packages/dialog/src/component'
-  import ElButton from 'element-ui/packages/button/src/button'
-  import ElFormItem from 'element-ui/packages/form/src/form-item'
   import pingpp from 'pingpp-js'
+  import VueQrcode from '@xkeshi/vue-qrcode'
 
   export default {
     components: {
-      ElFormItem,
-      ElButton,
-      ElDialog
+      VueQrcode
     },
     name: 'pay',
     props: ['payId', 'onSuccess'],
@@ -74,8 +87,11 @@
         payInfoUrl: '/contract/order/',
         remittanceUrl: '/zxOrder/update/',
         payUrl: '/pay/',
+        payStatusUrl: '/pay/status/',
+        payStatus: '',
         payInfo: '',
-        payType: ''
+        payType: '',
+        qrCode: ''
       }
     },
     methods: {
@@ -96,21 +112,53 @@
       aliPay () {
         this.$api.post(`${this.payUrl}${this.payType}/${this.payInfo.id}`, null,
           resj => {
-            // pingpp.setUrlReturnCallback(callback, channels)
-            pingpp.createPayment(resj.data, function (result, err) {
-              console.log(result)
-              console.log(err.msg)
-              console.log(err.extra)
-              if (result === 'success') {
-                console.log('aasds')
-                // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-              } else if (result === 'fail') {
-                // charge 不正确或者微信公众账号支付失败时会在此处返回
-              } else if (result === 'cancel') {
-                // 微信公众账号支付取消支付
-              }
-            })
+            if (this.payType === 'wx_pub_qr') {
+              this.qrCode = resj.data.credential.wx_pub_qr
+            } else {
+              pingpp.setUrlReturnCallback((err, url) => {
+                if (err) {
+                  alert(err)
+                } else {
+                  window.open(url)
+                }
+              }, ['alipay_pc_direct', 'upacp_pc'])
+              pingpp.createPayment(resj.data, function (result, err) {
+                console.log(result)
+                console.log(err.msg)
+                console.log(err.extra)
+                if (result === 'success') {
+                  console.log('aasds')
+                  // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                } else if (result === 'fail') {
+                  // charge 不正确或者微信公众账号支付失败时会在此处返回
+                } else if (result === 'cancel') {
+                  // 微信公众账号支付取消支付
+                }
+              })
+            }
+            this.pay_status()
+          }
+        )
+      },
+      pay_status: function () {
+        this.$api.post(this.payStatusUrl + this.payInfo.id, null,
+          resj => {
+            if (resj.data.pay_state === '未付款') {
+              this.payStatus = setTimeout(() => {
+                this.pay_status()
+              }, 2000)
+            } else {
+              clearTimeout(this.payStatus)
+              this.onSuccess()
+            }
           })
+      }
+    },
+    watch: {
+      payType: function (value) {
+        if (value === 'wx_pub_qr') {
+          this.aliPay()
+        }
       }
     }
   }
@@ -136,11 +184,19 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
-    .el-radio img {
-      margin-bottom: -13px;
+    .el-radio {
+      margin-bottom: 20px;
+      img {
+        width: 95px;
+        height: 34px;
+        margin-bottom: -13px;
+        display: inline-block;
+      }
     }
-    .button-container {
-      margin-top: 40px;
+    .qrCode {
+      height: 200px;
+      margin-bottom: 20px;
+      text-align: center;
     }
   }
 </style>

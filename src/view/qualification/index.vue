@@ -8,24 +8,24 @@
     <div>
       <el-row :gutter="5">
         <el-col :span="8">
-          <router-link to="qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link>
+          <router-link to="/qualification/estate?type=HD" class="grid-content bg-type1">房地产企业</router-link>
         </el-col>
         <el-col :span="10">
-          <router-link to='qualification/estate?type=PRO' class="grid-content bg-type2">消防产品厂家</router-link>
+          <router-link to='/qualification/estate?type=PRO' class="grid-content bg-type2">消防产品厂家</router-link>
         </el-col>
         <el-col :span="6">
-          <router-link to='qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</router-link>
+          <router-link to='/qualification/estate?type=FDU' class="grid-content bg-type3">消防设计单位</router-link>
         </el-col>
       </el-row>
       <el-row :gutter="5">
         <el-col :span="12">
-          <router-link to='qualification/estate?type=FCU' class="grid-content bg-type4">消防施工单位</router-link>
+          <router-link to='/qualification/estate?type=FCU' class="grid-content bg-type4">消防施工单位</router-link>
         </el-col>
         <el-col :span="6">
-          <router-link to='qualification/estate?type=FTS' class="grid-content bg-type5">消防技术服务机构</router-link>
+          <router-link to='/qualification/estate?type=FTS' class="grid-content bg-type5">消防技术服务机构</router-link>
         </el-col>
         <el-col :span="6">
-          <router-link to='qualification/estate?type=OTH' class="grid-content bg-type6">其他</router-link>
+          <router-link to='/qualification/estate?type=OTH' class="grid-content bg-type6">其他</router-link>
         </el-col>
       </el-row>
     </div>

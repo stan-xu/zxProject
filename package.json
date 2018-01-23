@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@xkeshi/vue-qrcode": "^0.3.0",
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "element-theme-chalk": "^2.0.10",

@@ -42,9 +42,12 @@ let apiAxios = (method, url, params, success, fail) => {
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
     baseURL: root,
-    withCredentials: false,
+    withCredentials: true,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Expires': 0
     },
     dataType: 'json'
   }).then(

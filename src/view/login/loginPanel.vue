@@ -28,8 +28,8 @@
         </el-form-item>
       </el-form>
       <div class="features">
-        <router-link to="">忘记密码</router-link>&nbsp;|
-        <router-link to="">免费注册</router-link>
+        <a :href="this.baseUrl+'/account/register'">忘记密码</a>&nbsp;|
+        <a :href="this.baseUrl+'/account/forget'">免费注册</a>
       </div>
     </div>
   </div>
