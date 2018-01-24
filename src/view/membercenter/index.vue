@@ -23,38 +23,31 @@
       </el-col>
     </el-row>
     <el-row>
-
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
-      <div id="arrowButtonBox" v-if="clicked">
-        <router-link :to="companyurl"
-                     :class="(clicked.step1!='企业信息已完善')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+      <div id="arrowButtonBox" v-if="clicked" >
+        <a @click="companyinfo_data()" :class="(clicked.step1!='企业信息已通过')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
-        </router-link>
-        <router-link v-if='memberInfo.ent_type!="6"' :to="qualificationurl"
-                     :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'"
-                     onclick="">
+        </a>
+        <a  @click="qualificationinfo_data()" v-if='memberInfo.ent_type!="6"' :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
           <div class='arrowText'>
             <p>{{clicked.step3}}</p>
           </div>
-        </router-link>
-        <router-link v-if='memberInfo.ent_type!="6"&&clicked.step4'
-                     :to="(clicked.step3=='资质信息审核通过'&&clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善资质信息或企业信息\')'"
-                     disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"
-                     onclick="">
+        </a>
+        <a  @click="info_data()" v-if='memberInfo.ent_type!="6"&&clicked.step4'
+                     disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
-            <p>{{clicked.step4}}</p>
+            <p >{{clicked.step4}}</p>
           </div>
-        </router-link>
-        <router-link v-if='memberInfo.ent_type=="6"&&clicked.step4'
-                     :to="(clicked.step1=='企业信息已完善')?contracturl:'javascript:alert(\'请完善企业信息\')'" disabled
+        </a>
+        <a @click="info_data()" v-if='memberInfo.ent_type=="6"&&clicked.step4' disabled
                      :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"
-                     onclick="">
+                     >
           <div class='arrowText'>
-            <p>{{clicked.step4}}</p>
+            <p >{{clicked.step4}}</p>
           </div>
-        </router-link>
+        </a>
       </div>
     </el-row>
   </div>
@@ -71,7 +64,7 @@
         clicked: '',
         notice_list: '',
         imgurl: this.baseUrl + '/uploadify/renderFile/',
-        companyurl: '/home/companyinfo',
+        companyurl: '/home/companyinfo/',
         qualificationurl: '/home/qualification/',
         contracturl: '/home/contract',
         noticeurl: '/notice/manager/'
@@ -102,6 +95,33 @@
         this.$api.post('/notice/view', {}, (r) => {
           this.notice_list = r.data
         })
+      },
+      companyinfo_data: function () {
+        if (this.clicked.step1 !== '企业信息已通过') {
+          this.$router.push({path: this.companyurl})
+        }
+      },
+      qualificationinfo_data: function () {
+        if (this.clicked.step1 === '企业信息已提交') {
+          if (this.clicked.step3 !== '资质信息审核通过') {
+            this.$router.push({path: this.qualificationurl})
+          }
+        } else {
+          this.$router.push({path: this.companyurl})
+        }
+      },
+      info_data: function () {
+        if (this.clicked.step1 === '企业信息已提交') {
+          if (this.clicked.step3 === '资质信息审核通过') {
+            if (this.clicked.step3 !== '电子合同已签署') {
+              this.$router.push({path: this.contracturl})
+            }
+          } else {
+            this.$router.push({path: this.qualificationurl})
+          }
+        } else {
+          this.$router.push({path: this.companyurl})
+        }
       }
     }
   }
@@ -198,7 +218,7 @@
         margin: 0;
         line-height: 100px;
         margin-left: 35px;
-        margin-right: -10px;
+        margin-right: -15px;
       }
     }
     .colorUnready {
@@ -209,7 +229,7 @@
         margin: 0;
         line-height: 100px;
         margin-left: 35px;
-        margin-right: -10px;
+        margin-right: -15px;
       }
     }
     .colorReady:before, .colorUnready:before {
