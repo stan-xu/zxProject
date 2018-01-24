@@ -21,6 +21,9 @@
         <el-col :span='24'>
           <entQuaCer></entQuaCer>
         </el-col>
+        <div  class="btn-center">
+          <el-button @click="nextStep" type="primary">下一步</el-button>
+        </div>
       </el-row>
     </el-col>
   </el-row>
@@ -38,7 +41,12 @@
         imgFile: this.baseUrl + '/uploadify/renderFile/' // 在线图片地址
       }
     },
-    props: ['data']
+    props: ['data'],
+    methods: {
+      nextStep () {
+        this.$router.replace('/home/contract')
+      }
+    }
   }
 </script>
 <style lang="scss" scoped>
@@ -77,7 +85,10 @@
     color: #f56c6c;
     margin-right: 4px;
   }
-
+  .btn-center{
+    text-align: center;
+    margin: 40px 0 30px 0;
+  }
   #uploadState {
     margin-bottom: 20px
   }
