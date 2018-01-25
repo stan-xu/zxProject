@@ -2,7 +2,7 @@
   <div id='entQuaCer'>
     <el-row>
       <el-col :span='24' id='entQuaCerImg'>
-        <p>&emsp;&emsp;{{message.tails.ent_name}}与{{startTime[0]}}年{{startTime[1]}}月{{startTime[2]}}日至{{endTime[0]}}年{{endTime[1]}}月{{endTime[2]}}日经<i>中消在线</i>（www.zxzx119)审核，符合消防质量要求，认证合格。</p>
+        <p>&emsp;&emsp;{{message.tails.ent_name}}与{{startTime[0]}}年{{startTime[1]}}月{{startTime[2]}}日至{{endTime[0]}}年{{endTime[1]}}月{{endTime[2]}}日经<i>中消在线</i>（www.zxzx119.com)审核，符合消防质量要求，认证合格。</p>
         <span>{{startTime[0]}}年{{startTime[1]}}月{{startTime[2]}}日</span>
       </el-col>
       <el-col :span='24' id='entQuaCertitle'></el-col>

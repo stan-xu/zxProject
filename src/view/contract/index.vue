@@ -3,7 +3,7 @@
     <div class="sign">
       <div v-if="contract.contract_state !== '已签署'">
         <el-alert
-          title="请先完成电子合同委托书"
+          title="请先完成电子合同委托书(确保您已经完成企业信息完善及资质认证)"
           type="error"
           show-icon>
         </el-alert>
@@ -71,7 +71,7 @@
   import pdf from 'vue-pdf'
   import Matter from '../../components/matters'
   import ApplyBill from './apply-bill'
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
   import Pay from './pay'
 
   export default {
@@ -82,7 +82,7 @@
       pdf,
       Matter
     },
-    data: function () {
+    data () {
       return {
         content: [],
         dialogVisible: false,
@@ -112,7 +112,7 @@
           }
         })
       },
-      get_data: function () {
+      get_data () {
         this.$api.get('/contract/me', {}, (r) => {
           this.content = r.data
           if (this.content.length) {
@@ -129,7 +129,7 @@
           this.detail = r.data.tails
         })
       },
-      sign: function (id) {
+      sign (id) {
         this.dialogVisible = true
         this.cloading = true
         if (this.num > 0) {
@@ -139,7 +139,7 @@
           this.num = 1
         }
       },
-      signContract: function (id) {
+      signContract (id) {
         this.$api.get('/contract/mysign/' + id, {}, (r) => {
           this.dialogVisible = false
           this.loading = true
@@ -154,10 +154,6 @@
 </script>
 
 <style lang="scss">
-  .el-alert{
-    width: 925px;
-    margin-bottom: 15px;
-  }
   #contract {
     width: 960px;
     margin-left: auto;
@@ -197,6 +193,10 @@
           border-right: 1px solid #ebeef5;
         }
       }
+    }
+    .el-alert {
+      width: 925px;
+      margin-bottom: 15px;
     }
   }
 </style>

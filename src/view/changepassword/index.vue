@@ -75,7 +75,7 @@
       }
     },
     methods: {
-      post_data: function (form) {
+      post_data (form) {
         this.$refs[form].validate((valid) => {
           console.log(valid)
           if (valid) {
@@ -88,7 +88,7 @@
           }
         })
       },
-      resetForm: function (formName) {
+      resetForm (formName) {
         this.$refs[formName].resetFields()
       }
     },

@@ -21,7 +21,7 @@
       }
     },
     filters: {
-      trim: function (value) {
+      trim (value) {
         if (typeof value !== 'string') {
           return ''
         } else {
@@ -32,17 +32,17 @@
   }
 </script>
 <style lang="scss" scoped>
-  .matters{
+  .matters {
     text-align: center;
-    .matters-container{
+    .matters-container {
       display: inline-block;
     }
-    p{
+    p {
       text-align: left;
       font-size: 14px;
       color: #929292;
       margin: 0 0;
-      i{
+      i {
         font-family: 'simsun';
         color: #FD0000;
         font-style: normal;

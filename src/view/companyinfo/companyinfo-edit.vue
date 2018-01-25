@@ -17,7 +17,8 @@
           </el-form-item>
           <el-form-item label="企业类型" prop="ent_type">
             <el-checkbox-group v-model="form.ent_type">
-              <el-checkbox :label="(index+1).toString()" name="ent_type" v-for="(type, index) in entTypeList" :key="index">
+              <el-checkbox :label="(index+1).toString()" name="ent_type" v-for="(type, index) in entTypeList"
+                           :key="index">
                 {{type}}
               </el-checkbox>
             </el-checkbox-group>
@@ -48,12 +49,9 @@
             <el-input v-model="form.corporation_phone"></el-input>
           </el-form-item>
           <el-form-item label="营业执照" prop="signFile">
-            <template v-if="form.signFile">
-              <img :src="baseUrl+'/uploadify/renderFile/'+form.signFile" alt="" class="img-responsive">
-              <div>{{form.signFile_status}}</div>
-            </template>
             <file-upload @file-change="signChange"
-                         v-if="form.signFile_status=='审核未通过'||form.signFile_status==''"></file-upload>
+                         :preview="baseUrl+'/uploadify/renderFile/'+form.signFile"></file-upload>
+            <!--<div>{{form.signFile_status}}</div>-->
           </el-form-item>
           <el-form-item label="电子合同委托书" prop="ent_commission">
             <el-upload
@@ -104,7 +102,7 @@
       RegionPicker
     },
     props: ['form', 'reload'],
-    data: function () {
+    data () {
       return {
         formUrl: '/ent/update',
         commissionUrl: '/contract/uploaddoc/',
@@ -132,7 +130,7 @@
         commission: []
       }
     },
-    mounted: function () {
+    mounted () {
       if (this.form.ent_commission) {
         this.commissionUrl = '/contract/updatedoc/'
         this.commission.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.ent_commission}`})

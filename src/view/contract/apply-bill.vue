@@ -36,7 +36,7 @@
   export default {
     name: 'apply-bill',
     props: ['applyId', 'onSuccess'],
-    data: function () {
+    data () {
       var checkPhone = (rule, value, callback) => {
         if (!(/^1[3|4|5|8][0-9]\d{8}$/.test(value))) {
           return callback(new Error('请填写正确的联系电话'))
@@ -79,14 +79,14 @@
       this.get_data()
     },
     methods: {
-      get_data: function () {
+      get_data () {
         this.$api.post('/ent/json', {}, (r) => {
           this.company_list = r.data
           this.form.invoice_rise = this.company_list.ent_name
           this.form.tax_num = this.company_list.ent_id
         })
       },
-      apply_bill: function (form, id) {
+      apply_bill (form, id) {
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/invoice/save?id=' + id, this.form, (r) => {

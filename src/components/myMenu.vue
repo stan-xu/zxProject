@@ -90,7 +90,7 @@
       }
     },
     watch: {
-      $route: function () {
+      $route () {
         this.ifActive(this.menu)
       }
     }

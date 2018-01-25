@@ -20,7 +20,7 @@
   export default {
     name: 'logo-upload',
     props: ['logoId'],
-    data: function () {
+    data () {
       return {
         fileUrl: this.baseUrl + '/uploadify/upload',
         uploadImgHeader: { // 设置接收到json格式的返回值

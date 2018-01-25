@@ -19,7 +19,7 @@
   export default {
     components: {LoginPanel},
     name: 'login',
-    mounted: function () {
+    mounted () {
       this.$api.get('/account/islogin', null,
         resj => {
           if (resj.message === '已登录') {

@@ -3,8 +3,17 @@
     <el-row>
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="companyForm" label-width="140px">
-          <el-form-item label="企业Logo" >
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178" height="178" v-if="form.ent_logo">
+          <el-form-item label="营业执照" prop="signFile">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt=""
+                 v-if="form.signFile">
+          </el-form-item>
+          <el-form-item label="电子合同委托书" prop="ent_commission">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_commission" alt=""
+                 v-if="form.ent_commission">
+          </el-form-item>
+          <el-form-item label="企业Logo">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178"
+                 height="178" v-if="form.ent_logo">
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -17,7 +26,7 @@
           </el-form-item>
           <el-form-item label="企业类型">
             <template v-for="item in form.ent_type">
-              {{entTypeList[item]}}
+              {{entTypeList[item-1]}}
             </template>
           </el-form-item>
           <el-form-item label="主营业务">
@@ -44,14 +53,14 @@
           <el-form-item label="企业法人联系方式" prop="corporation_phone">
             {{form.corporation_phone}}
           </el-form-item>
-          <el-form-item label="营业执照" prop="signFile">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="" v-if="form.signFile">
-          </el-form-item>
-          <el-form-item label="电子合同委托书" prop="ent_commission">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_commission" alt="" v-if="form.ent_commission">
-          </el-form-item>
           <el-form-item class="text-center">
-            <el-button type="primary" @click="toggleEdit">编辑</el-button>
+            <el-button type="primary" @click="toggleEdit"
+                       v-if="form.status!=='审批中'||form.tails.sign.sign_status!=='未审批'||form.tails.contract[0].contract_state!=='未审核'">
+              编辑
+            </el-button>
+            <router-link to="/home/qualification" v-if="form.ent_state!=='有效'">
+              <el-button type="primary">下一步</el-button>
+            </router-link>
           </el-form-item>
         </el-form>
       </el-col>
@@ -62,13 +71,17 @@
 <script>
   export default {
     name: 'companyinfo-show',
-    props: ['form', 'toggleEdit'],
-    data: function () {
+    props: ['form', 'isEdit'],
+    data () {
       return {
         entTypeList: ['房地产企业', '消防产品厂家', '消防设计单位', '消防施工单位', '消防技术服务机构', '社会单位']
       }
     },
-    methods: {},
+    methods: {
+      toggleEdit () {
+        this.$emit('update:isEdit', true)
+      }
+    },
     watch: {}
   }
 </script>

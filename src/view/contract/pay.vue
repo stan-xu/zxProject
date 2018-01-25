@@ -122,12 +122,11 @@
                   window.open(url)
                 }
               }, ['alipay_pc_direct', 'upacp_pc'])
-              pingpp.createPayment(resj.data, function (result, err) {
+              pingpp.createPayment(resj.data, (result, err) => {
                 console.log(result)
                 console.log(err.msg)
                 console.log(err.extra)
                 if (result === 'success') {
-                  console.log('aasds')
                   // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
                 } else if (result === 'fail') {
                   // charge 不正确或者微信公众账号支付失败时会在此处返回
@@ -140,7 +139,7 @@
           }
         )
       },
-      pay_status: function () {
+      pay_status () {
         this.$api.post(this.payStatusUrl + this.payInfo.id, null,
           resj => {
             if (resj.data.pay_state === '未付款') {
@@ -148,6 +147,7 @@
                 this.pay_status()
               }, 2000)
             } else {
+              this.dialogShow = false
               clearTimeout(this.payStatus)
               this.onSuccess()
             }
@@ -155,7 +155,7 @@
       }
     },
     watch: {
-      payType: function (value) {
+      payType (value) {
         if (value === 'wx_pub_qr') {
           this.aliPay()
         }

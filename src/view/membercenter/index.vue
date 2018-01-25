@@ -2,8 +2,8 @@
   <div id="memberCenter">
     <el-row v-if="memberInfo">
       <el-col :span="5">
-        <img src="./images/logo.png" v-if="!memberInfo.ent_logo">
         <img v-if="memberInfo.ent_logo" :src="imgurl+memberInfo.ent_logo" class="img-responsive memberlogo">
+        <img src="./images/logo.png" class="img-responsive memberlogo" v-else>
       </el-col>
       <el-col :span="8">
         <div class="info-name">{{memberInfo.ent_name}}</div>
@@ -13,8 +13,8 @@
               {{new Date().getFullYear()-memberInfo.create_time.substring(0,4)+1}}
             </span>年
           </el-col>
-          <el-col :span="12">状态:
-            <span class="status-green" v-if="memberInfo.ent_state == '有效'">【{{memberInfo.ent_state}}】</span>
+          <el-col :span="12" v-if="entStatus">状态:
+            <span :style="{'color':entStatus[ent_state()]}">【{{ent_state()}}】</span>
           </el-col>
         </el-row>
       </el-col>
@@ -22,29 +22,31 @@
         <h1 class="welcome">欢迎登录中消在线！</h1>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row v-if="clicked">
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
-      <div id="arrowButtonBox" v-if="clicked" >
-        <a @click="companyinfo_data()" :class="(clicked.step1 != step.step1Pass)? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+      <div id="arrowButtonBox">
+        <a @click="companyinfo_data()"
+           :class="(clicked.step1 != step.step1Pass)? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
         </a>
-        <a  @click="qualificationinfo_data()" :class="(clicked.step2!= step.step2Pass)? 'arrowButton colorUnready':'arrowButton colorReady'">
+        <a @click="qualificationinfo_data()"
+           :class="(clicked.step2!= step.step2Pass)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
             <p>{{clicked.step2}}</p>
           </div>
         </a>
-        <a  @click="contractinfo_data()"
-                     disabled :class="(clicked.step3!= step.step3Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
+        <a @click="contractinfo_data()"
+           disabled :class="(clicked.step3!= step.step3Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
-            <p >{{clicked.step3}}</p>
+            <p>{{clicked.step3}}</p>
           </div>
         </a>
-        <a  @click="payinfo_data()"
-            disabled :class="(clicked.step4!= step.step4Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
+        <a @click="payinfo_data()"
+           disabled :class="(clicked.step4!= step.step4Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
-            <p >{{clicked.step4}}</p>
+            <p>{{clicked.step4}}</p>
           </div>
         </a>
       </div>
@@ -53,15 +55,14 @@
 </template>
 
 <script>
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
 
   export default {
     name: 'memberCenter',
-    data: function () {
+    data () {
       return {
         memberInfo: '',
         clicked: '',
-        notice_list: '',
         imgurl: this.baseUrl + '/uploadify/renderFile/',
         companyurl: '/home/companyinfo/',
         qualificationurl: '/home/qualification/',
@@ -80,6 +81,13 @@
           step3Ready: '合同已签订',
           step4UnReady: '会员费未付款',
           step4Ready: '会员费已付款'
+        },
+        entStatus: {
+          '未提交': '#909399',
+          '审核中': '#c41335',
+          '待签约': '#409eff',
+          '未交费': '#e6a23c',
+          '有效': '#67c23a'
         }
       }
     },
@@ -88,24 +96,21 @@
       EventBus.$emit('setHomeHeader', '会员中心')
     },
     methods: {
-      get_data: function () {
+      get_data () {
         this.$api.get('/home/ent', {}, (r) => {
           this.memberInfo = r
         })
         this.$api.post('/ent/progress', {}, (r) => {
           this.clicked = r.data
-          console.log(this.clicked)
-        })
-        this.$api.post('/notice/view', {}, (r) => {
-          this.notice_list = r.data
+          // console.log(this.clicked)
         })
       },
-      companyinfo_data: function () {
+      companyinfo_data () {
         if (this.clicked.step1 !== this.step.step1Pass) {
           this.$router.push({path: this.companyurl})
         }
       },
-      qualificationinfo_data: function () {
+      qualificationinfo_data () {
         if (this.clicked.step1 === this.step.step1Ready) {
           if (this.clicked.step2 !== this.step.step2Pass) {
             this.$router.push({path: this.qualificationurl})
@@ -114,7 +119,7 @@
           this.$router.push({path: this.companyurl})
         }
       },
-      contractinfo_data: function () {
+      contractinfo_data () {
         if (this.clicked.step1 === this.step.step1Ready) {
           if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 !== this.step.step3Ready) {
@@ -127,7 +132,7 @@
           this.$router.push({path: this.companyurl})
         }
       },
-      payinfo_data: function () {
+      payinfo_data () {
         if (this.clicked.step1 === this.step.step1Ready) {
           if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 === this.step.step3Ready) {
@@ -143,6 +148,26 @@
         } else {
           this.$router.push({path: this.companyurl})
         }
+      },
+      ent_state () {
+        let state = ''
+        if (this.memberInfo.ent_state === '有效') {
+          state = '有效'
+        } else {
+          if (this.clicked.step1 === this.step.step1UnReady) {
+            state = '未提交'
+          }
+          if (this.clicked.step1 === this.step.step1Ready) {
+            state = '审核中'
+          }
+          if (this.clicked.step2 === this.step.step2Pass && this.clicked.step1 === this.step.step1Pass) {
+            state = '待签约'
+          }
+          if (this.clicked.step3 === this.step.step3Ready && this.clicked.step4 === this.step.step4UnReady) {
+            state = '未交费'
+          }
+        }
+        return state
       }
     }
   }

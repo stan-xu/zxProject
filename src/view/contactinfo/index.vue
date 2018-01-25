@@ -90,10 +90,11 @@
 </template>
 
 <script>
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
+
   export default {
     name: 'contactinfo',
-    data: function () {
+    data () {
       var checkPhone = (rule, value, callback) => {
         if (!(/^1[3|4|5|8][0-9]\d{8}$/.test(value))) {
           return callback(new Error('请填写正确的联系电话'))
@@ -134,12 +135,12 @@
       EventBus.$emit('setHomeHeader', '联系人信息')
     },
     methods: {
-      get_data: function () {
+      get_data () {
         this.$api.post('/ent/contacts/list', {}, (r) => {
           this.contact_list = r.data
         })
       },
-      update_data: function (form, id) {
+      update_data (form, id) {
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/ent/contacts/update/' + id, this.form, (r) => {
@@ -153,7 +154,7 @@
           }
         })
       },
-      add_data: function (form) {
+      add_data (form) {
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/ent/contacts/save/', this.form, (r) => {
@@ -168,7 +169,7 @@
           }
         })
       },
-      del_data: function (id) {
+      del_data (id) {
         event.returnValue = confirm('请确认是否删除？')
         if (event.returnValue) {
           this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
@@ -177,7 +178,7 @@
           })
         }
       },
-      modal: function (type, id) {
+      modal (type, id) {
         if (type === 'update') {
           this.$api.post('/ent/contacts/getinfo/' + id, this.form, (r) => {
             this.form = r.data
@@ -187,7 +188,7 @@
           this.dialogadd = true
         }
       },
-      resetForm: function (formName) {
+      resetForm (formName) {
         this.$refs[formName].resetFields()
       }
     }
