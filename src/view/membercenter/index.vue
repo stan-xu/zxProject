@@ -25,25 +25,24 @@
     <el-row>
       <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
       <div id="arrowButtonBox" v-if="clicked" >
-        <a @click="companyinfo_data()" :class="(clicked.step1!='企业信息已通过')? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+        <a @click="companyinfo_data()" :class="(clicked.step1 != step.step1Pass)? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
         </a>
-        <a  @click="qualificationinfo_data()" v-if='memberInfo.ent_type!="6"' :class="(clicked.step3!='资质信息审核通过')? 'arrowButton colorUnready':'arrowButton colorReady'" onclick="">
+        <a  @click="qualificationinfo_data()" :class="(clicked.step2!= step.step2Pass)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
-            <p>{{clicked.step3}}</p>
+            <p>{{clicked.step2}}</p>
           </div>
         </a>
-        <a  @click="info_data()" v-if='memberInfo.ent_type!="6"&&clicked.step4'
-                     disabled :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'">
+        <a  @click="contractinfo_data()"
+                     disabled :class="(clicked.step3!= step.step3Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
-            <p >{{clicked.step4}}</p>
+            <p >{{clicked.step3}}</p>
           </div>
         </a>
-        <a @click="info_data()" v-if='memberInfo.ent_type=="6"&&clicked.step4' disabled
-                     :class="(clicked.step4!='电子合同已签署')? 'arrowButton colorUnready':'arrowButton colorReady'"
-                     >
+        <a  @click="payinfo_data()"
+            disabled :class="(clicked.step4!= step.step4Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
           <div class='arrowText'>
             <p >{{clicked.step4}}</p>
           </div>
@@ -67,7 +66,21 @@
         companyurl: '/home/companyinfo/',
         qualificationurl: '/home/qualification/',
         contracturl: '/home/contract',
-        noticeurl: '/notice/manager/'
+        noticeurl: '/notice/manager/',
+        step: {
+          step1UnReady: '企业信息未完善',
+          step1Ready: '企业信息已提交',
+          step1Pass: '企业信息审核已通过',
+          step1NoPass: '企业信息审核未通过',
+          step2UnReady: '资质信息未完善',
+          step2Ready: '资质信息已提交',
+          step2Pass: '资质信息审核已通过',
+          step2NoPass: '资质信息审核未通过',
+          step3UnReady: '合同未签订',
+          step3Ready: '合同已签订',
+          step4UnReady: '会员费未付款',
+          step4Ready: '会员费已付款'
+        }
       }
     },
     mounted () {
@@ -75,45 +88,53 @@
       EventBus.$emit('setHomeHeader', '会员中心')
     },
     methods: {
-      load: function () {
-        this.$api.post('/home/ent', {}, (r) => {
-          if (r.ent_id) {
-            this.memberInfo = r
-          } else {
-            alert('请先填写企业信息')
-            window.location.href = this.baseUrl + this.managerurl
-          }
-        })
-      },
       get_data: function () {
         this.$api.get('/home/ent', {}, (r) => {
           this.memberInfo = r
         })
         this.$api.post('/ent/progress', {}, (r) => {
           this.clicked = r.data
+          console.log(this.clicked)
         })
         this.$api.post('/notice/view', {}, (r) => {
           this.notice_list = r.data
         })
       },
       companyinfo_data: function () {
-        if (this.clicked.step1 !== '企业信息已通过') {
+        if (this.clicked.step1 !== this.step.step1Pass) {
           this.$router.push({path: this.companyurl})
         }
       },
       qualificationinfo_data: function () {
-        if (this.clicked.step1 === '企业信息已提交') {
-          if (this.clicked.step3 !== '资质信息审核通过') {
+        if (this.clicked.step1 === this.step.step1Ready) {
+          if (this.clicked.step2 !== this.step.step1Pass) {
             this.$router.push({path: this.qualificationurl})
           }
         } else {
           this.$router.push({path: this.companyurl})
         }
       },
-      info_data: function () {
-        if (this.clicked.step1 === '企业信息已提交') {
-          if (this.clicked.step3 === '资质信息审核通过') {
-            if (this.clicked.step3 !== '电子合同已签署') {
+      contractinfo_data: function () {
+        if (this.clicked.step1 === this.step.step1Ready) {
+          if (this.clicked.step2 === this.step.step1Pass) {
+            if (this.clicked.step3 !== this.step.step3Ready) {
+              this.$router.push({path: this.contracturl})
+            }
+          } else {
+            this.$router.push({path: this.qualificationurl})
+          }
+        } else {
+          this.$router.push({path: this.companyurl})
+        }
+      },
+      payinfo_data: function () {
+        if (this.clicked.step1 === this.step.step1Ready) {
+          if (this.clicked.step2 === this.step.step1Pass) {
+            if (this.clicked.step3 === this.step.step3Ready) {
+              if (this.clicked.step4 !== this.step.step4Ready) {
+                this.$router.push({path: this.contracturl})
+              }
+            } else {
               this.$router.push({path: this.contracturl})
             }
           } else {
@@ -159,7 +180,6 @@
       margin: 0 0 30px 0;
     }
     #arrowButtonBox {
-      width: 800px;
       height: 40px;
       padding: 0;
       position: relative;
