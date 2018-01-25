@@ -14,7 +14,7 @@
             </span>年
           </el-col>
           <el-col :span="12">状态:
-            <span class="status-green">【{{memberInfo.ent_state}}】</span>
+            <span class="status-green" v-if="memberInfo.ent_state == '有效'">【{{memberInfo.ent_state}}】</span>
           </el-col>
         </el-row>
       </el-col>
@@ -107,7 +107,7 @@
       },
       qualificationinfo_data: function () {
         if (this.clicked.step1 === this.step.step1Ready) {
-          if (this.clicked.step2 !== this.step.step1Pass) {
+          if (this.clicked.step2 !== this.step.step2Pass) {
             this.$router.push({path: this.qualificationurl})
           }
         } else {
@@ -116,7 +116,7 @@
       },
       contractinfo_data: function () {
         if (this.clicked.step1 === this.step.step1Ready) {
-          if (this.clicked.step2 === this.step.step1Pass) {
+          if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 !== this.step.step3Ready) {
               this.$router.push({path: this.contracturl})
             }
@@ -129,7 +129,7 @@
       },
       payinfo_data: function () {
         if (this.clicked.step1 === this.step.step1Ready) {
-          if (this.clicked.step2 === this.step.step1Pass) {
+          if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 === this.step.step3Ready) {
               if (this.clicked.step4 !== this.step.step4Ready) {
                 this.$router.push({path: this.contracturl})
