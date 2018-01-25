@@ -25,7 +25,12 @@
         urlImg: require('./noImg.jpg')
       }
     },
-    props: ['example', 'file-change'],
+    props: ['example', 'file-change', 'preview'],
+    mounted () {
+      if (this.preview) {
+        this.urlImg = this.baseUrl + '/uploadify/renderFile/' + this.preview
+      }
+    },
     methods: {
       fileSelect () {
         this.$refs.file.click()

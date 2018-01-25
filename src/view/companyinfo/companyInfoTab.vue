@@ -1,5 +1,26 @@
 <template>
   <div class="company-info-tab" v-show="loaded">
+    <el-alert
+      :title="'企业信息审批未通过：'+(this.form.approvetext||'无')"
+      type="error"
+      show-icon
+      v-if="this.form.status==='审批未通过'"
+      class="status-alert">
+    </el-alert>
+    <el-alert
+      title="企业信息审批中,请耐心等待"
+      type="warning"
+      show-icon
+      v-if="this.form.status==='审批中'"
+      class="status-alert">
+    </el-alert>
+    <el-alert
+      title="企业信息审批已通过，完成电子合同委托书与营业执照提交后前往资质认证进行企业资质认证"
+      type="success"
+      show-icon
+      v-if="this.form.status==='审批已通过'"
+      class="status-alert">
+    </el-alert>
     <el-row>
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="companyForm" :rules="rules" label-width="140px" v-if="isEdit">
@@ -68,7 +89,7 @@
           </el-form-item>
           <el-form-item label="企业类型">
             <template v-for="item in form.ent_type">
-              {{entTypeList[item-1]}}
+              {{entTypeList[item - 1]}}
             </template>
           </el-form-item>
           <el-form-item label="主营业务">
@@ -96,11 +117,10 @@
             {{form.corporation_phone}}
           </el-form-item>
           <el-form-item class="text-center">
-            <el-button type="primary" @click="toggleEdit"
-                       v-if="form.status!=='审批中'||form.tails.sign.sign_status!=='未审批'||form.tails.contract[0].contract_state!=='未审核'">
+            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审批中'">
               编辑
             </el-button>
-            <router-link to="/home/qualification" v-if="form.ent_state!=='有效'">
+            <router-link to="/home/qualification" v-if="form.status==='审批已通过'">
               <el-button type="primary">下一步</el-button>
             </router-link>
           </el-form-item>
@@ -195,41 +215,41 @@
 </script>
 
 <style lang="scss">
-    #company-info-tab{
-      .el-checkbox-group {
-        .el-checkbox {
-          float: left;
-          width: 150px;
-          padding-right: 20px;
-          margin: 0;
-          padding: 0;
-          & + .el-checkbox {
-            margin-left: 0;
-          }
-        }
-      }
-      .region-picker {
-        .picker-menu:hover {
-          border-color: $hot-dark;
-        }
-        .picker-toggle {
-          .picker-input-icon {
-            top: 13px
-          }
-          &:hover input, &:focus input {
-            border-color: #c0c4cc;
-          }
-          input {
-            transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            border-color: #dcdfe6;
-          }
-          input:focus {
-            border-color: $hot-dark;
-          }
-          .picker-label {
-            line-height: 40px;
-          }
+  #company-info-tab {
+    .el-checkbox-group {
+      .el-checkbox {
+        float: left;
+        width: 150px;
+        padding-right: 20px;
+        margin: 0;
+        padding: 0;
+        & + .el-checkbox {
+          margin-left: 0;
         }
       }
     }
+    .region-picker {
+      .picker-menu:hover {
+        border-color: $hot-dark;
+      }
+      .picker-toggle {
+        .picker-input-icon {
+          top: 13px
+        }
+        &:hover input, &:focus input {
+          border-color: #c0c4cc;
+        }
+        input {
+          transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+          border-color: #dcdfe6;
+        }
+        input:focus {
+          border-color: $hot-dark;
+        }
+        .picker-label {
+          line-height: 40px;
+        }
+      }
+    }
+  }
 </style>

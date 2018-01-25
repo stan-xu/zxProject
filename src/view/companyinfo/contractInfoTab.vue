@@ -1,5 +1,26 @@
 <template>
-  <div id="contract-info-tab">
+  <div id="contract-info-tab" v-show="loaded">
+    <el-alert
+      :title="'电子合同委托书审批未通过：'+(this.contractInfo.audit_text||'无')"
+      type="error"
+      show-icon
+      v-if="this.contractInfo.contract_state==='审核未通过'"
+      class="status-alert">
+    </el-alert>
+    <el-alert
+      title="电子合同委托书审批中,请耐心等待"
+      type="warning"
+      show-icon
+      v-if="this.contractInfo.contract_state==='未审核'"
+      class="status-alert">
+    </el-alert>
+    <el-alert
+      title="电子合同委托书审批已通过，完成营业执照与企业信息提交后前往资质认证进行企业资质认证"
+      type="success"
+      show-icon
+      v-if="this.contractInfo.contract_state==='审核已通过'"
+      class="status-alert">
+    </el-alert>
     <el-row>
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-if="isEdit">
@@ -37,8 +58,11 @@
           <el-form-item label="电子合同委托书">
             <img :src="this.baseUrl + '/uploadify/renderFile/'+form.contractId" alt="contract" class="img-responsive">
           </el-form-item>
-          <el-form-item class="text-center">
+          <el-form-item class="text-center" v-if="contractInfo.contract_state!=='未审核'">
             <el-button type="primary" @click="toggleEdit">编辑</el-button>
+            <router-link to="/home/qualification" v-if="contractInfo.contract_state==='审核已通过'">
+              <el-button type="primary">下一步</el-button>
+            </router-link>
           </el-form-item>
         </el-form>
       </el-col>
@@ -65,6 +89,7 @@
         exampleFilePath: 'http://cdn.zxzx119.com/2017chinafire.pdf',
         fileUrl: this.baseUrl + '/uploadify/upload',
         loaded: '',
+        contractInfo: '',
         form: {
           contractId: ''
         },
@@ -86,6 +111,7 @@
         this.$api.get(this.loadUrl, null,
           resj => {
             if (resj.data) {
+              this.contractInfo = resj.data
               this.formUrl = '/contract/updatedoc/'
               this.form.contractId = resj.data.sign_file
               this.fileList.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.contractId}`})
@@ -93,6 +119,7 @@
             } else {
               this.isEdit = true
             }
+            this.loaded = true
           })
       },
       submit () {
@@ -100,7 +127,6 @@
           if (valid) {
             this.$api.post(this.formUrl + this.form.contractId, null,
               resj => {
-                this.formUrl = '/contract/updatedoc/'
                 this.load()
               })
           } else {
