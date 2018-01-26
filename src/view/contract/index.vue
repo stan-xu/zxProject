@@ -14,8 +14,10 @@
         :data="content"
         style="width: 925px">
         <el-table-column
-          prop="doc_name"
           label="合同标题">
+          <template slot-scope="scope">
+            <a @click="sign(content[0].id)">{{content[0].doc_name}}</a>
+          </template>
         </el-table-column>
         <el-table-column
           prop="doc_state"
@@ -50,14 +52,13 @@
           <div class="pdf-btn">
             <el-input-number size="mini" v-model.number="page" :min="1" :max="numPages">
             </el-input-number>
+            <div class="pdf-total" v-if="numPages > 0">共{{numPages}}页</div>
           </div>
-          <div class="pdf-total" v-if="numPages > 0">共{{numPages}}页</div>
           <div class="contract-agree">
-            <el-checkbox v-model="checkbox" label="agree">同意</el-checkbox>
+            <el-checkbox v-model="checkbox" label="agree" v-if="contract.contract_state === '未签署'">同意</el-checkbox>
           </div>
         </div>
-
-        <span slot="footer" class="dialog-footer">
+        <span slot="footer" class="dialog-footer" v-if="contract.contract_state === '未签署'">
     <el-button type="primary" v-if="checkbox==true" @click="signContract(content[0].id)">签署合同</el-button>
     <el-button type="primary" v-if="checkbox==false" disabled>签署合同</el-button>
   </span>
@@ -172,7 +173,7 @@
       }
       .pdf-total {
         position: absolute;
-        bottom: 140px;
+        bottom: 2px;
         left: 410px;
         float: left;
       }
