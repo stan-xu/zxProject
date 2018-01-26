@@ -85,6 +85,7 @@
         entStatus: {
           '未提交': '#909399',
           '审核中': '#c41335',
+          '未认证': '#603811',
           '待签约': '#409eff',
           '未交费': '#e6a23c',
           '有效': '#67c23a'
@@ -111,7 +112,7 @@
         }
       },
       qualificationinfo_data () {
-        if (this.clicked.step1 === this.step.step1Ready) {
+        if (this.clicked.step1 === this.step.step1Ready || this.clicked.step1 === this.step.step1Pass) {
           if (this.clicked.step2 !== this.step.step2Pass) {
             this.$router.push({path: this.qualificationurl})
           }
@@ -120,7 +121,7 @@
         }
       },
       contractinfo_data () {
-        if (this.clicked.step1 === this.step.step1Ready) {
+        if (this.clicked.step1 === this.step.step1Ready || this.clicked.step1 === this.step.step1Pass) {
           if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 !== this.step.step3Ready) {
               this.$router.push({path: this.contracturl})
@@ -133,7 +134,7 @@
         }
       },
       payinfo_data () {
-        if (this.clicked.step1 === this.step.step1Ready) {
+        if (this.clicked.step1 === this.step.step1Ready || this.clicked.step1 === this.step.step1Pass) {
           if (this.clicked.step2 === this.step.step2Pass) {
             if (this.clicked.step3 === this.step.step3Ready) {
               if (this.clicked.step4 !== this.step.step4Ready) {
@@ -160,6 +161,9 @@
           if (this.clicked.step1 === this.step.step1Ready) {
             state = '审核中'
           }
+          if (this.clicked.step2 === this.step.step2UnReady && this.clicked.step1 === this.step.step1Pass) {
+            state = '未认证'
+          }
           if (this.clicked.step2 === this.step.step2Pass && this.clicked.step1 === this.step.step1Pass) {
             state = '待签约'
           }
@@ -167,6 +171,7 @@
             state = '未交费'
           }
         }
+        console.log(state)
         return state
       }
     }
