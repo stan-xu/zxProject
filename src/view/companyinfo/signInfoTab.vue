@@ -1,44 +1,48 @@
 <template>
   <div id="sign-info-tab" v-show="loaded">
+    <!--审核状态提示框-->
     <el-alert
-      :title="'营业执照审批未通过：'+(this.form.approve_text||'无')"
+      :title="'营业执照审核未通过：'+(this.form.approve_text||'无')"
       type="error"
       show-icon
-      v-if="this.signInfo.sign_status==='审批未通过'"
+      v-if="this.signInfo.sign_status==='审核未通过'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="营业执照审批中,请耐心等待"
+      title="营业执照审核中,请耐心等待"
       type="warning"
       show-icon
-      v-if="this.signInfo.sign_status==='未审批'"
+      v-if="this.signInfo.sign_status==='未审核'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="营业执照审批已通过，完成电子合同委托书与企业信息提交后前往资质认证进行企业资质认证"
+      title="营业执照审核已通过，完成电子合同委托书与企业信息提交后前往资质认证进行企业资质认证"
       type="success"
       show-icon
-      v-if="this.signInfo.sign_status==='审批已通过'"
+      v-if="this.signInfo.sign_status==='审核已通过'"
       class="status-alert">
     </el-alert>
+    <!--信息表单-->
     <el-row>
       <el-col :span="12" :offset="4">
+        <!--编辑状态-->
         <el-form :model="form" ref="signForm" :rules="rules" label-width="140px" v-if="isEdit">
           <el-form-item label="营业执照" prop="">
             <file-upload @file-change="signChange"
                          :preview="form.signFile"></file-upload>
           </el-form-item>
-          <el-form-item class="text-center">
+          <el-form-item>
             <el-button type="primary" @click="submit">提交</el-button>
           </el-form-item>
         </el-form>
+        <!--查看状态-->
         <el-form :model="form" label-width="140px" v-else>
           <el-form-item label="营业执照">
             <img :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="sign" class="img-responsive">
           </el-form-item>
-          <el-form-item class="text-center" v-if="signInfo.sign_status!=='未审批'">
+          <el-form-item v-if="signInfo.sign_status!=='未审核'">
             <el-button type="primary" @click="isEdit = true">编辑</el-button>
-            <router-link to="/home/qualification" v-if="signInfo.sign_status==='审批已通过'">
+            <router-link to="/home/qualification" v-if="signInfo.sign_status==='审核已通过'">
               <el-button type="primary">下一步</el-button>
             </router-link>
           </el-form-item>
@@ -102,7 +106,7 @@
         this.$refs.signForm.validate((valid) => {
           if (valid) {
             if (typeof this.form.signFile === 'string') {
-              this.load()
+              // 不更改已经上传的              this.load()
             } else {
               let formData = new FormData()
               formData.append('signFile', this.form.signFile)

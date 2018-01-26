@@ -1,28 +1,31 @@
 <template>
   <div id="contract-info-tab" v-show="loaded">
+    <!--审核状态提示框-->
     <el-alert
-      :title="'电子合同委托书审批未通过：'+(this.contractInfo.audit_text||'无')"
+      :title="'电子合同委托书审核未通过：'+(this.contractInfo.audit_text||'无')"
       type="error"
       show-icon
       v-if="this.contractInfo.contract_state==='审核未通过'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="电子合同委托书审批中,请耐心等待"
+      title="电子合同委托书审核中,请耐心等待"
       type="warning"
       show-icon
       v-if="this.contractInfo.contract_state==='未审核'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="电子合同委托书审批已通过，完成营业执照与企业信息提交后前往资质认证进行企业资质认证"
+      title="电子合同委托书审核已通过，完成营业执照与企业信息提交后前往资质认证进行企业资质认证"
       type="success"
       show-icon
       v-if="this.contractInfo.contract_state==='审核已通过'"
       class="status-alert">
     </el-alert>
+    <!--信息表单-->
     <el-row>
       <el-col :span="12" :offset="4">
+        <!--编辑状态-->
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-if="isEdit">
           <el-form-item label="电子合同委托书" prop="contractId">
             <el-upload
@@ -50,15 +53,16 @@
               </div>
             </el-upload>
           </el-form-item>
-          <el-form-item class="text-center">
+          <el-form-item>
             <el-button type="primary" @click="submit">提交</el-button>
           </el-form-item>
         </el-form>
+        <!--查看状态-->
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-else>
           <el-form-item label="电子合同委托书">
             <img :src="this.baseUrl + '/uploadify/renderFile/'+form.contractId" alt="contract" class="img-responsive">
           </el-form-item>
-          <el-form-item class="text-center" v-if="contractInfo.contract_state!=='未审核'">
+          <el-form-item v-if="contractInfo.contract_state!=='未审核'">
             <el-button type="primary" @click="toggleEdit">编辑</el-button>
             <router-link to="/home/qualification" v-if="contractInfo.contract_state==='审核已通过'">
               <el-button type="primary">下一步</el-button>
@@ -71,16 +75,7 @@
 </template>
 
 <script>
-  import ElForm from 'element-ui/packages/form/src/form'
-  import ElFormItem from 'element-ui/packages/form/src/form-item'
-  import ElButton from 'element-ui/packages/button/src/button'
-
   export default {
-    components: {
-      ElButton,
-      ElFormItem,
-      ElForm
-    },
     name: 'contract-info-tab',
     data () {
       return {

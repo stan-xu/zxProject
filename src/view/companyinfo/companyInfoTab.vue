@@ -1,24 +1,24 @@
 <template>
   <div class="company-info-tab" v-show="loaded">
     <el-alert
-      :title="'企业信息审批未通过：'+(this.form.approvetext||'无')"
+      :title="'企业信息审核未通过：'+(this.form.approvetext||'无')"
       type="error"
       show-icon
-      v-if="this.form.status==='审批未通过'"
+      v-if="this.form.status==='审核未通过'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="企业信息审批中,请耐心等待"
+      title="企业信息审核中,请耐心等待"
       type="warning"
       show-icon
-      v-if="this.form.status==='审批中'"
+      v-if="this.form.status==='审核中'"
       class="status-alert">
     </el-alert>
     <el-alert
-      title="企业信息审批已通过，完成电子合同委托书与营业执照提交后前往资质认证进行企业资质认证"
+      title="企业信息审核已通过，完成电子合同委托书与营业执照提交后前往资质认证进行企业资质认证"
       type="success"
       show-icon
-      v-if="this.form.status==='审批已通过'"
+      v-if="this.form.status==='审核已通过'"
       class="status-alert">
     </el-alert>
     <el-row>
@@ -69,7 +69,7 @@
           <el-form-item label="企业法人联系方式" prop="corporation_phone">
             <el-input v-model="form.corporation_phone"></el-input>
           </el-form-item>
-          <el-form-item class="text-center">
+          <el-form-item>
             <el-button @click="submit" type="primary">提交</el-button>
           </el-form-item>
         </el-form>
@@ -116,11 +116,11 @@
           <el-form-item label="企业法人联系方式">
             {{form.corporation_phone}}
           </el-form-item>
-          <el-form-item class="text-center">
-            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审批中'">
+          <el-form-item>
+            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审核中'">
               编辑
             </el-button>
-            <router-link to="/home/qualification" v-if="form.status==='审批已通过'">
+            <router-link to="/home/qualification" v-if="form.status==='审核已通过'">
               <el-button type="primary">下一步</el-button>
             </router-link>
           </el-form-item>

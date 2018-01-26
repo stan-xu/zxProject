@@ -15,7 +15,7 @@
             <file-upload :example="example" @file-change="fileChange"></file-upload>
           </el-form-item>
           <el-form-item class="text-center">
-            <el-button @click="submit" type="primary">审批提交</el-button>
+            <el-button @click="submit" type="primary">审核提交</el-button>
           </el-form-item>
         </el-form>
       </el-col>
