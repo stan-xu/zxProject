@@ -1,7 +1,7 @@
 <template>
   <div id="contract">
     <div class="sign">
-      <div v-if="contract.contract_state !== '已签署'">
+      <div v-if="state">
         <el-alert
           title="请先完成电子合同委托书(确保您已经完成企业信息完善及资质认证)"
           type="error"
@@ -96,7 +96,8 @@
         num: '',
         tails: '',
         detail: '',
-        contract: ''
+        contract: '',
+        state: false
       }
     },
     mounted () {
@@ -107,14 +108,18 @@
       getInfo () {
         this.$api.get('/contract/info', null, (r) => {
           this.contract = r.data
-          if (this.contract.contract_state === '已签署') {
-            this.get_data()
+          if (this.contract.contract_state === '未签署' || this.contract.contract_state === '已签署') {
+            this.state = false
+          } else {
+            this.state = true
           }
+          this.get_data()
         })
       },
       get_data () {
         this.$api.get('/contract/me', {}, (r) => {
           this.content = r.data
+          console.log(this.content)
           if (this.content.length) {
             this.url = '/contract/download/' + this.content[0].id
             this.pdfurl = '/contract/pdf/' + this.content[0].id
