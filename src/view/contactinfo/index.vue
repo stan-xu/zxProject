@@ -144,7 +144,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/ent/contacts/update/' + id, this.form, (r) => {
-              alert(r.message)
+              this.$message.success(r.message)
               this.resetForm(form)
               this.dialog = false
               this.get_data()
@@ -158,7 +158,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/ent/contacts/save/', this.form, (r) => {
-              alert(r.message)
+              this.$message.success(r.message)
               this.get_data()
               this.resetForm(form)
               this.dialogadd = false
@@ -173,7 +173,7 @@
         event.returnValue = confirm('请确认是否删除？')
         if (event.returnValue) {
           this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
-            alert(r.message)
+            this.$message.success(r.message)
             this.get_data()
           })
         }

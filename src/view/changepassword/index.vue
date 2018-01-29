@@ -77,10 +77,9 @@
     methods: {
       post_data (form) {
         this.$refs[form].validate((valid) => {
-          console.log(valid)
           if (valid) {
             this.$api.post('/account/password/change', this.form, (r) => {
-              alert(r.message)
+              this.$message.success(r.message)
               this.resetForm(form)
             })
           } else {

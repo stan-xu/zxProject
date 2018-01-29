@@ -21,16 +21,7 @@
       ManagerMenu,
       ManagerHeader
     },
-    name: 'manager',
-    created () {
-      this.$api.get('/account/islogin', null,
-        resj => {
-          if (resj.message === '未登录') {
-            alert('您的登录已过期，请重新登录！')
-            this.$router.replace('/login')
-          }
-        })
-    }
+    name: 'manager'
   }
 </script>
 

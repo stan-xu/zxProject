@@ -90,7 +90,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             this.$api.post('/invoice/save?id=' + id, this.form, (r) => {
-              alert(r.message)
+              this.$message.success(r.message)
               this.onSuccess()
               this.dialogVisible = false
             })

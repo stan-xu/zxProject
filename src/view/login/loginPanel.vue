@@ -2,9 +2,6 @@
   <div id="loginPanel">
     <div class="panel-header">账号登录</div>
     <div class="panel-body">
-      <!-- <div class="message-box" v-show="message">
-         <i class="fa fa-exclamation-circle"></i>{{message}}
-       </div>-->
       <el-alert
         show-icon
         v-show="message"
@@ -28,8 +25,8 @@
         </el-form-item>
       </el-form>
       <div class="features">
-        <a :href="this.baseUrl+'/account/register'">忘记密码</a>&nbsp;|
-        <a :href="this.baseUrl+'/account/forget'">免费注册</a>
+        <a :href="this.baseUrl+'/account/forget'">忘记密码</a>&nbsp;|
+        <a :href="this.baseUrl+'/account/register'">免费注册</a>
       </div>
     </div>
   </div>

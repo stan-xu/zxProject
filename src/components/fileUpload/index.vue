@@ -41,10 +41,10 @@
         if (file) {
           var type = file.name.substring(file.name.lastIndexOf('.'), file.name.length)
           if (!/.(jpg|jpeg|png)$/i.test(type)) {
-            alert('文件格式不正确！')
+            this.$message.success('文件格式不正确！')
             return false
           } else if (file.size > (1024 * 1024 * 2)) {
-            alert('文件大小不能超过2MB！')
+            this.$message.success('文件大小不能超过2MB！')
           } else {
             this.urlImg = URL.createObjectURL(file)
             this.$emit('file-change', file)// 更改父组件中的文件数组
