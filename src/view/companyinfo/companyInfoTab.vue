@@ -1,5 +1,5 @@
 <template>
-  <div class="company-info-tab" v-show="loaded">
+  <div id="company-info-tab" v-show="loaded">
     <el-alert
       :title="'企业信息审核未通过：'+(this.form.approvetext||'无')"
       type="error"
