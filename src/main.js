@@ -12,17 +12,21 @@ import api from './util/api' // 引用API文件
 Vue.prototype.$api = api // 绑定API方法到全局
 Vue.prototype.baseUrl = api.root
 Vue.use(ElementUI)
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresLogin)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     api.get('/account/islogin', null,
       resj => {
         if (resj.message === '未登录') {
-          console.log(123)
-          next({
-            path: '/login',
-            query: {redirect: to.fullPath}
+          ElementUI.MessageBox.alert(resj.message, '温馨提示', {
+            confirmButtonText: '确定',
+            callback: () => {
+              next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+              })
+            }
           })
         } else {
           next()
@@ -31,7 +35,7 @@ Vue.use(ElementUI)
   } else {
     next() // 确保一定要调用 next()
   }
-}) */
+})
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({

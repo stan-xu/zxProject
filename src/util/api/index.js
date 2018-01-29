@@ -1,4 +1,5 @@
 import router from '../../router'
+import { Message, MessageBox } from 'element-ui'
 // api接口地址
 var root = '/blade'
 
@@ -31,7 +32,6 @@ let apiAxios = (method, url, params, success, fail) => {
   if (params) {
     params = filterNull(params)
   }
-  console.log()
   if (method === 'POST' && toType(params) !== 'formdata') {
     var qs = require('querystring')
     params = qs.stringify(params)
@@ -56,21 +56,24 @@ let apiAxios = (method, url, params, success, fail) => {
       if (!response.code) { // 分页接口不存在code
         success(response)
       } else if (response.code === 401) { // 后端约定未登录code=401
-        alert(response.message)
-        router.replace({
-          path: 'login',
-          query: {redirect: router.currentRoute.fullPath}
+        MessageBox.alert(response.message, '温馨提示', {
+          confirmButtonText: '确定',
+          callback: () => {
+            router.replace({
+              path: 'login',
+              query: {redirect: router.currentRoute.fullPath}
+            })
+          }
         })
       } else if (response.success === true) {
         if (success) { success(response) }
       } else {
-        if (fail) { fail(response) } else { alert(`error:${response.message}`) }
+        if (fail) { fail(response) } else { Message.error(response.message) }
       }
     }
   ).catch(err => {
-    console.log(err)
     let res = err.response
-    if (res) { alert(`HTTP CODE:${res.status}`) }
+    if (res) { Message.error(`HTTP CODE:${res.status}`) }
   })
 }
 
