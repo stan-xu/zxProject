@@ -158,7 +158,7 @@
           if (this.clicked.step1 === this.step.step1UnReady) {
             state = '未提交'
           }
-          if (this.clicked.step1 === this.step.step1Ready) {
+          if (this.clicked.step1 === this.step.step1Ready || this.clicked.step2 === this.step.step2Ready || this.clicked.step2 === this.step.step2NoPass) {
             state = '审核中'
           }
           if (this.clicked.step2 === this.step.step2UnReady && this.clicked.step1 === this.step.step1Pass) {
