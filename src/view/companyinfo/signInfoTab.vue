@@ -2,7 +2,7 @@
   <div id="sign-info-tab" v-show="loaded">
     <!--审核状态提示框-->
     <el-alert
-      :title="'营业执照审核未通过：'+(this.form.approve_text||'无')"
+      :title="'营业执照审核未通过：'+(this.signInfo.approve_text||'无')"
       type="error"
       show-icon
       v-if="this.signInfo.sign_status==='审核未通过'"

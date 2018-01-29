@@ -117,7 +117,7 @@
             } else {
               pingpp.setUrlReturnCallback((err, url) => {
                 if (err) {
-                  alert(err)
+                  this.$message.error(err)
                 } else {
                   window.open(url)
                 }

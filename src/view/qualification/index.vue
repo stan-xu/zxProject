@@ -51,8 +51,12 @@
         this.$api.get('/ent/json', this.type,
         resj => {
           if (!resj.data.ent_type) {
-            alert('请先完成企业信息')
-            this.$router.replace('/home/companyinfo')
+            this.$alert('请先完成企业信息', '温馨提示', {
+              confirmButtonText: '确定',
+              callback: () => {
+                this.$router.replace('/home/companyinfo')
+              }
+            })
           } else {
             this.type = resj.data.ent_type.replace('1', '房地产企业')
             .replace('2', '消防产品厂家')
@@ -61,9 +65,6 @@
             .replace('5', '消防技术服务机构')
             .replace('6', '其他')
           }
-        },
-        err => {
-          console.log(err.message)
         })
       }
     }

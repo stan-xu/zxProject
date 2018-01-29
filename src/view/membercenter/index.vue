@@ -23,7 +23,7 @@
       </el-col>
     </el-row>
     <el-row v-if="clicked">
-      <h2 class="step">现在请你先按照以下步骤进行信息填写</h2>
+      <h2 class="step">请您按照以下步骤进行操作</h2>
       <div id="arrowButtonBox">
         <a @click="companyinfo_data()"
            :class="(clicked.step1 != step.step1Pass)? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
@@ -103,7 +103,6 @@
         })
         this.$api.post('/ent/progress', {}, (r) => {
           this.clicked = r.data
-          // console.log(this.clicked)
         })
       },
       companyinfo_data () {
