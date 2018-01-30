@@ -94,11 +94,10 @@
         pdfurl: '',
         loading: false,
         cloading: false,
-        num: '',
         tails: '',
         detail: '',
         contract: '',
-        state: false
+        state: true
       }
     },
     mounted () {
@@ -138,12 +137,7 @@
       sign (id) {
         this.dialogVisible = true
         this.cloading = true
-        if (this.num > 0) {
-          this.cloading = false
-          this.get_data()
-        } else {
-          this.num = 1
-        }
+        this.getInfo()
       },
       signContract (id) {
         this.$api.get('/contract/mysign/' + id, {}, (r) => {
