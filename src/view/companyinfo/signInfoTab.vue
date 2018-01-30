@@ -77,7 +77,7 @@
           pk_sign: ''
         },
         rules: {
-          signFile: [{require: true, message: '请上传营业执照', trigger: 'submit'}]
+          signFile: [{required: true, message: '请上传营业执照', trigger: 'submit'}]
         },
         isEdit: true
       }
