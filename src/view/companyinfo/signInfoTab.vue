@@ -27,7 +27,7 @@
       <el-col :span="12" :offset="4">
         <!--编辑状态-->
         <el-form :model="form" ref="signForm" :rules="rules" label-width="140px" v-if="isEdit">
-          <el-form-item label="营业执照" prop="">
+          <el-form-item label="营业执照" prop="signFile">
             <file-upload @file-change="signChange"
                          :preview="form.signFile"></file-upload>
           </el-form-item>

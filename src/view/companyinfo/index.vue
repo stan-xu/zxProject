@@ -1,13 +1,13 @@
 <template>
   <div id="companyInfo" v-cloak>
     <el-tabs v-model="activeName">
-      <el-tab-pane label="企业信息" name="company">
+      <el-tab-pane label="企业信息(必填)" name="company">
         <company-info-tab></company-info-tab>
       </el-tab-pane>
-      <el-tab-pane label="电子合同委托书" name="contract">
+      <el-tab-pane label="电子合同委托书(必填)" name="contract">
         <contract-info-tab></contract-info-tab>
       </el-tab-pane>
-      <el-tab-pane label="营业执照" name="sign">
+      <el-tab-pane label="营业执照(必填)" name="sign">
         <sign-info-tab></sign-info-tab>
       </el-tab-pane>
     </el-tabs>
@@ -45,7 +45,6 @@
     [v-cloak] {
       display: none;
     }
-
     .status-alert {
       margin-bottom: 15px;
     }
