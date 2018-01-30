@@ -37,7 +37,10 @@
                 <apply-bill :applyId="tails.orderid" :on-success="get_data"
                             v-if="tails.invoice_state == '未申请'"></apply-bill>
                 <span v-if="tails.invoice_state == '已申请'">发票已申请</span>
-                <div v-if="tails.invoice_state == '已开具'">物流单号:{{detail.tax_num}}</div>
+                <div v-if="tails.invoice_state == '已开具'">
+                  <div>物流公司:{{detail.express_company}}</div>
+                  <div>物流单号:{{detail.express_number}}</div>
+                </div>
               </div>
             </div>
           </template>
@@ -132,6 +135,7 @@
       getTax () {
         this.$api.get('/zxOrder/detail?id=' + this.tails.orderid, null, (r) => {
           this.detail = r.data.tails
+          console.log(this.detail)
         })
       },
       sign (id) {
