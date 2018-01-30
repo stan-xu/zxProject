@@ -8,6 +8,9 @@
       <template v-if="loaded">
         <ul class="header-nav logined list-inline" v-if="ifLogin">
           <li>
+            <a :href="this.baseUrl+'/'">首页</a>
+          </li>
+          <li>
             <router-link to="/home/publish">我的发布</router-link>
           </li>
           <li>
@@ -101,7 +104,7 @@
       float: right;
       height: 70px;
       padding-left: 0;
-      a{
+      a {
         display: inline-block;
         width: 100%;
         height: 100%;
