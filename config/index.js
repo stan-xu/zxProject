@@ -12,9 +12,12 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/blade': {
-        target:'http://202.107.195.233:21009',
+        target:'http://blade.dev.hzjuxiu.com:21009/',
         secure:false,
-        changeOrigin:false
+        changeOrigin:true,
+        pathRewrite: {
+          '^/blade': '/'
+        }
       }
     },
 
@@ -61,7 +64,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'spa',
-    assetsPublicPath: '/blade/static/',
+    assetsPublicPath: '/static/',
 
     /**
      * Source Maps

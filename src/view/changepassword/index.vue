@@ -66,10 +66,10 @@
             {required: true, message: '请输入原密码', trigger: 'onblur'}
           ],
           new_password1: [
-            {validator: validatePass, trigger: 'submit'}
+            {validator: validatePass, required: true, trigger: 'submit'}
           ],
           new_password2: [
-            {validator: validatePass2, trigger: 'onblur'}
+            {validator: validatePass2, required: true, trigger: 'onblur'}
           ]
         }
       }

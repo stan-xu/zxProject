@@ -1,7 +1,8 @@
 import router from '../../router'
 import { Message, MessageBox } from 'element-ui'
 // api接口地址
-var root = '/blade'
+// var root = '/blade'
+var root = process.env.NODE_ENV === 'development' ? '/blade' : ''
 
 // 引用axios
 var axios = require('axios')

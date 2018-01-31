@@ -122,7 +122,7 @@
           if (valid) {
             this.$api.post(this.formUrl + this.form.contractId, null,
               resj => {
-                this.load()
+                this.$router.push('/home/qualification')
               })
           } else {
             return false

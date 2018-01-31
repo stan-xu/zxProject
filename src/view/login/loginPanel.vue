@@ -74,6 +74,9 @@
                       case '资质认证':
                         this.$router.replace('/home/qualification')
                         break
+                      case '合同签署':
+                        this.$router.replace('/home/contract')
+                        break
                       case '企业上线':
                         this.$router.replace('/home/membercenter')
                         break

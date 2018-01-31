@@ -35,22 +35,22 @@
       </template>
       <h3 class="text-hot">选择支付方式付款</h3>
       <el-row v-model="payType">
-        <el-col :span="6">
+        <el-col :span="8">
           <el-radio v-model="payType" label="alipay_pc_direct">
             <img src="./images/alipay.jpg" alt="">
           </el-radio>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-radio v-model="payType" label="wx_pub_qr">
             <img src="./images/wx.jpg" alt="" class="img-responsive">
           </el-radio>
         </el-col>
-        <el-col :span="6">
+        <!--<el-col :span="6">
           <el-radio v-model="payType" label="upacp_pc">
             <img src="./images/bankol.jpg" alt="" class="img-responsive">
           </el-radio>
-        </el-col>
-        <el-col :span="6">
+        </el-col>-->
+        <el-col :span="8">
           <el-radio v-model="payType" label="remittance">
             <img src="./images/bank.jpg" alt="" class="img-responsive">
           </el-radio>

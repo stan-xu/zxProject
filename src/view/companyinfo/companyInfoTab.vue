@@ -24,8 +24,9 @@
     <el-row>
       <el-col :span="12" :offset="4">
         <el-form :model="form" ref="companyForm" :rules="rules" label-width="140px" v-if="isEdit">
-          <el-form-item label="企业Logo" prop="ent_logo">
-            <logo-upload :logoId.sync="form.ent_logo"></logo-upload>
+          <el-form-item label="营业执照" prop="signFile">
+            <file-upload @file-change="signChange"
+                         :preview="form.signFile"></file-upload>
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -69,14 +70,16 @@
           <el-form-item label="企业法人联系方式" prop="corporation_phone">
             <el-input v-model="form.corporation_phone"></el-input>
           </el-form-item>
+          <el-form-item label="企业Logo">
+            <logo-upload :logoId.sync="form.ent_logo"></logo-upload>
+          </el-form-item>
           <el-form-item>
             <el-button @click="submit" type="primary">提交</el-button>
           </el-form-item>
         </el-form>
         <el-form :model="form" label-width="140px" v-else>
-          <el-form-item label="企业Logo">
-            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178"
-                 height="178" v-if="form.ent_logo">
+          <el-form-item label="营业执照">
+            <img :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="sign" class="img-responsive">
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -116,8 +119,12 @@
           <el-form-item label="企业法人联系方式">
             {{form.corporation_phone}}
           </el-form-item>
+          <el-form-item label="企业Logo">
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178"
+                 height="178" v-if="form.ent_logo">
+          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审核中'">
+            <el-button type="primary" @click="toggleEdit">
               编辑
             </el-button>
             <router-link to="/home/qualification" v-if="form.status==='审核已通过'">
@@ -134,16 +141,20 @@
   import RegionPicker from 'region-picker'
   import data from 'region-picker/dist/data.json'
   import LogoUpload from './logo-upload'
+  import FileUpload from '../../components/fileUpload/index'
 
   export default {
     name: 'company-info-tab',
+    props: ['activeTab'],
     components: {
+      FileUpload,
       LogoUpload,
       RegionPicker
     },
     data () {
       return {
         formUrl: '/ent/update',
+        signUrl: '/sign/upload',
         loaded: '',
         form: {
           ent_logo: '',
@@ -156,13 +167,12 @@
           ent_corporation: '',
           corporation_phone: '',
           signFile: '',
-          signFile_status: '',
-          signFileId: ''
+          pk_sign: ''
         },
         regionData: data,
         entTypeList: ['房地产企业', '消防产品厂家', '消防设计单位', '消防施工单位', '消防技术服务机构', '社会单位'],
         rules: {
-          ent_logo: [{required: true, message: '请上传企业Logo', trigger: 'submit'}],
+          signFile: [{required: true, message: '请上传营业执照', trigger: 'submit'}],
           ent_id: [{required: true, message: '请输入统一社会信用代码', trigger: 'submit'}],
           ent_type: [{required: true, message: '请选择企业类型', trigger: 'submit'}],
           ent_region_id: [{required: true, message: '请输入所在地区', trigger: 'submit'}],
@@ -183,6 +193,12 @@
         this.$api.get('/ent/json', null,
           resj => {
             let data = resj.data
+            if (data.tails.sign) {
+              let sign = data.tails.sign
+              this.signUrl = '/sign/update/'
+              data.signFile = sign.sign_file
+              data.pk_sign = sign.pk_sign
+            }
             if (data.ent_id) {
               this.isEdit = false
               data.ent_type = data.ent_type.split(',')
@@ -194,14 +210,38 @@
           }
         )
       },
+      companySubmit () {
+        this.form.ent_region = this.$refs.regionPick.getCityByAdcode(this.form.ent_region_id).fullName.replace(/\s\/\s/g, '')
+        this.$api.post(this.formUrl, this.form,
+          resj => {
+            this.load()
+            this.$emit('update:activeTab', 'contract')
+          })
+      },
+      signSubmit () {
+        return new Promise((resolve, reject) => {
+          if (typeof this.form.signFile === 'string') {
+            resolve()
+          } else {
+            let formData = new FormData()
+            formData.append('signFile', this.form.signFile)
+            formData.append('sign_kind', this.form.sign_kind)
+            formData.append('sign_type', this.form.sign_type)
+            if (this.form.pk_sign) { formData.append('pk_sign', this.form.pk_sign) }
+            this.$api.post(this.signUrl, formData,
+              resj => {
+                this.signUrl = '/sign/update/'
+                resolve()
+              })
+          }
+        })
+      },
       submit () {
         this.$refs.companyForm.validate((valid) => {
           if (valid) {
-            this.form.ent_region = this.$refs.regionPick.getCityByAdcode(this.form.ent_region_id).fullName.replace(/\s\/\s/g, '')
-            this.$api.post(this.formUrl, this.form,
-              resj => {
-                this.load()
-              })
+            this.signSubmit().then(() => {
+              this.companySubmit()
+            })
           } else {
             return false
           }
@@ -209,6 +249,9 @@
       },
       toggleEdit () {
         this.isEdit = true
+      },
+      signChange (file) {
+        this.form.signFile = file
       }
     }
   }

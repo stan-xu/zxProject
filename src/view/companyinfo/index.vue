@@ -2,14 +2,14 @@
   <div id="companyInfo" v-cloak>
     <el-tabs v-model="activeName">
       <el-tab-pane label="企业信息(必填)" name="company">
-        <company-info-tab></company-info-tab>
+        <company-info-tab :activeTab.sync="activeName"></company-info-tab>
       </el-tab-pane>
       <el-tab-pane label="电子合同委托书(必填)" name="contract">
         <contract-info-tab></contract-info-tab>
       </el-tab-pane>
-      <el-tab-pane label="营业执照(必填)" name="sign">
+<!--      <el-tab-pane label="营业执照(必填)" name="sign">
         <sign-info-tab></sign-info-tab>
-      </el-tab-pane>
+      </el-tab-pane>-->
     </el-tabs>
   </div>
 </template>
@@ -33,6 +33,7 @@
       }
     },
     mounted () {
+      console.log(process.env)
       EventBus.$emit('setHomeHeader', '企业信息')
     },
     computed: {},
