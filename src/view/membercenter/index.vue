@@ -26,25 +26,28 @@
       <h2 class="step">请您按照以下步骤进行操作</h2>
       <div id="arrowButtonBox">
         <a @click="companyinfo_data()"
-           :class="(clicked.step1 != step.step1Pass)? 'arrowButton fcolorUnready':'arrowButton fcolorReady'">
+           class="arrowButton fcolorStep" :style="{'background-color':backgroundStep[click1_step()]}" :class="backgroundStep[clicked.step1]">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
         </a>
         <a @click="qualificationinfo_data()"
-           :class="(clicked.step2!= step.step2Pass)? 'arrowButton colorUnready':'arrowButton colorReady'">
+           class="arrowButton colorStep"
+           :style="{'background-color':backgroundStep[click2_step()]}" :class="backgroundStep[clicked.step2]">
           <div class='arrowText'>
             <p>{{clicked.step2}}</p>
           </div>
         </a>
         <a @click="contractinfo_data()"
-           disabled :class="(clicked.step3!= step.step3Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
+            class="arrowButton colorStep" :class="backgroundStep[clicked.step3]"
+           :style="{'background-color':backgroundStep[click3_step()]}">
           <div class='arrowText'>
             <p>{{clicked.step3}}</p>
           </div>
         </a>
         <a @click="payinfo_data()"
-           disabled :class="(clicked.step4!= step.step4Ready)? 'arrowButton colorUnready':'arrowButton colorReady'">
+           class="arrowButton colorStep" :class="backgroundStep[clicked.step4]"
+           :style="{'background-color':backgroundStep[click4_step()]}">
           <div class='arrowText'>
             <p>{{clicked.step4}}</p>
           </div>
@@ -55,7 +58,7 @@
 </template>
 
 <script>
-  import { EventBus } from '../../util/eventBus'
+  import {EventBus} from '../../util/eventBus'
 
   export default {
     name: 'memberCenter',
@@ -89,6 +92,24 @@
           '待签约': '#409eff',
           '未交费': '#e6a23c',
           '有效': '#67c23a'
+        },
+        backgroundStep: {
+          '企业信息未完善': 'fcolorStepFail',
+          '企业信息已提交': 'fcolorStepReady',
+          '企业信息审核已通过': 'fcolorStep',
+          '企业信息审核未通过': 'fcolorStepFail',
+          '资质信息未完善': 'colorStepFail',
+          '资质信息已提交': 'colorStepReady',
+          '资质信息审核已通过': 'colorStep',
+          '资质信息审核未通过': 'colorStepFail',
+          '合同未签订': 'colorStepFail',
+          '合同已签订': 'colorStep',
+          '会员费未付款': 'colorStepFail',
+          '会员费已付款': 'colorStep',
+          '已通过': '#c41335',
+          '已提交': '#e6a23c',
+          '未完善': '#b2b2b2',
+          '不通过': '#b2b2b2'
         }
       }
     },
@@ -172,6 +193,50 @@
         }
         console.log(state)
         return state
+      },
+      click1_step () {
+        let step = ''
+        if (this.clicked.step1 === this.step.step1Pass) {
+          step = '已通过'
+        } else if (this.clicked.step1 === this.step.step1NoPass) {
+          step = '不通过'
+        } else if (this.clicked.step1 === this.step.step1Ready) {
+          step = '已提交'
+        } else {
+          step = '未完善'
+        }
+        return step
+      },
+      click2_step () {
+        let step = ''
+        if (this.clicked.step2 === this.step.step2Pass) {
+          step = '已通过'
+        } else if (this.clicked.step2 === this.step.step2NoPass) {
+          step = '不通过'
+        } else if (this.clicked.step2 === this.step.step2Ready) {
+          step = '已提交'
+        } else {
+          step = '未完善'
+        }
+        return step
+      },
+      click3_step () {
+        let step = ''
+        if (this.clicked.step3 === this.step.step3UnReady) {
+          step = '未完善'
+        } else {
+          step = '已通过'
+        }
+        return step
+      },
+      click4_step () {
+        let step = ''
+        if (this.clicked.step4 === this.step.step4UnReady) {
+          step = '未完善'
+        } else {
+          step = '已通过'
+        }
+        return step
       }
     }
   }
@@ -207,21 +272,6 @@
     .step {
       font-size: 18px;
       margin: 0 0 30px 0;
-    }
-    #arrowButtonBox {
-      height: 40px;
-      padding: 0;
-      position: relative;
-    }
-    #arrowButtonBox:after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 0;
-      position: absolute;
-      left: 0px;
-      top: 0;
-      z-index: 2;
     }
     .arrowButton {
       height: 100px;
@@ -259,8 +309,7 @@
       top: 0;
       z-index: 3;
     }
-    .colorReady {
-      background: #c31435;
+    .colorStep, .colorStepFail, .colorStepcolorStepReady {
       p {
         font-size: 15px;
         padding: 0;
@@ -270,28 +319,19 @@
         margin-right: -15px;
       }
     }
-    .colorUnready {
-      background: #b2b2b2;
-      p {
-        font-size: 15px;
-        padding: 0;
-        margin: 0;
-        line-height: 100px;
-        margin-left: 35px;
-        margin-right: -15px;
-      }
-    }
-    .colorReady:before, .colorUnready:before {
+    .colorStep:before {
       border-color: transparent transparent transparent #fff;
     }
-    .colorReady:after {
+    .colorStep:after {
       border-color: transparent transparent transparent #c31435;
     }
-    .colorUnready:after {
+    .colorStepFail:after {
       border-color: transparent transparent transparent #b2b2b2;
     }
-    .fcolorReady {
-      background: #c31435;
+    .colorStepReady:after {
+      border-color: transparent transparent transparent #e6a23c;
+    }
+    .fcolorStep, fcolorStepReady, fcolorStepFail {
       p {
         font-size: 15px;
         padding: 0;
@@ -300,20 +340,13 @@
         margin-left: 15px;
       }
     }
-    .fcolorUnready {
-      background: #b2b2b2;
-      p {
-        font-size: 15px;
-        padding: 0;
-        margin: 0;
-        line-height: 100px;
-        margin-left: 15px;
-      }
-    }
-    .fcolorReady:before, .fcolorReady:after {
+    .fcolorStep:before, .fcolorStep:after {
       border-color: transparent transparent transparent #c31435;
     }
-    .fcolorUnready:before, .fcolorUnready:after {
+    .fcolorStepReady:before, .fcolorStepReady:after {
+      border-color: transparent transparent transparent #e6a23c;
+    }
+    .fcolorStepFail:before, .fcolorStepFail:after {
       border-color: transparent transparent transparent #b2b2b2;
     }
     .arrowText {
