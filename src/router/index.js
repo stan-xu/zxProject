@@ -12,13 +12,13 @@ import Contract from '@/view/contract'
 import CompanyInfo from '@/view/companyInfo'
 import ContactInfo from '@/view/contactInfo'
 import ChangePwd from '@/view/changepassword'
-
+import HomePage from '@/view/homepage'
 Vue.use(Router)
 export default new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: HomePage
     },
     {
       path: '/login',
