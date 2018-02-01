@@ -41,7 +41,7 @@
         <el-form-item>
           <el-checkbox name="type" v-model="confirmProtocol">
             <b>我已经阅读并同意《
-              <router-link class="link-protocol" to="">平台合作协议</router-link>》
+              <router-link class="link-protocol" to="/protocol" target="_blank">平台合作协议</router-link>》
             </b>
           </el-checkbox>
         </el-form-item>

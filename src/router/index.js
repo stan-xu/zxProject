@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '@/view/index'
 import Login from '@/view/login'
 import Register from '@/view/register'
+import Protocol from '@/view/protocol'
 import RegisterCompany from '@/view/registercompany'
 import RegSuccess from '@/view/regsuccess'
 import MemberCenter from '@/view/membercenter'
@@ -73,6 +74,9 @@ export default new Router({
       path: '/register',
       component: Register
     }, {
+      path: '/protocol',
+      component: Protocol
+    }, {
       path: '/registercompany',
       component: RegisterCompany,
       meta: {
@@ -80,10 +84,10 @@ export default new Router({
       }
     }, {
       path: '/regsuccess',
-      component: RegSuccess
-      // meta: {
-      //   requiresLogin: true
-      // }
+      component: RegSuccess,
+      meta: {
+        requiresLogin: true
+      }
     },
     {path: '*', component: Login}
   ],
