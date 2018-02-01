@@ -1,5 +1,5 @@
 <template>
-  <div id="addproject">
+  <div id="addproject" class="container">
     <h3><i class="fa fa-building colorin"></i> 项目资料</h3>
     <div class="projectform">
       <el-form label-position="right" label-width="130px" :model="projectForm" ref="projectForm" :rules="rules">
@@ -267,9 +267,7 @@
 </script>
 <style lang="scss" scoped>
   #addproject{
-    width: 1160px;
     padding: 40px;
-    margin: -20px auto 0;
     background-color: #fff;
     box-shadow: 0 0 10px #ccc;
     h3{
