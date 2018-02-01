@@ -27,13 +27,14 @@
 
 <style lang="scss" scoped>
   #manager {
+    background-color: $white-max;
+    padding: 60px 0 40px;
+    box-shadow: 0 0 10px #ccc;
     .content {
       min-height: 904px;
       border-left: 1px solid #ddd;
       padding: 20px;
     }
-    background-color: $white-max;
-    padding: 60px 0 40px;
     .router-link-active {
       background-color: red;
     }
