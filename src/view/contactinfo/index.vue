@@ -57,7 +57,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button type="primary" @click="update_data('form',form.pk_ent_contacts)">提交</el-button>
-  </span>
+            </span>
           </el-dialog>
           <el-col :span="8" v-for="(item,index) in (3-contact_list.length)" :key="'contactAdd'+index"><a
             @click.prevent="modal('add')" class="contact-card"><i class="fa fa-plus"></i></a></el-col>
@@ -96,7 +96,7 @@
     name: 'contactinfo',
     data () {
       var checkPhone = (rule, value, callback) => {
-        if (!(/^1[3|4|5|8][0-9]\d{8}$/.test(value))) {
+        if (!(/^1[345789]\d{9}$/.test(value))) {
           return callback(new Error('请填写正确的联系电话'))
         } else {
           callback()
@@ -125,7 +125,7 @@
             {validator: checkPhone, trigger: 'blur'}
           ],
           email: [
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change'}
+            {required: true, type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change'}
           ]
         }
       }
@@ -170,13 +170,21 @@
         })
       },
       del_data (id) {
-        event.returnValue = confirm('请确认是否删除？')
-        if (event.returnValue) {
+        this.$confirm('请确认是否删除？', '温馨提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
           this.$api.get('/ent/contacts/remove/' + id, this.form, (r) => {
             this.$message.success(r.message)
             this.get_data()
           })
-        }
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       },
       modal (type, id) {
         if (type === 'update') {
