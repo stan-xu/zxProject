@@ -2,7 +2,7 @@
   <div id="myHeader" v-cloak>
     <div class="container clearfix">
       <div class="header-brand">
-        <a class="brand" :href="baseUrl+'/'"></a>
+        <router-link to="/" class="brand"></router-link>
       </div>
       <div class="header-title">企业名录</div>
       <template v-if="loaded">
@@ -25,7 +25,7 @@
             <router-link to="/login">登录</router-link>
           </li>
           <li>
-            <a :href="baseUrl+'/account/register'">注册</a>
+            <router-link to="/register">注册</router-link>
           </li>
         </ul>
       </template>
