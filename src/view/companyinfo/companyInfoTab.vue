@@ -124,7 +124,7 @@
                  height="178" v-if="form.ent_logo">
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="toggleEdit">
+            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审核中'">
               编辑
             </el-button>
             <router-link to="/home/qualification" v-if="form.status==='审核已通过'">
@@ -202,10 +202,10 @@
             if (data.ent_id) {
               this.isEdit = false
               data.ent_type = data.ent_type.split(',')
-              this.form = Object.assign({}, this.companyInfo, data)
             } else {
               this.isEdit = true
             }
+            this.form = Object.assign({}, this.companyInfo, data)
             this.loaded = true
           }
         )
@@ -240,6 +240,8 @@
         this.$refs.companyForm.validate((valid) => {
           if (valid) {
             this.signSubmit().then(() => {
+              this.companySubmit()
+            }).then(() => {
               this.companySubmit()
             })
           } else {
