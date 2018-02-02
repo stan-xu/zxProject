@@ -28,12 +28,12 @@
           <template slot-scope="scope">
             <el-button type="text" @click="sign(content[0].id)" v-if="content[0].doc_state === '未签署'">签署合同</el-button>
             <div v-if="content[0].doc_state === '已签署'">
+              <a :href="baseUrl+url">
+                <el-button type="text">下载合同</el-button>
+              </a>
               <pay :payId="content[0].id" :on-success="get_data" v-if="!tails.channel"></pay>
               <div v-if="tails.channel =='remittance' && tails.pay_state=='未付款'">付款审核中</div>
               <div v-if="tails.pay_state=='已付款'">
-                <a :href="baseUrl+url">
-                  <el-button type="text">下载合同</el-button>
-                </a>
                 <apply-bill :applyId="tails.orderid" :on-success="get_data"
                             v-if="tails.invoice_state == '未申请'"></apply-bill>
                 <span v-if="tails.invoice_state == '已申请'">发票已申请</span>

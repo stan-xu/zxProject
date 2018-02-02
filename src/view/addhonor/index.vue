@@ -1,5 +1,5 @@
 <template>
-  <div id="addhonor">
+  <div id="addhonor" class="container">
     <h3><i class="fa fa-trophy colorin"></i> 荣誉资料</h3>
     <div class="honorform">
       <el-form :model="honorForm" :rules="rules" ref="honorForm" label-width="100px">
@@ -8,21 +8,20 @@
         </el-form-item>
         <el-form-item label="荣誉图片" prop="honor_pic">
           <el-upload
+            class="avatar-uploader"
             ref="imgUpload"
-            drag
             :action="baseUrl+'/uploadify/uploadimg'"
             name="imgFile"
-            :limit="1"
             :headers="uploadImgHeader"
             :file-list="imgList"
+            :show-file-list="false"
             :before-upload="handleBeforeUpload"
             :on-remove="handleOnRemove"
             :on-success="handleSuccess"
             :on-error="handleError"
-            :on-exceed="handleExceed"
-            list-type="picture">
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            :on-exceed="handleExceed">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             <div class="el-upload__tip" slot="tip">
               <el-alert
                 title="只能上传一张jpg/png文件，且不超过2M"
@@ -68,7 +67,8 @@
             { required: true, message: '请上传图片', trigger: 'change' }
           ]
         },
-        imgList: []
+        imgList: [],
+        imageUrl: ''
       }
     },
     methods: {
@@ -81,6 +81,7 @@
             this.honorForm.honor_name = resj.data.honor_name
             this.honorForm.honor_pic = resj.data.honor_pic
             this.imgList.push({name: this.honorForm.honor_name, url: `${this.baseUrl}/uploadify/renderFile/${resj.data.honor_pic}`})
+            this.imageUrl = `${this.baseUrl}/uploadify/renderFile/${resj.data.honor_pic}`
           }
         )
       },
@@ -112,6 +113,7 @@
       },
       resetUpload (uploadName) {
         this.$refs[uploadName].fileList.splice(0)
+        this.imageUrl = ''
         // this.$refs[uploadName].clearFiles()
       },
       handleBeforeUpload (file) {
@@ -129,12 +131,14 @@
         this.imgList.pop()
         this.honorForm.honor_pic = ''
       },
-      handleSuccess (resj) {
+      handleSuccess (resj, file) {
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
+          this.imgList.splice(0, this.imgList.length)
           this.imgList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.honorForm.honor_pic = resj.fileId
+          this.imageUrl = URL.createObjectURL(file.raw)
         }
       },
       handleError () {
@@ -174,11 +178,9 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   #addhonor{
-    width: 1160px;
     padding: 40px;
-    margin: -20px auto 0;
     background-color: #fff;
     box-shadow: 0 0 10px #ccc;
     h3{
@@ -190,6 +192,29 @@
     .honorform{
       width: 720px;
       margin: 50px auto 0;
+    }
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+      border-color: $hot-dark;
+    }
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 178px;
+      height: 178px;
+      line-height: 178px;
+      text-align: center;
+    }
+    .avatar {
+      width: 178px;
+      height: 178px;
+      display: block;
     }
   }
 </style>

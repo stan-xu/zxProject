@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/view/index'
 import Login from '@/view/login'
+import Register from '@/view/register'
+import Protocol from '@/view/protocol'
+import RegisterCompany from '@/view/registercompany'
+import RegSuccess from '@/view/regsuccess'
 import MemberCenter from '@/view/membercenter'
 import Publish from '@/view/publish'
 import AddHonor from '@/view/addhonor'
@@ -14,7 +18,10 @@ import ContactInfo from '@/view/contactInfo'
 import ChangePwd from '@/view/changepassword'
 import HomePage from '@/view/homepage'
 Vue.use(Router)
+// const baseUrl = '/blade/'
+const baseUrl = ''
 export default new Router({
+  base: baseUrl,
   routes: [
     {
       path: '/',
@@ -60,6 +67,24 @@ export default new Router({
     }, {
       path: '/changeproject/:id',
       component: AddProject,
+      meta: {
+        requiresLogin: true
+      }
+    }, {
+      path: '/register',
+      component: Register
+    }, {
+      path: '/protocol',
+      component: Protocol
+    }, {
+      path: '/registercompany',
+      component: RegisterCompany,
+      meta: {
+        requiresLogin: true
+      }
+    }, {
+      path: '/regsuccess',
+      component: RegSuccess,
       meta: {
         requiresLogin: true
       }

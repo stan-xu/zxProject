@@ -26,7 +26,8 @@
       </el-form>
       <div class="features">
         <a :href="this.baseUrl+'/account/forget'">忘记密码</a>&nbsp;|
-        <a :href="this.baseUrl+'/account/register'">免费注册</a>
+        <router-link to="/register">免费注册</router-link>
+        <!-- <a :href="this.baseUrl+'/account/register'">免费注册</a> -->
       </div>
     </div>
   </div>
