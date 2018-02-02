@@ -111,6 +111,7 @@
         border-bottom: 1px solid #acacac;
         & > a {
           display: inline-block;
+          outline: none;
           width: 100%;
           &.router-link-active {
             color: $hot-dark;

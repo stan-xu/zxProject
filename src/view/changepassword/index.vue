@@ -63,13 +63,13 @@
         },
         rules: {
           old_password: [
-            {required: true, message: '请输入原密码', trigger: 'onblur'}
+            {required: true, message: '请输入原密码', trigger: 'blur'}
           ],
           new_password1: [
-            {validator: validatePass, required: true, trigger: 'submit'}
+            {validator: validatePass, required: true, trigger: 'blur'}
           ],
           new_password2: [
-            {validator: validatePass2, required: true, trigger: 'onblur'}
+            {validator: validatePass2, required: true, trigger: 'blur'}
           ]
         }
       }

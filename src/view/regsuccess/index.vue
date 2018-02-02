@@ -36,6 +36,7 @@
     },
     mounted () {
       this.getInfo()
+      EventBus.$emit('ifLogin', true)
       EventBus.$emit('setHomeHeader', '注册成功')
     },
     methods: {

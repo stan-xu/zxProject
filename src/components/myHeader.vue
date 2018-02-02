@@ -25,7 +25,7 @@
             <router-link to="/login">登录</router-link>
           </li>
           <li>
-            <a :href="baseUrl+'/account/register'">注册</a>
+            <router-link to="/register">注册</router-link>
           </li>
         </ul>
       </template>
