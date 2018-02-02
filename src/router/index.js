@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/view/index'
 import Login from '@/view/login'
+import ForgetPsw from '@/view/forgetpsw'
 import Register from '@/view/register'
 import Protocol from '@/view/protocol'
 import RegisterCompany from '@/view/registercompany'
@@ -70,6 +71,9 @@ export default new Router({
       meta: {
         requiresLogin: true
       }
+    }, {
+      path: '/forgetpsw',
+      component: ForgetPsw
     }, {
       path: '/register',
       component: Register
