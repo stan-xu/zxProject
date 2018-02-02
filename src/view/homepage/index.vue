@@ -1,7 +1,7 @@
 <template>
   <div id="homepage">
     <home-nav></home-nav>
-    <div class="banner-bg"></div>
+    <home-banner></home-banner>
     <div class="container">
       <company-list></company-list>
     </div>
@@ -10,17 +10,17 @@
 </template>
 
 <script>
-  import MyHeader from '../../components/myHeader'
   import MyFooter from '../../components/myFooter'
   import HomeNav from './homeNav'
   import CompanyList from '../../components/company-list/index'
+  import HomeBanner from './homeBanner'
 
   export default {
     components: {
+      HomeBanner,
       CompanyList,
       HomeNav,
-      MyFooter,
-      MyHeader
+      MyFooter
     },
     name: 'homepage'
   }
@@ -29,10 +29,5 @@
 <style lang="scss">
   #homepage {
     background-color: $white-max;
-    .banner-bg {
-      height: 600px;
-      background-image: url('./images/banner-homepage.png');
-    }
-    .menu{}
   }
 </style>
