@@ -5,10 +5,21 @@
       <el-tab-pane v-for="(item,index) in entTypeList" :name="index.toString()" :label="item" :key="index">
       </el-tab-pane>
     </el-tabs>
-    <el-input class="search-input" placeholder="请输入要查询的内容" v-model="form.keywords" @keyup.enter.native="search()">
-      <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
+    <el-input class="search-input" placeholder="请输入要查询的内容" v-model="form.keywords" @keyup.enter.native="load()">
+      <el-button slot="append" icon="el-icon-search" @click="load()"></el-button>
     </el-input>
-    <list-item v-for="(item,index) in listInfo.rows" :info="item" :key="index"></list-item>
+    <template v-if="listInfo.rows.length">
+      <list-item v-for="(item,index) in listInfo.rows" :info="item" :key="index"></list-item>
+    </template>
+    <div class="nullInfo" v-else>暂无数据</div>
+    <el-pagination
+      class="pagination"
+      background
+      layout="total, prev, pager, next"
+      :page-size="form.pagesize"
+      :total="listInfo.records"
+      @current-change="pageChange">
+    </el-pagination>
   </div>
 </template>
 
@@ -43,6 +54,19 @@
             this.listInfo = resj
             this.loading = false
           })
+      },
+      pageChange (page) {
+        this.form.pagesize = page
+        this.load()
+      },
+      tabSelect () {
+        if (this.activeName !== '0') {
+          this.form.type = this.activeName
+        } else {
+          this.form.type = ''
+        }
+        this.form.keywords = ''
+        this.load()
       }
     }
   }
@@ -67,6 +91,14 @@
       margin-top: -60px;
       float: right;
       width: 300px;
+    }
+    .pagination {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .nullInfo {
+      text-align: center;
+      line-height: 100px;
     }
   }
 </style>

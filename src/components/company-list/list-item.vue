@@ -69,8 +69,11 @@
           color: #006CFF;
         }
         a{
+          margin-left: 10px;
+          height: 35px;
+          line-height: 35px;
           display: inline-block;
-          margin-top: -10px;
+          vertical-align: bottom;
         }
       }
     }
