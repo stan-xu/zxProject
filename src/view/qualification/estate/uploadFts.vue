@@ -26,7 +26,7 @@
         levelLsit: ['一级', '二级'],
         levelAdd: [15, 17, 13], // 等级修正
         data: ['', '', ''],  // 已上传的信息
-        name: ['消防维保机构等级类型', '消防监测机构等级类型', '消防安全评估机构等级类型'],
+        name: ['消防维保机构等级类型', '消防检测机构等级类型', '消防安全评估机构等级类型'],
         example: [require('./1_cert.png'), require('./1_cert.png'), require('./1_cert.png')] // 示例图片,
       }
     },
@@ -40,7 +40,7 @@
             for (var i = 0; i < resj.rows.length; i++) {
               if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
                 this.data[0] = resj.rows[i]
-              } else if (resj.rows[i].sign_type.indexOf('监测') >= 0) {
+              } else if (resj.rows[i].sign_type.indexOf('检测') >= 0) {
                 this.data[1] = resj.rows[i]
               } else if (resj.rows[i].sign_type.indexOf('评估') >= 0) {
                 this.data[2] = resj.rows[i]
