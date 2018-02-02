@@ -81,7 +81,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
               <el-button type="primary" @click="add_data('form')">提交</el-button>
-  </span>
+            </span>
           </el-dialog>
         </el-row>
       </div>
