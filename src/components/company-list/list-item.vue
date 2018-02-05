@@ -1,7 +1,7 @@
 <template>
   <div class="list-item">
     <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" class="item-logo">
-      <img :src="this.baseUrl+'/uploadify/renderThumb/'+info.ent_logo+'/120x120'" alt="" class="img-responsive">
+      <img :src="baseUrl+'/uploadify/renderThumb/'+info.ent_logo+'/120x120'" alt="" class="img-responsive">
     </a>
     <el-row class="item-info">
       <el-col :span="18" class="item-text">
