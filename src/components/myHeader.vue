@@ -31,12 +31,12 @@
             <a @click="logout"><i class="fa fa-sign-out"></i></a>
           </li>
         </ul>
-        <ul class="header-nav nologin list-inline" v-else-if="loginState===3">
+        <ul class="header-nav nologin list-inline" v-if="loginState===3">
           <li>
             <router-link to="/login">登录</router-link>
           </li>
           <li>
-            <a :href="baseUrl+'/account/register'">注册</a>
+            <router-link to="/register">注册</router-link>
           </li>
         </ul>
       </template>
@@ -51,7 +51,7 @@
     name: 'myHeader',
     data () {
       return {
-        loginState: '' // 1:完全登录，2:仅可使用找企业的登录，3:未登录
+        loginState: 3 // 1:完全登录，2:仅可使用找企业的登录，3:未登录
       }
     },
     created () {
@@ -63,6 +63,9 @@
             (resj.message === '已登录') ? this.ifLogin = true : this.ifLogin = false
             this.loaded = true
           }) */
+    },
+    mounted () {
+      console.log(this.$route, this.$router)
     },
     methods: {
       logout () {

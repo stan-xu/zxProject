@@ -9,6 +9,7 @@
 <script>
   import myHeader from './components/myHeader.vue'
   import Warn from './components/warn.vue'
+  import {EventBus} from './util/eventBus'
 
   export default {
     name: 'app',
@@ -18,7 +19,23 @@
         isQQIE: false
       }
     },
+    mounted () {
+      this.judgeLogined()
+    },
     methods: {
+      judgeLogined () {
+        if (!this.$route.meta.userState) {
+          this.$api.get('/account/islogin', null,
+            resj => {
+              if (resj.message === '未登录') {
+                EventBus.$emit('setLoginState', 3)
+              } else {
+                EventBus.$emit('setLoginState', 1)
+              }
+            }
+          )
+        }
+      },
       judgeBrowserNotSupport () { // 判断是否是IE10以下版本,true为不支持
         const userAgent = navigator.userAgent // 取得浏览器的userAgent字符串
         const _isQQIE = userAgent.indexOf('QQBrowser') > -1 && userAgent.indexOf('Chrome') === -1 // 判断是否qq浏览器兼容模式
