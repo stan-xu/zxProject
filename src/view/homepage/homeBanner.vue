@@ -19,7 +19,7 @@
 <style scoped lang="scss">
   .banner-bg {
     height: 600px;
-    background-image: url('./images/banner-homepage.png');
+    background-image: url('./images/banner-homepage.jpg');
     position: relative;
   }
   .btn-to-register{
