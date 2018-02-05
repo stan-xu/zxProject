@@ -34,8 +34,6 @@
 </template>
 
 <script>
-  import { EventBus } from '../../util/eventBus'
-
   export default {
     name: 'loginPanel',
     data () {
@@ -85,7 +83,6 @@
                         this.$router.replace('/home/membercenter')
                         break
                     }
-                    EventBus.$emit('ifLogin', true)
                   })
               },
               err => {

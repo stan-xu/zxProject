@@ -5,8 +5,8 @@
         <a class="brand" :href="baseUrl+'/'"></a>
       </div>
       <div class="header-title">企业名录</div>
-      <template v-if="loaded">
-        <ul class="header-nav logined list-inline" v-if="ifLogin">
+      <template >
+        <ul class="header-nav logined list-inline" v-if="loginState===1">
           <li>
             <a :href="this.baseUrl+'/'">首页</a>
           </li>
@@ -20,7 +20,18 @@
             <a @click="logout"><i class="fa fa-sign-out"></i></a>
           </li>
         </ul>
-        <ul class="header-nav nologin list-inline" v-else>
+        <ul class="header-nav logined list-inline" v-if="loginState===2">
+          <li>
+            <a :href="this.baseUrl+'/'">首页</a>
+          </li>
+          <li>
+            <a :href="baseUrl+'/ent/'">找企业</a>
+          </li>
+          <li>
+            <a @click="logout"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+        <ul class="header-nav nologin list-inline" v-else-if="loginState===3">
           <li>
             <router-link to="/login">登录</router-link>
           </li>
@@ -40,25 +51,23 @@
     name: 'myHeader',
     data () {
       return {
-        ifLogin: null,
-        loaded: false
+        loginState: '' // 1:完全登录，2:仅可使用找企业的登录，3:未登录
       }
     },
     created () {
-      EventBus.$on('ifLogin', val => {
-        this.ifLogin = val
+      EventBus.$on('setLoginState', val => {
+        this.loginState = val
       })
-      this.$api.get('/account/islogin', null,
-        resj => {
-          (resj.message === '已登录') ? this.ifLogin = true : this.ifLogin = false
-          this.loaded = true
-        })
+      /*  this.$api.get('/account/islogin', null,
+          resj => {
+            (resj.message === '已登录') ? this.ifLogin = true : this.ifLogin = false
+            this.loaded = true
+          }) */
     },
     methods: {
       logout () {
         this.$api.get('/account/logout', null,
           resj => {
-            EventBus.$emit('ifLogin', false)
             this.$router.replace('/login')
           })
       }

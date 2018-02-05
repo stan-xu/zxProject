@@ -26,50 +26,52 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: Login,
+      meta: {userState: 3}
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
+      meta: {userState: 3}
     },
     {
       path: '/home',
       component: Index,
-      meta: {requiresLogin: true},
+      meta: {userState: 1},
       children: [
-        {path: 'membercenter', component: MemberCenter, meta: {requiresLogin: true}},
-        {path: 'publish', component: Publish, meta: {requiresLogin: true}},
-        {path: 'qualification', component: Qualification, meta: {requiresLogin: true}},
-        {path: 'qualification/estate', component: Estate, meta: {requiresLogin: true}},
-        {path: 'contract', component: Contract, meta: {requiresLogin: true}},
-        {path: 'companyinfo', component: CompanyInfo, meta: {requiresLogin: true}},
-        {path: 'contactinfo', component: ContactInfo, meta: {requiresLogin: true}},
-        {path: 'changepwd', component: ChangePwd, meta: {requiresLogin: true}}
+        {path: 'membercenter', component: MemberCenter, meta: {userState: 1}},
+        {path: 'publish', component: Publish, meta: {userState: 1}},
+        {path: 'qualification', component: Qualification, meta: {userState: 1}},
+        {path: 'qualification/estate', component: Estate, meta: {userState: 1}},
+        {path: 'contract', component: Contract, meta: {userState: 1}},
+        {path: 'companyinfo', component: CompanyInfo, meta: {userState: 1}},
+        {path: 'contactinfo', component: ContactInfo, meta: {userState: 1}},
+        {path: 'changepwd', component: ChangePwd, meta: {userState: 1}}
       ]
     },
     {
       path: '/addhonor',
       component: AddHonor,
       meta: {
-        requiresLogin: true
+        userState: 1
       }
     }, {
       path: '/changehonor/:id',
       component: AddHonor,
       meta: {
-        requiresLogin: true
+        userState: 1
       }
     }, {
       path: '/addproject',
       component: AddProject,
       meta: {
-        requiresLogin: true
+        userState: 1
       }
     }, {
       path: '/changeproject/:id',
       component: AddProject,
       meta: {
-        requiresLogin: true
+        userState: 1
       }
     }, {
       path: '/forgetpsw',
@@ -84,16 +86,16 @@ export default new Router({
       path: '/registercompany',
       component: RegisterCompany,
       meta: {
-        requiresLogin: true
+        userState: 2
       }
     }, {
       path: '/regsuccess',
       component: RegSuccess,
       meta: {
-        requiresLogin: true
+        userState: 1
       }
     },
-    {path: '*', component: Login}
+    {path: '*', component: Login, meta: {userState: 3}}
   ],
   mode: 'history'
 })
