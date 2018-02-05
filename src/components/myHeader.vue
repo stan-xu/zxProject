@@ -8,7 +8,7 @@
       <template v-if="loaded">
         <ul class="header-nav logined list-inline" v-if="ifLogin">
           <li>
-            <router-link to="/"></router-link>
+            <router-link to="/">首页</router-link>
           </li>
           <li>
             <router-link to="/home/publish">我的发布</router-link>
