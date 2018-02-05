@@ -41,7 +41,9 @@
           page: '',
           pagesize: 20
         },
-        listInfo: ''
+        listInfo: {
+          rows: []
+        }
       }
     },
     mounted () {

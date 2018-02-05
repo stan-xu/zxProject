@@ -40,7 +40,7 @@
           } else {
             this.isLogin = true
           }
-          this.loaded=true
+          this.loaded = true
         })
     }
   }
