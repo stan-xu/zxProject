@@ -244,6 +244,8 @@
           if (valid) {
             this.signSubmit().then(() => {
               this.companySubmit()
+            }).then(() => {
+              this.companySubmit()
             })
           } else {
             return false

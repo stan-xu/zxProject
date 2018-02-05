@@ -114,10 +114,24 @@
     },
     components: {ManagerHeader},
     mounted () {
+      this.hadCompName()
       this.getUserPhone()
       EventBus.$emit('setHomeHeader', '联系人信息')
     },
     methods: {
+      hadCompName () {
+        this.$api.get(
+          '/home/ent',
+          {},
+          resj => {
+            if (resj.ent_name) {
+              EventBus.$emit('setLoginState', 1)
+            } else {
+              EventBus.$emit('setLoginState', 2)
+            }
+          }
+        )
+      },
       getUserPhone () {
         this.$api.get(
           '/ent/getUser',
