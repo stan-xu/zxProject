@@ -178,7 +178,7 @@
           ent_region_id: [{required: true, message: '请输入所在地区', trigger: 'submit'}],
           ent_addr: [{required: true, message: '请输入企业地址', trigger: 'submit'}],
           ent_phone: [{required: true, message: '请输入联系电话', trigger: 'submit'}],
-          ent_email: [{type: 'email', message: '请输入电子邮箱', trigger: 'submit'}],
+          ent_email: [{required: true, type: 'email', message: '请输入电子邮箱', trigger: 'submit'}],
           ent_corporation: [{required: true, message: '请输入企业法人', trigger: 'submit'}],
           corporation_phone: [{required: true, message: '请输入企业法人联系方式', trigger: 'submit'}]
         },
@@ -239,11 +239,9 @@
       submit () {
         this.$refs.companyForm.validate((valid) => {
           if (valid) {
-            this.signSubmit().then(() => {
-              this.companySubmit()
-            }).then(() => {
-              this.companySubmit()
-            })
+            this.signSubmit().then(
+              this.companySubmit
+            )
           } else {
             return false
           }
