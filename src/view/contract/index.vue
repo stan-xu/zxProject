@@ -1,5 +1,5 @@
 <template>
-  <div id="contract">
+  <div id="contract" v-if="loaded">
     <contract-info-tab v-if="state"></contract-info-tab>
     <div class="sign" v-else>
       <el-table
@@ -86,6 +86,7 @@
     },
     data () {
       return {
+        loaded: false,
         content: [],
         dialogVisible: false,
         page: 1, // PDF总页数
@@ -163,6 +164,7 @@
             } else {
               this.state = true
             }
+            this.loaded = true
           })
         })
       },
