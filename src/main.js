@@ -38,7 +38,6 @@ router.beforeEach((to, from, next) => {
       })
   } else if (to.matched.some(record => record.meta.userState === undefined)) {
     next()
-    EventBus.$emit('setLoginState', 3)
   } else {
     next() // 确保一定要调用 next()
     EventBus.$emit('setLoginState', to.meta.userState)
