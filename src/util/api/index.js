@@ -74,7 +74,9 @@ let apiAxios = (method, url, params, success, fail) => {
     }
   ).catch(err => {
     let res = err.response
-    if (res) { Message.error(`HTTP CODE:${res.status}`) }
+    if (res) { Message.error(`HTTP CODE:${res.status}`) } else {
+      console.log(err)
+    }
   })
 }
 

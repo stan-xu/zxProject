@@ -18,10 +18,8 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="14">
-        <h1 class="welcome">欢迎登录中消在线！</h1>
-      </el-col>
     </el-row>
+    <h1 class="welcome">欢迎登录中消在线！</h1>
     <el-row v-if="clicked">
       <h2 class="step">请您按照以下步骤进行操作</h2>
       <div id="arrowButtonBox">
@@ -265,6 +263,7 @@
       }
     }
     .welcome {
+      text-align: center;
       color: #c41335;
       font-size: 23px;
       margin: 100px 0 30px 0;

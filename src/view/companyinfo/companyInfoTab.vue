@@ -124,7 +124,7 @@
                  height="178" v-if="form.ent_logo">
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="toggleEdit">
+            <el-button type="primary" @click="toggleEdit" v-if="form.status!=='审核中'">
               编辑
             </el-button>
             <router-link to="/home/qualification" v-if="form.status==='审核已通过'">
@@ -167,7 +167,9 @@
           ent_corporation: '',
           corporation_phone: '',
           signFile: '',
-          pk_sign: ''
+          pk_sign: '',
+          sign_kind: 1,
+          sign_type: 19
         },
         regionData: data,
         entTypeList: ['房地产企业', '消防产品厂家', '消防设计单位', '消防施工单位', '消防技术服务机构', '社会单位'],
@@ -202,10 +204,10 @@
             if (data.ent_id) {
               this.isEdit = false
               data.ent_type = data.ent_type.split(',')
-              this.form = Object.assign({}, this.companyInfo, data)
             } else {
               this.isEdit = true
             }
+            this.form = Object.assign({}, this.form, data)
             this.loaded = true
           }
         )
@@ -215,7 +217,8 @@
         this.$api.post(this.formUrl, this.form,
           resj => {
             this.load()
-            this.$emit('update:activeTab', 'contract')
+            // this.$emit('update:activeTab', 'contract')
+            this.$router.push('/home/qualification')
           })
       },
       signSubmit () {

@@ -27,7 +27,7 @@
       <el-col :span="12" :offset="4">
         <!--编辑状态-->
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-if="isEdit">
-          <el-form-item label="电子合同委托书" prop="contractId">
+          <el-form-item label="电子合同委托书" prop="sign_file">
             <el-upload
               :action="fileUrl"
               drag
@@ -53,6 +53,21 @@
               </div>
             </el-upload>
           </el-form-item>
+          <el-form-item label="受委托人姓名" prop="admin_user">
+            <el-input v-model="form.admin_user"></el-input>
+          </el-form-item>
+          <el-form-item label="受委托人手机号" prop="admin_phone">
+            <el-input v-model="form.admin_phone"></el-input>
+          </el-form-item>
+          <el-form-item label="受委托人身份证号" prop="admin_iden_code">
+            <el-input v-model="form.admin_iden_code"></el-input>
+          </el-form-item>
+          <el-form-item label="受委托人职务" prop="admin_position">
+            <el-input v-model="form.admin_position"></el-input>
+          </el-form-item>
+          <el-form-item label="法人姓名" prop="corporate_name">
+            <el-input v-model="form.corporate_name"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submit">提交</el-button>
           </el-form-item>
@@ -60,8 +75,13 @@
         <!--查看状态-->
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-else>
           <el-form-item label="电子合同委托书">
-            <img :src="this.baseUrl + '/uploadify/renderFile/'+form.contractId" alt="contract" class="img-responsive">
+            <img :src="this.baseUrl + '/uploadify/renderFile/'+form.sign_file" alt="contract" class="img-responsive">
           </el-form-item>
+          <el-form-item label="受委托人姓名">{{form.admin_user}}</el-form-item>
+          <el-form-item label="受委托人手机号">{{form.admin_phone}}</el-form-item>
+          <el-form-item label="受委托人身份证号">{{form.admin_iden_code}}</el-form-item>
+          <el-form-item label="受委托人职务">{{ form.admin_position }}</el-form-item>
+          <el-form-item label="法人姓名">{{form.corporate_name}}</el-form-item>
           <el-form-item v-if="contractInfo.contract_state!=='未审核'">
             <el-button type="primary" @click="toggleEdit">编辑</el-button>
             <router-link to="/home/qualification" v-if="contractInfo.contract_state==='审核已通过'">
@@ -78,19 +98,49 @@
   export default {
     name: 'contract-info-tab',
     data () {
+      const validateTel = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入手机号'))
+        } else {
+          if (!(/^1[345789]\d{9}$/.test(value))) {
+            callback(new Error('请输入正确的11位手机号'))
+          }
+          callback()
+        }
+      }
+      const validateIdCode = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入委托人身份证号'))
+        } else {
+          if (!(/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(value))) {
+            callback(new Error('请输入正确的委托人身份证号'))
+          }
+          callback()
+        }
+      }
       return {
         loadUrl: '/contract/info',
-        formUrl: '/contract/uploaddoc/',
+        formUrl: '/contract/uploaddoc2/',
         exampleFilePath: 'http://cdn.zxzx119.com/2017chinafire.pdf',
         fileUrl: this.baseUrl + '/uploadify/upload',
         loaded: '',
         contractInfo: '',
         form: {
-          contractId: ''
+          sign_file: '',
+          admin_user: '',
+          admin_phone: '',
+          admin_iden_code: '',
+          admin_position: '',
+          corporate_name: ''
         },
         fileList: [],
         rules: {
-          contractId: [{required: true, message: '请上传电子合同委托书', trigger: 'submit'}]
+          sign_file: [{required: true, message: '请上传电子合同委托书', trigger: 'submit'}],
+          admin_user: [{required: true, message: '请输入受委托人姓名', trigger: 'submit'}],
+          admin_phone: [{required: true, validator: validateTel, message: '请输入受委托人手机号', trigger: 'submit'}],
+          admin_iden_code: [{required: true, validateTel: validateIdCode, message: '请输入受委托人身份证号', trigger: 'submit'}],
+          admin_position: [{required: true, message: '请输入受委托人职务', trigger: 'submit'}],
+          corporate_name: [{required: true, message: '请输入法人姓名', trigger: 'submit'}]
         },
         isEdit: true,
         uploadImgHeader: { // 设置接收到json格式的返回值
@@ -108,8 +158,8 @@
             if (resj.data) {
               this.contractInfo = resj.data
               this.formUrl = '/contract/updatedoc/'
-              this.form.contractId = resj.data.sign_file
-              this.fileList.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.contractId}`})
+              this.form = resj.data
+              this.fileList.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.sign_file}`})
               this.isEdit = false
             } else {
               this.isEdit = true
@@ -120,9 +170,9 @@
       submit () {
         this.$refs.contractForm.validate((valid) => {
           if (valid) {
-            this.$api.post(this.formUrl + this.form.contractId, null,
+            this.$api.post(this.formUrl + this.form.sign_file, this.form,
               resj => {
-                this.$router.push('/home/qualification')
+                this.load()
               })
           } else {
             return false
@@ -134,7 +184,7 @@
       },
       handleSuccess (res, file) {
         if (res.error === 0) {
-          this.form.contractId = res.fileId
+          this.form.sign_file = res.fileId
         } else {
           this.$message.error(res.message)
         }
@@ -151,7 +201,7 @@
         return isImg && isLt2M
       },
       handleRemove () {
-        this.form.contractId = ''
+        this.form.sign_file = ''
       },
       handleError () {
         this.$message.error('图片上传失败，请重试!')

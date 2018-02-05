@@ -14,7 +14,7 @@ import AddProject from '@/view/addproject'
 import Qualification from '@/view/qualification'
 import Estate from '@/view/qualification/estate'
 import Contract from '@/view/contract'
-import CompanyInfo from '@/view/companyInfo'
+import CompanyInfo from '@/view/companyInfo/companyInfoTab'
 import ContactInfo from '@/view/contactInfo'
 import ChangePwd from '@/view/changepassword'
 

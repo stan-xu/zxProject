@@ -67,7 +67,7 @@
                   resj => {
                     switch (resj.data.state) {
                       case '企业注册':
-                        location.href = this.baseUrl + '/account/entinfo'
+                        this.$router.replace('/registercompany')
                         break
                       case '完善企业信息':
                         this.$router.replace('/home/companyinfo')
