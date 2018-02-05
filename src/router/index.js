@@ -17,7 +17,7 @@ import Contract from '@/view/contract'
 import CompanyInfo from '@/view/companyInfo/companyInfoTab'
 import ContactInfo from '@/view/contactInfo'
 import ChangePwd from '@/view/changepassword'
-
+import HomePage from '@/view/homepage'
 Vue.use(Router)
 // const baseUrl = '/blade/'
 const baseUrl = ''
@@ -26,7 +26,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: HomePage
     },
     {
       path: '/login',

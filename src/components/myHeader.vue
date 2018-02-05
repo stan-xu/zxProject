@@ -2,13 +2,13 @@
   <div id="myHeader" v-cloak>
     <div class="container clearfix">
       <div class="header-brand">
-        <a class="brand" :href="baseUrl+'/'"></a>
+        <router-link to="/" class="brand"></router-link>
       </div>
       <div class="header-title">企业名录</div>
       <template v-if="loaded">
         <ul class="header-nav logined list-inline" v-if="ifLogin">
           <li>
-            <a :href="this.baseUrl+'/'">首页</a>
+            <router-link to="/"></router-link>
           </li>
           <li>
             <router-link to="/home/publish">我的发布</router-link>
