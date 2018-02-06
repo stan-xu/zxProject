@@ -1,15 +1,6 @@
 <template>
   <div id="logo-carousel" v-loading="loading">
-    <el-carousel height="296px" interval="20000">
-      <el-carousel-item v-for="(i,index) in pages" :key="index">
-        <el-row :gutter="20">
-          <el-col :span="6" v-for="(item,index) in listInfo[i-1]" :key="index">
-            <div class="item-logo center-block">
-              <img :src="baseUrl+'/uploadify/renderThumb/'+item.ent_logo+'/136x136'" alt="" class="img-responsive">
-            </div>
-          </el-col>
-        </el-row>
-      </el-carousel-item>
+    <el-carousel height="300px" interval="20000">
       <el-carousel-item v-for="(i,index) in pages" :key="index">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item,index) in listInfo[i-1]" :key="index">
@@ -59,9 +50,10 @@
   #logo-carousel {
     padding: 50px;
     .item-logo {
+      font-size: 0;
       border: 1px solid #ddd;
-      line-height: 136px;
-      height: 136px;
+      line-height: 140px;
+      height: 140px;
       text-align: center;
       margin-bottom: 20px;
       img {
