@@ -48,7 +48,7 @@
         imgFile: this.baseUrl + '/uploadify/renderFile/' // 在线图片地址
       }
     },
-    props: ['data','backButton'],
+    props: ['data', 'backButton'],
     methods: {
       nextStep () {
         this.$router.replace('/home/contract')

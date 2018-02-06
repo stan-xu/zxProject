@@ -1,7 +1,7 @@
 <template>
   <div id="upload1" v-cloak v-if="loading">
     <div v-for="(item,index) in data">
-      <uploadState v-if="data[index]" :data = 'data[index]'></uploadState>
+      <uploadState v-if="data[index]" :data = 'data[index]' backButton=false></uploadState>
       <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data = 'data[index]'
                   @load="load" name='证书名称' :example='example[0]'>
       </uploadForm>
@@ -9,6 +9,11 @@
     <div id='newEdit'>
       <uploadForm :example='example[1]' name='新增证书名称' @load="load">
       </uploadForm>
+    </div>
+    <div class="text-center">
+      <router-link to="/home/membercenter">
+        <el-button type="primary">返回会员中心</el-button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -41,6 +46,7 @@
       load () {
         this.$api.get('/sign/mylist/2/6', '',
           resj => {
+            this.data = ''
             for (var i = 0; i < 3; i++) {
               this.data = resj.rows
             }

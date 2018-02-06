@@ -43,7 +43,7 @@
       load () {
         this.$api.get('/sign/mylist/2/5', '',
           resj => {
-            this.data = ['', '', ''];
+            this.data = ['', '', '']
             for (var i = 0; i < resj.rows.length; i++) {
               if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
                 this.data[0] = resj.rows[i]
