@@ -28,7 +28,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <div class="text-center">
+    <div class="text-center" v-if='!backButton'>
       <router-link to="/home/membercenter">
         <el-button type="primary">返回会员中心</el-button>
       </router-link>
@@ -48,7 +48,7 @@
         imgFile: this.baseUrl + '/uploadify/renderFile/' // 在线图片地址
       }
     },
-    props: ['data'],
+    props: ['data','backButton'],
     methods: {
       nextStep () {
         this.$router.replace('/home/contract')
