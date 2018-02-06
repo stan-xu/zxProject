@@ -1,6 +1,6 @@
 <template>
   <div id="logo-carousel" v-loading="loading">
-    <el-carousel height="300px" interval="20000">
+    <el-carousel height="300px" :interval="20000">
       <el-carousel-item v-for="(i,index) in pages" :key="index">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item,index) in listInfo[i-1]" :key="index">
