@@ -1,10 +1,17 @@
 <template>
-  <div id="upload1" v-cloak v-if="loading">
-    <div v-for="(item,index) in data">
-      <uploadState v-if="data[index]" :data='data[index]'></uploadState>
-      <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data='data[index]' @load="load"
-                  :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
-      </uploadForm>
+  <div>
+    <div id="upload1" v-cloak v-if="loading">
+      <div v-for="(item,index) in data">
+        <uploadState v-if="data[index]" :data='data[index]' backButton=false></uploadState>
+        <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data='data[index]' @load="load"
+                    :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
+        </uploadForm>
+      </div>
+    </div>
+    <div class="text-center">
+      <router-link to="/home/membercenter">
+        <el-button type="primary">返回会员中心</el-button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -12,7 +19,6 @@
   import FileUpload from '../../../components/fileUpload/index.vue'
   import uploadState from '../component/uploadState.vue'
   import uploadForm from '../component/uploadForm.vue'
-
   export default {
     components: {
       FileUpload,
@@ -37,6 +43,7 @@
       load () {
         this.$api.get('/sign/mylist/2/5', '',
           resj => {
+            this.data = ['', '', ''];
             for (var i = 0; i < resj.rows.length; i++) {
               if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
                 this.data[0] = resj.rows[i]
@@ -62,7 +69,6 @@
   [v-cloak] {
     display: none;
   }
-
   .tips:before {
     content: '*';
     color: #f56c6c;
