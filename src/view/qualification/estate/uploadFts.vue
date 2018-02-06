@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="upload1" v-cloak v-if="loading">
-      <div v-for="(item,index) in data">
+      <div v-for="(item,index) in data" :key="index">
         <uploadState v-if="data[index]" :data='data[index]' backButton=false></uploadState>
         <uploadForm v-if="!data[index]||data[index].sign_status=='审核未通过'" :data='data[index]' @load="load"
                     :levelLsit='levelLsit' :name='name[index]' :levelAdd='levelAdd[index]' :example='example[index]'>
@@ -43,7 +43,7 @@
       load () {
         this.$api.get('/sign/mylist/2/5', '',
           resj => {
-            this.data = ['', '', ''];
+            this.data = ['', '', '']
             for (var i = 0; i < resj.rows.length; i++) {
               if (resj.rows[i].sign_type.indexOf('维保') >= 0) {
                 this.data[0] = resj.rows[i]
