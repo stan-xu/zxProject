@@ -10,7 +10,7 @@
         <el-table-column
           label="合同标题">
           <template slot-scope="scope">
-            <a @click="sign(contract.id)">{{contract.doc_name}}</a>
+            <a @click.prevent="sign(contract.id)">{{contract.doc_name}}</a>
           </template>
         </el-table-column>
         <el-table-column
@@ -95,7 +95,7 @@
         pdfDownlodUrl: this.baseUrl + '/contract/download/', // pdf下载
         pdfShowUrl: this.baseUrl + '/contract/pdf/', // pdf预览
         loading: false, // 合同列表loading
-        cloading: false, // pdf预览loading
+        cloading: true, // pdf预览loading
         order: '', // 订单信息
         tax: '', // 开票信息
         contract: '', // 合同信息
@@ -155,7 +155,6 @@
         return new Promise((resolve, reject) => {
           this.$api.get('/contract/info', null, (r) => {
             let data = r.data
-            this.contract = r.data
             if (!data) {
               this.state = true
             } else if (data.contract_state === '未签署' || data.contract_state === '已签署') {
@@ -193,8 +192,8 @@
       // 打开合同签署弹出层
       sign (id) {
         this.dialogVisible = true
-        this.cloading = true
-        this.getInfo()
+        // this.cloading = true
+        // this.getInfo()
       },
       // 签署合同
       signContract (id) {
