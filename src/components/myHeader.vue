@@ -11,7 +11,7 @@
             <router-link to="/">首页</router-link>
           </li>
           <li>
-            <router-link to="/home/publish">我的发布</router-link>
+            <router-link to="/home/membercenter">会员中心</router-link>
           </li>
           <li>
             <a :href="baseUrl+'/ent/'">找企业</a>

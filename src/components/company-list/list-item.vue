@@ -1,11 +1,11 @@
 <template>
   <div class="list-item">
-    <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" class="item-logo">
+    <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" target="_blank" class="item-logo">
       <img :src="baseUrl+'/uploadify/renderThumb/'+info.ent_logo+'/120x120'" alt="" class="img-responsive">
     </a>
     <el-row class="item-info">
       <el-col :span="18" class="item-text">
-        <a class="name">{{info.ent_name}}</a>
+        <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" target="_blank" class="name">{{info.ent_name}}</a>
         <div>企业地址：{{info.ent_addr}}</div>
         <div>邮箱：{{info.ent_email}}</div>
         <div class="tel">{{info.ent_phone}}</div>
@@ -57,7 +57,7 @@
         }
         .tel{
           font-weight: bold;
-          color: #FE8611;
+          color: #0066cc;
           font-size: 16px;
         }
       }
@@ -66,7 +66,7 @@
         // line-height: 35px;
         i{
           font-size: 35px;
-          color: #006CFF;
+          color: #0066cc;
         }
         a{
           margin-left: 10px;
