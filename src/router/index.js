@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/view/index'
-import Login from '@/view/login'
-import ForgetPsw from '@/view/forgetpsw'
-import Register from '@/view/register'
-import Protocol from '@/view/protocol'
-import RegisterCompany from '@/view/registercompany'
-import RegSuccess from '@/view/regsuccess'
-import MemberCenter from '@/view/membercenter'
-import Publish from '@/view/publish'
-import AddHonor from '@/view/addhonor'
-import AddProject from '@/view/addproject'
-import Qualification from '@/view/qualification'
-import Estate from '@/view/qualification/estate'
-import Contract from '@/view/contract'
-import CompanyInfo from '@/view/companyInfo/companyInfoTab'
-import ContactInfo from '@/view/contactInfo'
-import ChangePwd from '@/view/changepassword'
-import HomePage from '@/view/homepage'
+const Index = () => import('@/view/index')
+const Login = () => import('@/view/login')
+const ForgetPsw = () => import('@/view/forgetpsw')
+const Register = () => import('@/view/register')
+const Protocol = () => import('@/view/protocol')
+const RegisterCompany = () => import('@/view/registercompany')
+const RegSuccess = () => import('@/view/regsuccess')
+const MemberCenter = () => import('@/view/membercenter')
+const Publish = () => import('@/view/publish')
+const AddHonor = () => import('@/view/addhonor')
+const AddProject = () => import('@/view/addproject')
+const Qualification = () => import('@/view/qualification')
+const Estate = () => import('@/view/qualification/estate')
+const Contract = () => import('@/view/contract')
+const CompanyInfo = () => import('@/view/companyInfo/companyInfoTab')
+const ContactInfo = () => import('@/view/contactInfo')
+const ChangePwd = () => import('@/view/changepassword')
+const HomePage = () => import('@/view/homepage')
 Vue.use(Router)
 // const baseUrl = '/blade/'
 const baseUrl = ''
