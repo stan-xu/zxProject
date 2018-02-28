@@ -14,7 +14,7 @@
             <router-link to="/home/membercenter">会员中心</router-link>
           </li>
           <li>
-            <a :href="baseUrl+'/ent/'">找企业</a>
+            <a href="/ent/">找企业</a>
           </li>
           <li>
             <a @click="logout"><i class="fa fa-sign-out"></i></a>
@@ -22,10 +22,10 @@
         </ul>
         <ul class="header-nav logined list-inline" v-if="loginState===2">
           <li>
-            <a :href="this.baseUrl+'/'">首页</a>
+            <a href="/">首页</a>
           </li>
           <li>
-            <a :href="baseUrl+'/ent/'">找企业</a>
+            <a href="/ent/">找企业</a>
           </li>
           <li>
             <a @click="logout"><i class="fa fa-sign-out"></i></a>

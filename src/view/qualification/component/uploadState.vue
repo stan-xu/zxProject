@@ -22,7 +22,7 @@
           <el-col :span='24'>
             <entQuaCer></entQuaCer>
           </el-col>
-          <div  class="btn-center">
+          <div class="btn-center">
             <el-button @click="nextStep" type="primary">下一步</el-button>
           </div>
         </el-row>
@@ -45,7 +45,7 @@
     name: 'uploadState',
     data () {
       return {
-        imgFile: this.baseUrl + '/uploadify/renderFile/' // 在线图片地址
+        imgFile: '/uploadify/renderFile/' // 在线图片地址
       }
     },
     props: ['data', 'backButton'],
@@ -81,9 +81,9 @@
       text-align: left
     }
     img {
-      height:171px;
-      max-width:95%;
-      display:block;
+      height: 171px;
+      max-width: 95%;
+      display: block;
     }
   }
 
@@ -92,10 +92,12 @@
     color: #f56c6c;
     margin-right: 4px;
   }
-  .btn-center{
+
+  .btn-center {
     text-align: center;
     margin: 40px 0 30px 0;
   }
+
   #uploadState {
     margin-bottom: 20px
   }

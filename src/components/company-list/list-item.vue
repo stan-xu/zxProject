@@ -1,13 +1,13 @@
 <template>
   <div class="list-item">
-    <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" target="_blank" class="item-logo">
-      <img :src="baseUrl+'/uploadify/renderThumb/'+info.ent_logo+'/120x120'" alt="" class="img-responsive">
+    <a :href="'/ent/view/'+info.pk_ent" target="_blank" class="item-logo">
+      <img :src="'/uploadify/renderThumb/'+info.ent_logo+'/120x120'" alt="" class="img-responsive">
     </a>
     <el-row class="item-info">
       <el-col :span="18" class="item-text">
-        <a :href="this.baseUrl+'/ent/view/'+info.pk_ent" target="_blank" class="name">{{info.ent_name}}</a>
+        <a :href="'/ent/view/'+info.pk_ent" target="_blank" class="name">{{info.ent_name}}</a>
         <div>企业地址：{{info.ent_addr}}</div>
-        <div>邮箱：{{info.ent_email}}</div>
+        <div>邮箱：{{info.ent_email||'无'}}</div>
         <div class="tel">{{info.ent_phone}}</div>
       </el-col>
       <el-col :span="6" class="item-region">

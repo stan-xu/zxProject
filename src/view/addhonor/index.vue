@@ -10,7 +10,7 @@
           <el-upload
             class="avatar-uploader"
             ref="imgUpload"
-            :action="baseUrl+'/uploadify/uploadimg'"
+            action="/uploadify/uploadimg"
             name="imgFile"
             :headers="uploadImgHeader"
             :file-list="imgList"
@@ -80,8 +80,8 @@
           resj => {
             this.honorForm.honor_name = resj.data.honor_name
             this.honorForm.honor_pic = resj.data.honor_pic
-            this.imgList.push({name: this.honorForm.honor_name, url: `${this.baseUrl}/uploadify/renderFile/${resj.data.honor_pic}`})
-            this.imageUrl = `${this.baseUrl}/uploadify/renderFile/${resj.data.honor_pic}`
+            this.imgList.push({name: this.honorForm.honor_name, url: `/uploadify/renderFile/${resj.data.honor_pic}`})
+            this.imageUrl = `/uploadify/renderFile/${resj.data.honor_pic}`
           }
         )
       },
@@ -136,7 +136,7 @@
           this.$message.error(resj.message)
         } else {
           this.imgList.splice(0, this.imgList.length)
-          this.imgList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
+          this.imgList.push({name: resj.fileName, url: `/uploadify/renderFile/${resj.fileId}`})
           this.honorForm.honor_pic = resj.fileId
           this.imageUrl = URL.createObjectURL(file.raw)
         }

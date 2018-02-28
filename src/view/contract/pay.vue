@@ -45,11 +45,11 @@
             <img src="./images/wx.jpg" alt="" class="img-responsive">
           </el-radio>
         </el-col>
-        <!--<el-col :span="6">
+        <el-col :span="6">
           <el-radio v-model="payType" label="upacp_pc">
             <img src="./images/bankol.jpg" alt="" class="img-responsive">
           </el-radio>
-        </el-col>-->
+        </el-col>
         <el-col :span="8">
           <el-radio v-model="payType" label="remittance">
             <img src="./images/bank.jpg" alt="" class="img-responsive">

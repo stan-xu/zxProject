@@ -27,7 +27,6 @@
       <div class="features">
         <router-link to="/forgetpsw">忘记密码</router-link>&nbsp;|
         <router-link to="/register">免费注册</router-link>
-        <!-- <a :href="this.baseUrl+'/account/register'">免费注册</a> -->
       </div>
     </div>
   </div>
@@ -95,7 +94,7 @@
         })
       },
       loadImgCode () {
-        this.imgCode = this.baseUrl + '/captcha?v=' + Math.random()
+        this.imgCode = '/captcha?v=' + Math.random()
       }
     }
   }

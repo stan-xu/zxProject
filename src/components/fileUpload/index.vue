@@ -28,7 +28,7 @@
     props: ['example', 'file-change', 'preview'],
     mounted () {
       if (this.preview) {
-        this.urlImg = this.baseUrl + '/uploadify/renderFile/' + this.preview
+        this.urlImg = '/uploadify/renderFile/' + this.preview
       }
     },
     methods: {

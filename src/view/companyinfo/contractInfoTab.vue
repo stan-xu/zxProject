@@ -75,7 +75,7 @@
         <!--查看状态-->
         <el-form :model="form" ref="contractForm" :rules="rules" label-width="140px" v-else>
           <el-form-item label="电子合同委托书">
-            <img :src="this.baseUrl + '/uploadify/renderFile/'+form.sign_file" alt="contract" class="img-responsive">
+            <img :src="'/uploadify/renderFile/'+form.sign_file" alt="contract" class="img-responsive">
           </el-form-item>
           <el-form-item label="受委托人姓名">{{form.admin_user}}</el-form-item>
           <el-form-item label="受委托人手机号">{{form.admin_phone}}</el-form-item>
@@ -122,7 +122,7 @@
         loadUrl: '/contract/info',
         formUrl: '/contract/uploaddoc2/',
         exampleFilePath: 'http://cdn.zxzx119.com/2017chinafire.pdf',
-        fileUrl: this.baseUrl + '/uploadify/upload',
+        fileUrl: '/uploadify/upload',
         loaded: '',
         contractInfo: '',
         form: {
@@ -159,7 +159,7 @@
               this.contractInfo = resj.data
               this.formUrl = '/contract/updatedoc/'
               this.form = resj.data
-              this.fileList.push({name: '电子合同委托书', url: `${this.baseUrl}/uploadify/renderFile/${this.form.sign_file}`})
+              this.fileList.push({name: '电子合同委托书', url: `/uploadify/renderFile/${this.form.sign_file}`})
               this.isEdit = false
             } else {
               this.isEdit = true

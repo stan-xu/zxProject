@@ -10,7 +10,7 @@
         label="产品名称"
         width="150">
         <template slot-scope="scope">
-          <a class="detail-link" :href="baseUrl+'/product/view/'+ scope.row.id">{{scope.row.productName}}</a>
+          <a class="detail-link" :href="'/product/view/'+ scope.row.id">{{scope.row.productName}}</a>
         </template>
       </el-table-column>
       <el-table-column

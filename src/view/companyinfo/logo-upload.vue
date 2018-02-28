@@ -22,11 +22,11 @@
     props: ['logoId'],
     data () {
       return {
-        fileUrl: this.baseUrl + '/uploadify/upload',
+        fileUrl: '/uploadify/upload',
         uploadImgHeader: { // 设置接收到json格式的返回值
           'Accept': 'application/json, text/javascript, */*; q=0.01'
         },
-        imgPath: this.baseUrl + '/uploadify/renderFile/',
+        imgPath: '/uploadify/renderFile/',
         logoLoading: false
       }
     },
