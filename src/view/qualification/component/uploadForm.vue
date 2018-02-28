@@ -36,7 +36,7 @@
         addUrl: '/sign/upload',
         updateUrl: '/sign/update/',
         loading: false,
-        imgFile: '/uploadify/renderFile/', // 在线图片地址
+        imgFile: this.baseUrl + '/uploadify/renderFile/', // 在线图片地址
         form: {
           signFile: '',
           sign_type: '',

@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item,index) in listInfo[i-1]" :key="index">
             <div class="item-logo center-block">
-              <img :src="'/uploadify/renderThumb/'+item.ent_logo+'/136x136'" alt="" class="img-responsive">
+              <img :src="baseUrl+'/uploadify/renderThumb/'+item.ent_logo+'/136x136'" alt="" class="img-responsive">
             </div>
           </el-col>
         </el-row>

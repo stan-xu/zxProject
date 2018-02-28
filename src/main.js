@@ -11,6 +11,7 @@ import api from './util/api' // 引用API文件
 import { EventBus } from './util/eventBus'
 
 Vue.prototype.$api = api // 绑定API方法到全局
+Vue.prototype.baseUrl = api.root
 Vue.use(ElementUI)
 
 router.beforeEach((to, from, next) => {

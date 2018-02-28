@@ -84,7 +84,7 @@
           },
           resj => {
             this.honorData = resj.data.rows.map((item, index) => {
-              item.honor_pic = `/uploadify/renderThumb/${item.honor_pic}/90x90`
+              item.honor_pic = `${this.baseUrl}/uploadify/renderThumb/${item.honor_pic}/90x90`
               return item
             })
             this.honorTotal = parseInt(resj.data.records)

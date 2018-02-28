@@ -1,5 +1,8 @@
 import router from '../../router'
 import { Message, MessageBox } from 'element-ui'
+// api接口地址
+// var root = '/blade'
+var root = process.env.NODE_ENV === 'development' ? '/blade' : ''
 
 // 引用axios
 var axios = require('axios')
@@ -39,6 +42,7 @@ let apiAxios = (method, url, params, success, fail) => {
     url: url,
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
+    baseURL: root,
     withCredentials: true,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -89,5 +93,6 @@ export default {
   },
   delete: (url, params, success, fail) => {
     return apiAxios('DELETE', url, params, success, fail)
-  }
+  },
+  root
 }

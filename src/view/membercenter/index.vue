@@ -24,8 +24,7 @@
       <h2 class="step">请您按照以下步骤进行操作</h2>
       <div id="arrowButtonBox">
         <a @click="companyinfo_data()"
-           class="arrowButton fcolorStep" :style="{'background-color':backgroundStep[click1_step()]}"
-           :class="backgroundStep[clicked.step1]">
+           class="arrowButton fcolorStep" :style="{'background-color':backgroundStep[click1_step()]}" :class="backgroundStep[clicked.step1]">
           <div class='arrowText'>
             <p>{{clicked.step1}}</p>
           </div>
@@ -38,7 +37,7 @@
           </div>
         </a>
         <a @click="contractinfo_data()"
-           class="arrowButton colorStep" :class="backgroundStep[clicked.step3]"
+            class="arrowButton colorStep" :class="backgroundStep[clicked.step3]"
            :style="{'background-color':backgroundStep[click3_step()]}">
           <div class='arrowText'>
             <p>{{clicked.step3}}</p>
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-  import { EventBus } from '../../util/eventBus'
+  import {EventBus} from '../../util/eventBus'
 
   export default {
     name: 'memberCenter',
@@ -65,7 +64,7 @@
       return {
         memberInfo: '',
         clicked: '',
-        imgurl: '/uploadify/renderFile/',
+        imgurl: this.baseUrl + '/uploadify/renderFile/',
         companyurl: '/home/companyinfo/',
         qualificationurl: '/home/qualification/',
         contracturl: '/home/contract',

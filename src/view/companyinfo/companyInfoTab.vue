@@ -79,7 +79,7 @@
         </el-form>
         <el-form :model="form" label-width="140px" v-else>
           <el-form-item label="营业执照">
-            <img :src="'/uploadify/renderFile/'+form.signFile" alt="sign" class="img-responsive">
+            <img :src="this.baseUrl + '/uploadify/renderFile/'+form.signFile" alt="sign" class="img-responsive">
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
@@ -120,7 +120,7 @@
             {{form.corporation_phone}}
           </el-form-item>
           <el-form-item label="企业Logo">
-            <img class="img-responsive" :src="'/uploadify/renderFile/'+form.ent_logo" width="178"
+            <img class="img-responsive" :src="this.baseUrl + '/uploadify/renderFile/'+form.ent_logo" width="178"
                  height="178" v-if="form.ent_logo">
           </el-form-item>
           <el-form-item>

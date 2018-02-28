@@ -22,7 +22,7 @@
         label="项目名称"
         width="300">
         <template slot-scope="scope">
-          <a class="detail-link" :href="'/cases/view/'+ scope.row.id">{{scope.row.case_name}}</a>
+          <a class="detail-link" :href="baseUrl+'/cases/view/'+ scope.row.id">{{scope.row.case_name}}</a>
         </template>
       </el-table-column>
       <el-table-column
@@ -86,7 +86,7 @@
           },
           resj => {
             this.projectData = resj.data.rows.map((item, index) => {
-              item.case_mainpic = `/uploadify/renderThumb/${item.case_mainpic}/90x90`
+              item.case_mainpic = `${this.baseUrl}/uploadify/renderThumb/${item.case_mainpic}/90x90`
               return item
             })
             this.projectTotal = parseInt(resj.data.records)

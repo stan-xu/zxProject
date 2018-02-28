@@ -92,8 +92,8 @@
         page: 1, // PDF总页数
         numPages: 0, // PDF当前页数
         checkbox: '', // 合同确认
-        pdfDownlodUrl: '/contract/download/', // pdf下载
-        pdfShowUrl: '/contract/pdf/', // pdf预览
+        pdfDownlodUrl: this.baseUrl + '/contract/download/', // pdf下载
+        pdfShowUrl: this.baseUrl + '/contract/pdf/', // pdf预览
         loading: false, // 合同列表loading
         cloading: true, // pdf预览loading
         order: '', // 订单信息

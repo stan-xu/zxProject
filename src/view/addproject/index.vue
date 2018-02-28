@@ -26,7 +26,7 @@
           <el-upload
             ref="imgMainUpload"
             drag
-            action="/uploadify/uploadimg"
+            :action="baseUrl+'/uploadify/uploadimg'"
             name="imgFile"
             :limit="1"
             :headers="uploadImgHeader"
@@ -53,7 +53,7 @@
             ref="imgUpload"
             drag
             multiple
-            action="/uploadify/uploadimg"
+            :action="baseUrl+'/uploadify/uploadimg'"
             name="imgFile"
             :limit="12"
             :headers="uploadImgHeader"
@@ -148,10 +148,10 @@
             this.projectForm.case_floor = resj.data.cases.case_floor
             this.projectForm.case_introduction = resj.data.cases.case_introduction
             this.projectForm.case_mainpic = resj.data.cases.case_mainpic
-            this.imgMainList.push({name: this.projectForm.case_name, url: `/uploadify/renderFile/${resj.data.cases.case_mainpic}`})
+            this.imgMainList.push({name: this.projectForm.case_name, url: `${this.baseUrl}/uploadify/renderFile/${resj.data.cases.case_mainpic}`})
             resj.data.detailpic.forEach((item, index) => {
               this.projectForm.case_pic.push(item.attach_id)
-              this.imgList.push({name: `企业细节图${index + 1}`, url: `/uploadify/renderFile/${item.attach_id}`})
+              this.imgList.push({name: `企业细节图${index + 1}`, url: `${this.baseUrl}/uploadify/renderFile/${item.attach_id}`})
             })
           }
         )
@@ -206,7 +206,7 @@
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
-          this.imgMainList.push({name: resj.fileName, url: `/uploadify/renderFile/${resj.fileId}`})
+          this.imgMainList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.projectForm.case_mainpic = resj.fileId
         }
       },
@@ -224,7 +224,7 @@
         if (resj.code) { // 未成功
           this.$message.error(resj.message)
         } else {
-          this.imgList.push({name: resj.fileName, url: `/uploadify/renderFile/${resj.fileId}`})
+          this.imgList.push({name: resj.fileName, url: `${this.baseUrl}/uploadify/renderFile/${resj.fileId}`})
           this.projectForm.case_pic.push(resj.fileId)
         }
       },
