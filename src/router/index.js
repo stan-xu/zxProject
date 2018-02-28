@@ -19,10 +19,7 @@ const ContactInfo = () => import('@/view/contactInfo')
 const ChangePwd = () => import('@/view/changepassword')
 const HomePage = () => import('@/view/homepage')
 Vue.use(Router)
-// const baseUrl = '/blade/'
-const baseUrl = ''
 export default new Router({
-  base: baseUrl,
   routes: [
     {
       path: '/',
