@@ -76,7 +76,7 @@
 
 <style lang="scss">
   #company-list {
-    background-color: $white-max;
+    // background-color: $white-max;
     .prefix-hot {
       margin-top: 20px;
       border-left: 5px solid $hot-dark;

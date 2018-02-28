@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 const Index = () => import('@/view/index')
 const Login = () => import('@/view/login')
 const ForgetPsw = () => import('@/view/forgetpsw')
@@ -18,6 +19,7 @@ const CompanyInfo = () => import('@/view/companyInfo/companyInfoTab')
 const ContactInfo = () => import('@/view/contactInfo')
 const ChangePwd = () => import('@/view/changepassword')
 const HomePage = () => import('@/view/homepage')
+const CompanyDirectory = () => import('@/view/companydirectory')
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -51,47 +53,66 @@ export default new Router({
       meta: {
         userState: 1
       }
-    }, {
+    },
+    {
       path: '/changehonor/:id',
       component: AddHonor,
       meta: {
         userState: 1
       }
-    }, {
+    },
+    {
       path: '/addproject',
       component: AddProject,
       meta: {
         userState: 1
       }
-    }, {
+    },
+    {
       path: '/changeproject/:id',
       component: AddProject,
       meta: {
         userState: 1
       }
-    }, {
+    },
+    {
       path: '/forgetpsw',
       component: ForgetPsw
-    }, {
+    },
+    {
       path: '/register',
       component: Register
-    }, {
+    },
+    {
       path: '/protocol',
       component: Protocol
-    }, {
+    },
+    {
       path: '/registercompany',
       component: RegisterCompany,
       meta: {
         userState: 2
       }
-    }, {
+    },
+    {
       path: '/regsuccess',
       component: RegSuccess,
       meta: {
         userState: 1
       }
     },
-    {path: '*', component: Login, meta: {userState: 3}}
+    {
+      path: '/companydirectory',
+      component: CompanyDirectory,
+      meta: {
+        userState: 1
+      }
+    },
+    {
+      path: '*',
+      component: Login,
+      meta: {userState: 3}
+    }
   ],
   mode: 'history'
 })
