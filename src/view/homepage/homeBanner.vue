@@ -18,13 +18,13 @@
 
 <style scoped lang="scss">
   .banner-bg {
-    height: 600px;
+    height: 450px;
     background-image: url('./images/banner-homepage.jpg');
     position: relative;
   }
   .btn-to-register{
     position: absolute;
-    bottom:120px;
+    bottom:40px;
     background-color: orange;
     color:$white-max;
     border-color: orange;
