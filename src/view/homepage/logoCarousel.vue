@@ -1,7 +1,7 @@
 <template>
   <div id="logo-carousel" v-loading="loading">
-    <el-carousel height="300px" :interval="20000">
-      <el-carousel-item v-for="(i,index) in pages" :key="index">
+    <el-carousel height="370px" :interval="20000">
+      <!--<el-carousel-item v-for="(i,index) in pages" :key="index">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item,index) in listInfo[i-1]" :key="index">
             <div class="item-logo center-block">
@@ -9,7 +9,23 @@
             </div>
           </el-col>
         </el-row>
+      </el-carousel-item>-->
+      <el-carousel-item>
+        <img src="./images/banner-company1.jpg"  class="img-responsive">
       </el-carousel-item>
+      <el-carousel-item>
+        <img src="./images/banner-company2.jpg" class="img-responsive">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="./images/banner-company3.jpg" class="img-responsive">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="./images/banner-company4.jpg" class="img-responsive">
+      </el-carousel-item>
+      <el-carousel-item>
+        <img src="./images/banner-company5.jpg" class="img-responsive">
+      </el-carousel-item>
+
     </el-carousel>
   </div>
 </template>
