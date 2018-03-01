@@ -2,10 +2,12 @@
   <div id="homepage">
     <home-nav></home-nav>
     <home-banner></home-banner>
-    <div class="container" v-if="loaded">
-      <company-list v-if="isLogin"></company-list>
+    <template v-if="loaded">
+      <div class="container" v-if="isLogin">
+        <company-list></company-list>
+      </div>
       <logo-carousel v-else></logo-carousel>
-    </div>
+    </template>
     <my-footer></my-footer>
   </div>
 </template>
