@@ -23,7 +23,7 @@
       return {
         loading: false,
         levelLsit: ['专项甲级', '专项乙级', '一体化资质一级', '一体化资质二级'],
-        levelAdd: [7,8,9,23], // 等级修正
+        levelAdd: 7, // 等级修正
         data: '',  // 已上传的信息
         name: '消防设计单位等级类型',
         example: require('./1_cert.png') // 示例图片,
