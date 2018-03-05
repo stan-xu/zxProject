@@ -65,8 +65,10 @@
         let formData = new FormData()
         formData.append('signFile', this.form.signFile)
         formData.append('sign_kind', this.form.sign_kind)
-        if (this.levelLsit) {
+        if (this.levelLsit && (this.form.sign_type !== 10 || this.levelAdd !== 7)) {
           formData.append('sign_type', this.form.sign_type)
+        } else if (this.form.sign_type === 10 && this.levelAdd === 7) {
+          formData.append('sign_type', 23)
         } else {
           formData.append('sign_type', 21)
           formData.append('sign_name', this.form.sign_name)
