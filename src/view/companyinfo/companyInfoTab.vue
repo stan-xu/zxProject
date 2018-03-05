@@ -31,6 +31,9 @@
           <el-form-item label="公司名称">
             {{form.ent_name}}
           </el-form-item>
+          <el-form-item label="推荐公司" prop="ent_expert">
+            <el-input v-model="form.ent_expert"></el-input>
+          </el-form-item>
           <el-form-item label="统一社会信用代码" prop="ent_id">
             <el-input v-model="form.ent_id"></el-input>
           </el-form-item>
@@ -83,6 +86,9 @@
           </el-form-item>
           <el-form-item label="公司名称">
             {{form.ent_name}}
+          </el-form-item>
+          <el-form-item label="推荐公司">
+            {{form.ent_expert}}
           </el-form-item>
           <el-form-item label="统一社会信用代码">
             {{form.ent_id}}
@@ -166,6 +172,7 @@
           ent_email: '',
           ent_corporation: '',
           corporation_phone: '',
+          ent_expert: '',
           signFile: '',
           pk_sign: '',
           sign_kind: 1,
@@ -176,6 +183,7 @@
         rules: {
           signFile: [{required: true, message: '请上传营业执照', trigger: 'submit'}],
           ent_id: [{required: true, message: '请输入统一社会信用代码', trigger: 'submit'}],
+          ent_expert: [{required: true, message: '请输入推荐公司名称', trigger: 'submit'}],
           ent_type: [{required: true, message: '请选择企业类型', trigger: 'submit'}],
           ent_region_id: [{required: true, message: '请输入所在地区', trigger: 'submit'}],
           ent_addr: [{required: true, message: '请输入企业地址', trigger: 'submit'}],
