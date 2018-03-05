@@ -29,9 +29,28 @@
         </el-form-item>
         <el-form-item label="电子邮件" prop="email">
           <el-col :span="18">
-            <el-input v-model="registerForm.email" placeholder="请输入联系人的邮箱地址" @keyup.enter.native="submitForm('registerForm')"></el-input>
+            <el-input v-model="registerForm.email" placeholder="请输入联系人的邮箱地址"></el-input>
           </el-col>
           <el-col class="requier" :span="1">*</el-col>
+        </el-form-item>
+        <el-form-item label="推荐企业" prop="ent_expert">
+          <el-col :span="18">
+            <el-switch
+              v-model="recommend"
+              active-text="企业推荐"
+              inactive-text="自荐"
+              @change="switchRecommend">
+            </el-switch>
+          </el-col>
+          <el-collapse-transition>
+            <el-col :span="18" v-if="recommend">
+              <el-input v-model="registerForm.ent_expert" placeholder="例如：宝龙地产，嘉凯城"
+                        @keyup.enter.native="submitForm('registerForm')"></el-input>
+            </el-col>
+          </el-collapse-transition>
+          <el-collapse-transition>
+            <el-col class="requier" :span="1" v-if="recommend">*</el-col>
+          </el-collapse-transition>
         </el-form-item>
         <el-form-item>
           <el-button :disabled="!confirmProtocol" type="primary" @click="submitForm('registerForm')">下一步</el-button>
@@ -42,7 +61,7 @@
 </template>
 <script>
   import ManagerHeader from '../../components/managerHeader'
-  import {EventBus} from '../../util/eventBus'
+  import { EventBus } from '../../util/eventBus'
 
   export default {
     name: 'RegisterCompany',
@@ -85,30 +104,33 @@
         }
       }
       return {
+        recommend: true,
         confirmProtocol: true,
         registerForm: {
           ent_name: '',
           contacter: '',
           tel: '',
           title: '',
-          email: ''
+          email: '',
+          ent_expert: ''
         },
         rules: {
           ent_name: [
-            { validator: validateEntname, trigger: 'blur' }
+            {validator: validateEntname, trigger: 'blur'}
           ],
           contacter: [
-            { validator: validateContacter, trigger: 'blur' }
+            {validator: validateContacter, trigger: 'blur'}
           ],
           tel: [
-            { validator: validateTel, trigger: 'blur' }
+            {validator: validateTel, trigger: 'blur'}
           ],
           title: [
-            { validator: validateTitle, trigger: 'blur' }
+            {validator: validateTitle, trigger: 'blur'}
           ],
           email: [
-            { validator: validateEmail, trigger: 'blur' }
-          ]
+            {validator: validateEmail, trigger: 'blur'}
+          ],
+          ent_expert: [{required: true, message: '请输入推荐公司', trigger: 'blur'}]
         }
       }
     },
@@ -145,6 +167,13 @@
           }
         )
       },
+      switchRecommend () {
+        if (this.recommend) {
+          this.registerForm.ent_expert = ''
+        } else {
+          this.registerForm.ent_expert = '自荐'
+        }
+      },
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -153,7 +182,7 @@
               this.registerForm,
               resj => {
                 if (resj.code === 0) {
-                  this.$router.push({ path: '/regsuccess' })
+                  this.$router.push({path: '/regsuccess'})
                 }
               }
             )
@@ -167,19 +196,19 @@
   }
 </script>
 <style lang="scss">
-  #register-comp{
+  #register-comp {
     padding: 40px 0;
     background-color: #fff;
     box-shadow: 0 0 10px #ccc;
-    .registerForm{
+    .registerForm {
       width: 720px;
       margin: 50px auto 0;
-      .requier{
+      .requier {
         color: red;
         font-family: 'simsun';
         text-align: center;
       }
-      .tip{
+      .tip {
         color: #929292;
       }
     }
