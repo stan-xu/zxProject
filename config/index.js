@@ -6,13 +6,12 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/blade': {
-        target:'http://blade.dev.hzjuxiu.com:40004/',
+        target:'http://192.168.0.106:9000/',
         secure:false,
         changeOrigin:true,
         pathRewrite: {
@@ -20,7 +19,8 @@ module.exports = {
         }
       }
     },
-
+    //http://192.168.0.106:8081/
+    //http://192.168.0.106:9000/
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.HOST, if port is in use, a free one will be determined
